@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'Bakso Daging';
+  src: URL('assets/BaksoDaging-Regular.ttf') format('truetype');
+}
+
+:root {
+  --em-color:#8e7b56;
+  --color:#706044;
+  --font-stack:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
+
+* {
+  margin:0;
+  border:0;
+  box-sizing:border-box;
+  padding:0
+}
+
+html {
+  height:100%;
+  background-color:antiquewhite;
+  /* scrollbar-color:#c8c8c8 #dedede; */
+  scrollbar-color:#60606060 #00000000;
+  scrollbar-width:2px
+}
+
+body {
+  background-color:antiquewhite;
+  font-family:var(--font-stack);
+  line-height:1.6;
+  color:var(--color);
+  min-height:100%
+}
+
+p, b, i, span {
+  color:var(--color)
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family:"Bakso Daging";
+  text-transform:lowercase;
+}
+
+h1, h2, h3 {
+  color:var(--color);
+}
+
+h4, h5, h6 {
+  color:var(--em-color);
+  font-family:var(--font-stack);
+}
+
+h1 {
+  font-size:48px;
+}
+
+main {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  height:100vh;
+}
+
+#mutant {
+  width:50px;
+  height:50px;
+  position:absolute;
+  margin:auto;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  transition:top 0.5s, left 0.5s;
+  transition-timing-function:ease-in-out;
+}
+
+#mutant.clickable:hover {
+  animation:shake 2s;
+  animation-iteration-count:infinite;
+  cursor:pointer;
+}
+
+#mutant_text {
+  position:relative;
+  top:40px;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+}
