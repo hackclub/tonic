@@ -39,17 +39,23 @@ class Mutant {
     this.apologize();
   }
   async apologize () {
-    this.element.style.top = '-40px';
     play_sound('awoken_c');
     await this.sweat_smile.say('Oh, this is so embarrassing...');
     play_sound('awoken_d');
     await this.pensive.say('I must have fallen asleep!');
     play_sound('awoken_c');
     await this.yawn.say('Sorry...');
-    this.emote = 'pensive';
+    await this.pensive.choice2({
+      option_a: 'Who are you?',
+      option_b: 'Are you okay?',
+      callback_a: async () => await this.smile_with_tear.say('Who am _I_?'),
+      callback_b: async () => await this.hand_over_mouth.say('Never better!'),
+    });
+    await this.grinning.say("I'm *Mutant*!");
   }
   async say (text) {
-    document.getElementById('mutant_text').innerText = '';
+    this.text_element.innerHTML = '';
+    this.text_element.classList.remove('hidden');
     let element_to_append_to = this.text_element;
     await new Promise(resolve => {
       yap(
@@ -85,6 +91,26 @@ class Mutant {
       );
     });
     await sleep(1000);
+  }
+  async choice2 (object) {
+    await new Promise(resolve => {
+      let { option_a, option_b, callback_a, callback_b } = object;
+      document.getElementById('choice_container').classList.remove('hidden');
+      document.getElementById('choice_1').innerHTML = option_a;
+      document.getElementById('choice_2').innerHTML = option_b;
+      document.getElementById('choice_1').onclick = async function () {
+        document.getElementById('choice_container').classList.add('hidden');
+        await sleep(500);
+        await callback_a();
+        resolve();
+      }
+      document.getElementById('choice_2').onclick = async function () {
+        document.getElementById('choice_container').classList.add('hidden');
+        await sleep(500);
+        await callback_b();
+        resolve();
+      }
+    });
   }
   get element () {
     return document.getElementById('mutant');

@@ -60,19 +60,14 @@ main {
   align-items:center;
   flex-direction:column;
   height:100vh;
+  gap:8px;
 }
 
 #mutant {
   width:50px;
   height:50px;
-  position:absolute;
-  margin:auto;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  transition:top 0.5s, left 0.5s;
-  transition-timing-function:ease-in-out;
+  z-index:2;
+  user-select:none;
 }
 
 #mutant.clickable:hover {
@@ -81,9 +76,43 @@ main {
   cursor:pointer;
 }
 
-#mutant_text {
+#mutant_text, #choice_container {
   position:relative;
-  top:40px;
+  transition-timing-function:ease-in-out;
+  overflow-y:hidden;
+  transition:height 0.5s, opacity 0.5s;
+}
+
+#mutant_text {
+  height:25px;
+}
+
+#choice_container {
+  height:84px;
+}
+
+#choice_container button {
+  width:200px;
+  height:40px;
+  background:transparent;
+  border:3px solid #706044;
+  border-radius:20px;
+  color:var(--color);
+  font-size:16px;
+  margin-bottom:2px;
+  display:block;
+}
+
+#choice_container button:hover {
+  animation:shake_subtle 2s;
+  animation-iteration-count:infinite;
+  cursor:pointer;
+  background-color:#f4e2cb;
+}
+
+.hidden {
+  height:0 !important;
+  opacity:0 !important;
 }
 
 @keyframes shake {
@@ -97,4 +126,17 @@ main {
   70% { transform: translate(3px, 1px) rotate(-1deg); }
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
+}
+
+@keyframes shake_subtle {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(-0.5deg); }
+  20% { transform: rotate(0.5deg); }
+  30% { transform: rotate(0deg); }
+  40% { transform: rotate(0.5deg); }
+  50% { transform: rotate(-0.5deg); }
+  60% { transform: rotate(0deg); }
+  70% { transform: rotate(-0.5deg); }
+  80% { transform: rotate(0.5deg); }
+  90% { transform: rotate(0deg); }
 }
