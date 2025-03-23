@@ -49,7 +49,7 @@ install_jekyll() {
   check_command_post "jekyll"
 }
 
-create_theme() {
+read_input() {
   read -p "Theme name: " theme_name
   if [ -z "$theme_name" ] ; then
     echo "A theme name must be provided!"
@@ -57,27 +57,74 @@ create_theme() {
     exit 1
   fi
   read -p "Theme description: " theme_description
-   if [ -z "$theme_description" ] ; then
+  if [ -z "$theme_description" ] ; then
     echo "A theme description must be provided!"
     echo "Please run this script again and provide a theme description."
     exit 1
   fi
+  read -p "GitHub username: " author
+  if [ -z "$author" ] ; then
+    echo "A username must be provided!"
+    echo "Please run this script again and provide your GitHub username."
+    exit 1
+  fi
+}
+
+create_gemfile() {
+  cat > Gemfile << EOF
+source "https://rubygems.org"
+gemspec
+EOF
+}
+
+create_gemspec() {
+  cat > "$theme_name.gemspec" << EOF
+Gem::Specification.new do |spec|
+  spec.name = "$theme_name"
+  spec.version = "0.0.0"
+  spec.authors = ["$author"]
+
+  spec.summary = "$theme_description"
+
+  spec.add_runtime_dependency "jekyll", ">= 3.10.0"
+end
+EOF
+}
+
+create_index() {
+  cat > index.md << EOF
+---
+---
+
+# $theme_name
+EOF
+}
+
+create_config() {
+  cat > _config.yml << EOF
+title: $theme_name
+description: $theme_description
+encoding: utf-8
+
+exclude: ["README.md", "LICENSE", "*.gem", "*.gemspec", "Gemfile.lock"]
+EOF
+}
+
+create_theme() {
+  read_input
   echo "Creating theme..."
   cd "$theme_name"
   jekyll new --skip-bundle --force .
   rm 404.html
   rm Gemfile
-  echo 'source "https://rubygems.org"' >> Gemfile
-  echo "gemspec" >> Gemfile
+  create_gemfile
   rm _config.yml
-  echo "title: $theme_name" >> _config.yml
-  echo "description: $theme_description" >> _config.yml
-  echo "encoding: utf-8" >> _config.yml
-  echo >> _config.yml
-  echo 'exclude: ["README.md", "LICENSE", "*.gem", "*.gemspec", "Gemfile.lock"]' >> _config.yml
+  create_config
   rm -rf _posts
   rm about.markdown
   rm index.markdown
+  create_index
+  create_gemspec
 }
 
 main() {
