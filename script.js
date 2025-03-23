@@ -7,8 +7,10 @@ const sounds = {
   awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav' }),
 }
 
+const TIME_SCALE = 1;
+
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
 }
 
 function play_sound (sound) {
@@ -51,9 +53,10 @@ class Mutant {
       callback_a: async () => await this.smile_with_tear.say('Who am _I_?'),
       callback_b: async () => await this.hand_over_mouth.say('Never better!'),
     });
-    await this.grinning.say("I'm *Mutant*!");
+    await this.grinning.say("I'm *Mutant*!", { sleep_ms: 500 });
+    play_sound('awoken_final');
   }
-  async say (text) {
+  async say (text, { sleep_ms = 1000 } = {}) {
     this.text_element.innerHTML = '';
     this.text_element.classList.remove('hidden');
     let element_to_append_to = this.text_element;
@@ -61,7 +64,7 @@ class Mutant {
       yap(
         text,
         {
-          baseRate: 3.5,
+          baseRate: 3.5 * TIME_SCALE,
           rateVariance: 2,
           letterCallback: async ({letter, sound}) => {
             if (letter === '*') {
@@ -90,7 +93,7 @@ class Mutant {
         }
       );
     });
-    await sleep(1000);
+    await sleep(sleep_ms);
   }
   async choice2 (object) {
     await new Promise(resolve => {
