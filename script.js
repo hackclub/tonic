@@ -48,22 +48,47 @@ class Mutant {
   async say (emote, text) {
     document.getElementById('mutant_text').innerText = '';
     this.emote = emote;
+    let element_to_append_to = this.text_element;
     await new Promise(resolve => {
-      yap(text, {
-        baseRate: 3.5,
-        rateVariance: 2,
-        letterCallback: async ({letter, sound}) => {
-          document.getElementById('mutant_text').innerHTML += letter
-        },
-        endCallback: () => {
-          resolve()
+      yap(
+        text,
+        {
+          baseRate: 3.5,
+          rateVariance: 2,
+          letterCallback: async ({letter, sound}) => {
+            if (letter === '*') {
+              if (element_to_append_to === this.text_element) {
+                const b = document.createElement('b');
+                this.text_element.appendChild(b);
+                element_to_append_to = b;
+              } else {
+                element_to_append_to = this.text_element;
+              }
+            } else if (letter === '_') {
+              if (element_to_append_to === this.text_element) {
+                const i = document.createElement('i');
+                this.text_element.appendChild(i);
+                element_to_append_to = i;
+              } else {
+                element_to_append_to = this.text_element;
+              }
+            } else {
+              element_to_append_to.innerHTML += letter;
+            }
+          },
+          endCallback: () => {
+            resolve();
+          }
         }
-      })
-    })
+      );
+    });
     await sleep(1000);
   }
   get element () {
     return document.getElementById('mutant');
+  }
+  get text_element () {
+    return document.getElementById('mutant_text');
   }
   get clickable () {
     return this.element.className === 'clickable';
