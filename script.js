@@ -19,6 +19,16 @@ function play_sound (sound) {
 class Mutant {
   constructor () {
     this.state = 'asleep';
+    return new Proxy(this, {
+      get: (target, prop) => {
+        if (prop in target) {
+          return target[prop];
+        } else {
+          this.emote = prop;
+          return this;
+        }
+      }
+    });
   }
   async wake_up () {
     this.state = 'awoken';
@@ -31,23 +41,15 @@ class Mutant {
   async apologize () {
     this.element.style.top = '-40px';
     play_sound('awoken_c');
-    await this.say('sweat_smile', 'Oh, this is so embarrassing...');
+    await this.sweat_smile.say('Oh, this is so embarrassing...');
     play_sound('awoken_d');
-    await this.say('sweat_smile', 'I must have fallen asleep!');
+    await this.pensive.say('I must have fallen asleep!');
     play_sound('awoken_c');
-    await this.say('grimace', "That's unbecoming of a mutant like me...");
-    play_sound('awoken_d');
-    await this.say('grinning', 'No matter!');
-    play_sound('awoken_e')
-    await this.say('hand_over_mouth_open_eyes', "Now that you've woken me up...");
-    play_sound('awoken_f');
-    await this.say('heart_eyes', 'I can help you with Jekyll!');
-    play_sound('awoken_final');
-    await this.say('grinning', 'So, what do you want to know?');
+    await this.yawn.say('Sorry...');
+    this.emote = 'pensive';
   }
-  async say (emote, text) {
+  async say (text) {
     document.getElementById('mutant_text').innerText = '';
-    this.emote = emote;
     let element_to_append_to = this.text_element;
     await new Promise(resolve => {
       yap(
