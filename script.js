@@ -123,12 +123,14 @@ class Mutant {
       document.getElementById('choice_2').innerHTML = option_b;
       document.getElementById('choice_1').onclick = async function () {
         document.getElementById('choice_container').classList.add('hidden');
+        document.activeElement.blur();
         await sleep(500);
         await callback_a();
         resolve();
       }
       document.getElementById('choice_2').onclick = async function () {
         document.getElementById('choice_container').classList.add('hidden');
+        document.activeElement.blur();
         await sleep(500);
         await callback_b();
         resolve();
