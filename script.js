@@ -12,6 +12,8 @@ const sounds = {
   awoken_e: new Howl({ src: 'assets/audio/awoken_e.wav' }),
   awoken_f: new Howl({ src: 'assets/audio/awoken_f.wav' }),
   awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav', }),
+  click: new Howl({ src: 'assets/audio/click.wav' }),
+  hover: new Howl({ src: 'assets/audio/hover.wav' }),
 };
 
 Howler.volume(0.5);
@@ -175,6 +177,7 @@ class Mutant {
       document.getElementById('choice_2').className = 'dn';
       document.getElementById('choice_1').innerHTML = option_a;
       document.getElementById('choice_1').onclick = async function () {
+        play_sound('click');
         document.getElementById('choice_container').classList.add('hidden-h');
         document.activeElement.blur();
         await sleep(500);
@@ -192,6 +195,7 @@ class Mutant {
       document.getElementById('choice_1').innerHTML = option_a;
       document.getElementById('choice_2').innerHTML = option_b;
       document.getElementById('choice_1').onclick = async function () {
+        play_sound('click');
         document.getElementById('choice_container').classList.add('hidden-h');
         document.activeElement.blur();
         await sleep(500);
@@ -199,6 +203,7 @@ class Mutant {
         resolve();
       }
       document.getElementById('choice_2').onclick = async function () {
+        play_sound('click');
         document.getElementById('choice_container').classList.add('hidden-h');
         document.activeElement.blur();
         await sleep(500);
@@ -229,6 +234,18 @@ let mutant = new Mutant;
 mutant.element.onclick = function () {
   if (mutant.state === 'asleep') {
     mutant.wake_up();
+  }
+}
+
+document.getElementById('choice_1').onmouseenter = function () {
+  if (document.getElementById('choice_container').className === '') {
+    play_sound('hover');
+  }
+}
+
+document.getElementById('choice_2').onmouseenter = function () {
+  if (document.getElementById('choice_container').className === '') {
+    play_sound('hover');
   }
 }
 
