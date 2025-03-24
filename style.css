@@ -46,12 +46,21 @@ h1, h2, h3 {
   color:var(--color);
 }
 
-h4, h5, h6 {
+h4, h5, h6, a {
   color:var(--em-color);
 }
 
 h1 {
   font-size:48px;
+}
+
+a {
+  text-decoration:underline;
+}
+
+a:hover {
+  color:#a7936e;
+  cursor:pointer;
 }
 
 main {
@@ -132,6 +141,13 @@ button:hover {
 #image_container img {
   width:400px;
   height:auto;
+}
+
+#footer {
+  position:absolute;
+  bottom:30px;
+  font-size:10px;
+  color:var(--em-color);
 }
 
 .hidden-w {
