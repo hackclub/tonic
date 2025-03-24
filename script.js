@@ -26,6 +26,11 @@ function play_sound (sound) {
   sounds[sound].play();
 }
 
+function show_image (src) {
+  document.getElementById('mutant_image').src = src;
+  document.getElementById('image_container').classList.remove('hidden-w');
+}
+
 class Mutant {
   constructor () {
     this.state = 'asleep';
@@ -75,10 +80,19 @@ class Mutant {
     });
     await this.hushed.say('I want to teach you...');
     await this.starry_eyes.say('About *Jekyll*!');
+    await this.thinking.say('Have you heard of *Jekyll* before?');
+    await this.thinking.choice2({
+      option_a: 'Yes, I have',
+      option_b: "No, I haven't",
+      callback_a: async () => await this.grinning.say("Great! But I'll remind you about it, just in case."),
+      callback_b: async () => await this.grinning.say("That's okay! Let me tell you about it..."),
+    });
+    show_image('https://jekyllrb.com/img/logo-2x.png');
+    await this.grinning.say('*Jekyll* is a _static site generator_.');
   }
   async say (text, { sleep_ms = 1000 } = {}) {
     this.text_element.innerHTML = '';
-    this.text_element.classList.remove('hidden');
+    this.text_element.classList.remove('hidden-h');
     let element_to_append_to = this.text_element;
     await new Promise(resolve => {
       yap(
@@ -118,18 +132,18 @@ class Mutant {
   async choice2 (object) {
     await new Promise(resolve => {
       let { option_a, option_b, callback_a, callback_b } = object;
-      document.getElementById('choice_container').classList.remove('hidden');
+      document.getElementById('choice_container').classList.remove('hidden-h');
       document.getElementById('choice_1').innerHTML = option_a;
       document.getElementById('choice_2').innerHTML = option_b;
       document.getElementById('choice_1').onclick = async function () {
-        document.getElementById('choice_container').classList.add('hidden');
+        document.getElementById('choice_container').classList.add('hidden-h');
         document.activeElement.blur();
         await sleep(500);
         await callback_a();
         resolve();
       }
       document.getElementById('choice_2').onclick = async function () {
-        document.getElementById('choice_container').classList.add('hidden');
+        document.getElementById('choice_container').classList.add('hidden-h');
         document.activeElement.blur();
         await sleep(500);
         await callback_b();

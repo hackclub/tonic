@@ -9,11 +9,16 @@
 
   <body>
     <main>
-      <img id="mutant" class="clickable" src="assets/ms/asleep.svg">
-      <p id="mutant_text" class="hidden"></p>
-      <div id="choice_container" class="hidden">
-        <button id="choice_1" tabindex="-1"></button>
-        <button id="choice_2" tabindex="-1"></button>
+      <div id="mutant_container">
+        <img id="mutant" class="clickable" src="assets/ms/asleep.svg">
+        <p id="mutant_text" class="hidden-h"></p>
+        <div id="choice_container" class="hidden-h">
+          <button id="choice_1" tabindex="-1"></button>
+          <button id="choice_2" tabindex="-1"></button>
+        </div>
+      </div>
+      <div id="image_container" class="hidden-w">
+        <img id="mutant_image">
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/tone/build/Tone.min.js"></script>

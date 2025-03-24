@@ -59,9 +59,17 @@ main {
   display:flex;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
+  flex-direction:row;
   height:100vh;
   gap:8px;
+}
+
+#mutant_container {
+  display:flex;
+  width:400px;
+  align-items:center;
+  gap:8px;
+  flex-direction:column;
 }
 
 #mutant {
@@ -77,15 +85,15 @@ main {
   cursor:pointer;
 }
 
-#mutant_text, #choice_container {
+#mutant_text, #choice_container, #image_container {
   position:relative;
   transition-timing-function:ease-in-out;
   overflow-y:hidden;
-  transition:height 0.5s, opacity 0.5s;
+  transition:width 0.5s, height 0.5s, opacity 0.5s;
 }
 
 #mutant_text {
-  height:25px;
+  height:50px;
 }
 
 #choice_container {
@@ -111,7 +119,25 @@ main {
   background-color:#f4e2cb;
 }
 
-.hidden {
+#image_container {
+  width:400px;
+  text-align:center;
+  background-color:antiquewhite;
+  background-image:url("https://www.transparenttextures.com/patterns/inflicted.png");
+  border:2px solid #70604440;
+}
+
+#image_container img {
+  width:200px;
+  height:auto;
+}
+
+.hidden-w {
+  width:0 !important;
+  opacity:0 !important;
+}
+
+.hidden-h {
   height:0 !important;
   opacity:0 !important;
 }
