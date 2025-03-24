@@ -172,7 +172,7 @@ class Mutant {
       let { option_a, callback_a } = object;
       document.getElementById('choice_container').classList.remove('hidden-h');
       document.getElementById('choice_1').className = '';
-      document.getElementById('choice_2').className = 'hidden-h';
+      document.getElementById('choice_2').className = 'dn';
       document.getElementById('choice_1').innerHTML = option_a;
       document.getElementById('choice_1').onclick = async function () {
         document.getElementById('choice_container').classList.add('hidden-h');
