@@ -26,6 +26,7 @@ html {
 
 body {
   background-color:antiquewhite;
+  background-image:url("https://www.transparenttextures.com/patterns/p5.png");
   font-family:var(--font-stack);
   line-height:1.6;
   color:var(--color);
