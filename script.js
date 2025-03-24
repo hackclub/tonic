@@ -7,6 +7,8 @@ const sounds = {
   awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav' }),
 }
 
+Howler.volume(0.5);
+
 const TIME_SCALE = 1;
 
 function sleep(ms) {
@@ -14,7 +16,6 @@ function sleep(ms) {
 }
 
 function play_sound (sound) {
-  sounds[sound].volume(0.4);
   sounds[sound].play();
 }
 
