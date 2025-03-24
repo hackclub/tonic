@@ -1,0 +1,42 @@
+#index_container {
+  height:200px;
+}
+
+#tonic, #tonic_underline, #tonic_tagline, #buttons_container {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+#tonic, #tonic_underline {
+  height:50px;
+  user-select:none;
+}
+
+#tonic_underline {
+  color:#a7936e;
+}
+
+#tonic_tagline {
+  height:25px;
+  gap:5px;
+}
+
+#buttons_container {
+  height:75px;
+  gap:8px;
+}
+
+#login, #logout {
+  width:100px;
+}
+
+#login {
+  background-color:#706044;
+  color:antiquewhite;
+}
+
+#login:hover {
+  background-color:#8e7b56;
+  border:2px solid #8e7b56;
+}
