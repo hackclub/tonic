@@ -16,7 +16,7 @@ const sounds = {
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 2;
+const TIME_SCALE = 1;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
@@ -27,8 +27,12 @@ function play_sound (sound) {
 }
 
 function show_image (src) {
-  document.getElementById('mutant_image').src = src;
+  document.getElementById('mutant_image').src = 'assets/img/' + src + '.png';
   document.getElementById('image_container').classList.remove('hidden-w');
+}
+
+function hide_image () {
+  document.getElementById('image_container').classList.add('hidden-w');
 }
 
 class Mutant {
@@ -87,8 +91,28 @@ class Mutant {
       callback_a: async () => await this.grinning.say("Great! But I'll remind you about it, just in case."),
       callback_b: async () => await this.grinning.say("That's okay! Let me tell you about it..."),
     });
-    show_image('https://jekyllrb.com/img/logo-2x.png');
-    await this.grinning.say('*Jekyll* is a _static site generator_.');
+    show_image('jekyll-logo-2x');
+    await this.thinking.say('*Jekyll* is a _static site generator_.');
+    show_image('jekyll-new');
+    await this.grinning.say('You can use it to make beautiful _personal sites_, _blogs_, and more!');
+    await this.hand_over_mouth_open_eyes.say("But, I don't just want you to build a static site.");
+    await this.grinning.say('I want you to build a _theme_ for Jekyll that *anybody* can use!');
+    hide_image();
+    await this.grinning.say('What do you think?');
+    await this.slight_smile.choice2({
+      option_a: 'Sounds like fun',
+      option_b: 'Sounds complicated',
+      callback_a: async () => await this.grin.say('Wonderful!'),
+      callback_b: async () => await this.grinning.say("I promise it's not as hard as you think!"),
+    });
+    await this.thinking.say("I'll give you a list of *tasks*...");
+    await this.halo.say('And guide you through them, every step of the way!');
+    await this.smile_hearts.say("At the end, you'll have a beautiful Jekyll theme published for the world to see!");
+    await this.grinning.say('Ready to see the first task?');
+    await this.choice1({
+      option_a: "Let's go",
+      callback_a: async () => {},
+    })
   }
   async say (text, { sleep_ms = 1000 } = {}) {
     this.text_element.innerHTML = '';
@@ -129,10 +153,28 @@ class Mutant {
     });
     await sleep(sleep_ms);
   }
+  async choice1 (object) {
+    await new Promise(resolve => {
+      let { option_a, callback_a } = object;
+      document.getElementById('choice_container').classList.remove('hidden-h');
+      document.getElementById('choice_1').className = '';
+      document.getElementById('choice_2').className = 'hidden-h';
+      document.getElementById('choice_1').innerHTML = option_a;
+      document.getElementById('choice_1').onclick = async function () {
+        document.getElementById('choice_container').classList.add('hidden-h');
+        document.activeElement.blur();
+        await sleep(500);
+        await callback_a();
+        resolve();
+      }
+    });
+  }
   async choice2 (object) {
     await new Promise(resolve => {
       let { option_a, option_b, callback_a, callback_b } = object;
       document.getElementById('choice_container').classList.remove('hidden-h');
+      document.getElementById('choice_1').className = '';
+      document.getElementById('choice_2').className = '';
       document.getElementById('choice_1').innerHTML = option_a;
       document.getElementById('choice_2').innerHTML = option_b;
       document.getElementById('choice_1').onclick = async function () {
