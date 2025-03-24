@@ -16,7 +16,7 @@ const sounds = {
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 1;
+const TIME_SCALE = 2;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
@@ -92,11 +92,25 @@ class Mutant {
       callback_b: async () => await this.grinning.say("That's okay! Let me tell you about it..."),
     });
     show_image('jekyll-logo-2x');
-    await this.thinking.say('*Jekyll* is a _static site generator_.');
+    await this.thinking.say('*Jekyll* is a tool that can help you _build a website_.');
+    show_image('jekyll-new-code');
+    await this.slight_smile.say('With Jekyll, you can write just a little bit of code...');
     show_image('jekyll-new');
-    await this.grinning.say('You can use it to make beautiful _personal sites_, _blogs_, and more!');
-    await this.hand_over_mouth_open_eyes.say("But, I don't just want you to build a static site.");
-    await this.grinning.say('I want you to build a _theme_ for Jekyll that *anybody* can use!');
+    await this.grinning.say("...and get a beautiful site in return!");
+    await this.slight_smile.say('You just need to pick a *theme* to decide how it looks.');
+    await this.slight_smile.say("Let's look at a few different themes now.");
+    show_image('nimmoi');
+    await this.thinking.say("This theme is all about purple...");
+    show_image('parchment');
+    await this.slight_smile.say("This one's more yellow, like an old sheet of paper...");
+    show_image('lifeblood');
+    await this.grinning.say("And this one's a nice, bright white!");
+    await this.thinking.say('A Jekyll theme can be as simple or as complex as you want.');
+    await this.thinking.say("Look at *lifeblood*: it has some _navigation_ that the other themes didn't.");
+    await this.grin.say('The only limit is your imagination!');
+    hide_image();
+    await this.hand_over_mouth_open_eyes.say("But I don't just want you to pick an existing theme...");
+    await this.grinning.say('I want to teach you how to build your own!');
     hide_image();
     await this.grinning.say('What do you think?');
     await this.slight_smile.choice2({
