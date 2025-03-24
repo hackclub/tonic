@@ -33,6 +33,10 @@ body {
   min-height:100%
 }
 
+body.attribution_open {
+  background-color:#c8bcac;
+}
+
 p, b, i, span {
   color:var(--color)
 }
@@ -52,6 +56,15 @@ h4, h5, h6, a {
 
 h1 {
   font-size:48px;
+}
+
+#attribution_container h2 {
+  color:var(--em-color);
+  margin-bottom:16px;
+}
+
+#attribution_container p {
+  font-size:14px;
 }
 
 a {
@@ -150,6 +163,24 @@ button:hover {
   color:var(--em-color);
 }
 
+#attribution_container {
+  position:absolute;
+  background-color:antiquewhite;
+  background-image:url("https://www.transparenttextures.com/patterns/p5.png");
+  width:40vw;
+  height:40vh;
+  border:2px solid #70604480;
+  padding:20px;
+}
+
+#close_attribution {
+  position:absolute;
+  bottom:20px;
+  width:100px;
+  height:30px;
+  font-size:14px;
+}
+
 .hidden-w {
   width:0 !important;
   opacity:0 !important;
@@ -162,6 +193,14 @@ button:hover {
 
 .dn {
   display:none !important;
+}
+
+.oh {
+  opacity:0.5;
+}
+
+.in {
+  pointer-events:none !important;
 }
 
 @keyframes shake {
