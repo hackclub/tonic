@@ -1,15 +1,22 @@
+const bgm = new Howl({
+  src: 'assets/audio/bgm.wav',
+  html5: true,
+  loop: true,
+});
+let bgm_id;
+
 const sounds = {
   awoken_blip: new Howl({ src: 'assets/audio/awoken_blip.wav' }),
   awoken_c: new Howl({ src: 'assets/audio/awoken_c.wav' }),
   awoken_d: new Howl({ src: 'assets/audio/awoken_d.wav' }),
   awoken_e: new Howl({ src: 'assets/audio/awoken_e.wav' }),
   awoken_f: new Howl({ src: 'assets/audio/awoken_f.wav' }),
-  awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav' }),
-}
+  awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav', }),
+};
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 1;
+const TIME_SCALE = 2;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
@@ -56,6 +63,18 @@ class Mutant {
     });
     await this.grinning.say("I'm *Mutant*!", { sleep_ms: 500 });
     play_sound('awoken_final');
+  }
+  async introduction () {
+    await this.hand_over_mouth_open_eyes.say("I don't know very much...");
+    await this.hand_over_mouth.say('And yet, I know a lot!');
+    await this.content.choice2({
+      option_a: 'About what?',
+      option_b: 'What do you mean?',
+      callback_a: async () => await this.grinning.say('Only my favorite thing in the world!'),
+      callback_b: async () => await this.hand_over_mouth_open_eyes.say('Well, you see...'),
+    });
+    await this.hushed.say('I want to teach you...');
+    await this.starry_eyes.say('About *Jekyll*!');
   }
   async say (text, { sleep_ms = 1000 } = {}) {
     this.text_element.innerHTML = '';
@@ -140,3 +159,8 @@ mutant.element.onclick = function () {
     mutant.wake_up();
   }
 }
+
+sounds.awoken_final.on('end', function () {
+  bgm_id = bgm.play();
+  mutant.introduction();
+});
