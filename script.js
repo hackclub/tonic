@@ -132,7 +132,7 @@ class Mutant {
     show_image('lifeblood');
     await this.grinning.say("And this one's a nice, bright white!");
     await this.thinking.say('A Jekyll theme can be as simple or as complex as you want.');
-    await this.thinking.say("Look at *lifeblood*: it has some _navigation_ that the other themes didn't.");
+    await this.thinking.say("Look at this one: it has some navigation that the other themes don't.");
     await this.grin.say('The only limit is your imagination!');
     hide_image();
     await this.hand_over_mouth_open_eyes.say("But I don't just want you to pick an existing theme...");
@@ -171,7 +171,15 @@ class Mutant {
     play_sound('drum', { randomize: true });
     document.getElementById('task_your_first_page').className = '';
     await sleep(1000);
-    await this.grinning.say('This is your *task list*!');
+    await this.grinning.say('These are *your tasks*!');
+    await this.slight_smile.say("Every time you come here, you'll see these first.");
+    await this.slight_smile.say("You'll start at the top, and work your way down the list...");
+    await this.grinning.say('...learning more and more about Jekyll as you go!');
+    await this.hand_over_mouth_open_eyes.say("I'll always save your progress, so you can keep track of what to do next...");
+    await this.hand_over_mouth.say("...and you can always go back to a task you've already finished, too.");
+    await this.grinning.say("Now, it's time to get started!");
+    await this.grinning.say('Click *GitHub setup* to start building your Jekyll theme!')
+    document.getElementById('tasks_list_container').classList.remove('in');
   }
   /**
    * Make Mutant say something, awaiting a promise which resolves when Mutant
@@ -299,10 +307,10 @@ class Mutant {
 
 let mutant = new Mutant;
 // OVERRIDES
-// mutant.clickable = false;
-// mutant.emote = 'slight_smile';
-// bgm_id = bgm.play();
-// mutant.introduce_tasks();
+mutant.clickable = false;
+mutant.emote = 'slight_smile';
+bgm_id = bgm.play();
+mutant.introduce_tasks();
 
 mutant.element.onclick = function () {
   if (mutant.stage === 0) {
