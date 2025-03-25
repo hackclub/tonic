@@ -90,6 +90,17 @@ main {
   gap:8px;
 }
 
+#back {
+  position:absolute;
+  top:10px;
+  left:15px;
+  font-size:12px;
+}
+
+#back_icon {
+  margin-right:4px;
+}
+
 #options_container {
   position:absolute;
   top:10px;
@@ -105,8 +116,13 @@ main {
   color:var(--em-color);
 }
 
-#options_container a {
+#music_toggle a, #sound_toggle_a {
   text-decoration:none;
+}
+
+#sound_toggle {
+  position:relative;
+  right:2px;
 }
 
 #mutant_container {
@@ -115,11 +131,6 @@ main {
   align-items:center;
   flex-direction:column;
   gap:8px;
-}
-
-#sound_toggle {
-  position:relative;
-  right:2px;
 }
 
 #mutant_container.recenter {
