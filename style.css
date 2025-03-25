@@ -218,7 +218,7 @@ button:hover {
   background-image:url("https://www.transparenttextures.com/patterns/p5.png");
 }
 
-#tasks_container h2, #tasks_container h3 {
+#tasks_container h2, #tasks_container h3, #attribution_container h2 {
   font-family:var(--font-stack);
   text-transform:none;
   font-weight:400;
