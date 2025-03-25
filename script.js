@@ -38,6 +38,12 @@ function hide_image () {
 }
 
 class Mutant {
+  /**
+   * Constructor method.
+   * Instead of returning a class instance, this function returns a Proxy
+   * which sets Mutant's emote when attempting to access any unknown property.
+   * @returns {Proxy}
+   */
   constructor () {
     this.state = 'asleep';
     return new Proxy(this, {
@@ -130,6 +136,15 @@ class Mutant {
       callback_a: async () => {},
     })
   }
+  /**
+   * Make Mutant say something, awaiting a promise which resolves when Mutant
+   * finishes saying it.
+   * Make text bold by placing `*` on either side.
+   * Make text italic by placing `_` on either side.
+   * @param {string} text
+   * @param {object} [param1]
+   * @param {number} [param1.sleep_ms] Sleep duration after the promise resolves.
+   */
   async say (text, { sleep_ms = 1000 } = {}) {
     this.text_element.innerHTML = '';
     this.text_element.classList.remove('hidden-h');
@@ -169,6 +184,13 @@ class Mutant {
     });
     await sleep(sleep_ms);
   }
+  /**
+   * Await a promise which resolves when the user clicks a button.
+   * Mutant's response is determined by a provided callback.
+   * @param {object} object
+   * @param {string} object.option_a
+   * @param {function} object.callback_a
+   */
   async choice1 (object) {
     await new Promise(resolve => {
       let { option_a, callback_a } = object;
@@ -186,6 +208,15 @@ class Mutant {
       }
     });
   }
+  /**
+   * Await a promise which resolves when the user clicks one of two buttons.
+   * Mutant's response is determined by the provided callbacks.
+   * @param {object} object
+   * @param {string} object.option_a
+   * @param {string} object.option_b
+   * @param {function} object.callback_a
+   * @param {function} object.callback_b
+   */
   async choice2 (object) {
     await new Promise(resolve => {
       let { option_a, option_b, callback_a, callback_b } = object;
