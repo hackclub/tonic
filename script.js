@@ -15,6 +15,7 @@ const sounds = {
   click: new Howl({ src: 'assets/audio/click.wav' }),
   drum: new Howl({ src: 'assets/audio/drum.wav' }),
   hover: new Howl({ src: 'assets/audio/hover.wav' }),
+  negative_click: new Howl({ src: 'assets/audio/negative_click.wav' }),
 };
 
 Howler.volume(0.5);
@@ -307,10 +308,15 @@ class Mutant {
 
 let mutant = new Mutant;
 // OVERRIDES
-mutant.clickable = false;
-mutant.emote = 'slight_smile';
-bgm_id = bgm.play();
-mutant.introduce_tasks();
+// mutant.clickable = false;
+// mutant.emote = 'slight_smile';
+// bgm_id = bgm.play();
+// mutant.introduce_tasks();
+
+// for team sync
+document.getElementById('task_github_setup').querySelector('a').onclick = document.getElementById('task_tonic_setup').querySelector('a').onclick = document.getElementById('task_your_first_page').querySelector('a').onclick = function () {
+  play_sound('negative_click');
+}
 
 mutant.element.onclick = function () {
   if (mutant.stage === 0) {
