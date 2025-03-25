@@ -33,12 +33,24 @@ function play_sound (sound, { randomize = false } = {}) {
 }
 
 function show_image (src) {
+  document.getElementById('mutant_container').className = '';
   document.getElementById('mutant_image').src = 'assets/img/' + src + '.png';
   document.getElementById('image_container').classList.remove('hidden-w');
 }
 
 function hide_image () {
+  document.getElementById('mutant_container').className = 'recenter';
   document.getElementById('image_container').classList.add('hidden-w');
+}
+
+function show_tasks () {
+  document.getElementById('mutant_container').className = '';
+  document.getElementById('tasks_container').classList.remove('hidden-w');
+}
+
+function hide_tasks () {
+  document.getElementById('mutant_container').className = 'recenter';
+  document.getElementById('tasks_container').classList.add('hidden-w');
 }
 
 class Mutant {
@@ -144,7 +156,7 @@ class Mutant {
   }
   async introduce_tasks () {
     this.stage = 4;
-    document.getElementById('tasks_container').className = '';
+    show_tasks();
     // TODO: don't hardcode IDs
     await sleep(1500);
     play_sound('drum', { randomize: true });
