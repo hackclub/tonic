@@ -61,17 +61,16 @@ class Mutant {
       }
     });
   }
-  next_stage () {
-    this.stage++;
-  }
   async wake_up () {
+    this.stage = 1;
     this.emote = 'flushed';
     this.clickable = false;
     play_sound('awoken_blip');
     await sleep(2100);
-    this.next_stage();
+    this.apologize();
   }
   async apologize () {
+    this.stage = 2;
     play_sound('awoken_c');
     await this.sweat_smile.say('Oh, this is so embarrassing...');
     play_sound('awoken_d');
@@ -86,9 +85,9 @@ class Mutant {
     });
     await this.grinning.say("I'm *Mutant*!", { sleep_ms: 500 });
     play_sound('awoken_final');
-    // calls Mutant.next_stage() on end
   }
   async introduction () {
+    this.stage = 3;
     await this.hand_over_mouth_open_eyes.say("I don't know very much...");
     await this.hand_over_mouth.say('And yet, I know a lot!');
     await this.content.choice2({
@@ -140,10 +139,11 @@ class Mutant {
     await this.grinning.say('Ready to see the first task?');
     await this.slight_smile.choice1({
       option_a: "Let's go",
-      callback_a: async () => this.next_stage(),
+      callback_a: async () => this.introduce_tasks(),
     })
   }
   async introduce_tasks () {
+    this.stage = 4;
     document.getElementById('tasks_container').className = '';
     // TODO: don't hardcode IDs
     await sleep(1500);
@@ -283,30 +283,17 @@ class Mutant {
   set emote (e) {
     this.element.src = 'assets/ms/' + e + '.svg';
   }
-  set stage (s) {
-    // 0: Mutant is asleep
-    // 1: Mutant just woke up
-    // 2: Mutant is apologizing for falling asleep
-    // 3: Mutant is introducing Jekyll for the first time
-    // 4: Mutant is revealing the task list
-    [
-      () => {},
-      this.wake_up.bind(this),
-      this.apologize.bind(this),
-      this.introduction.bind(this),
-      this.introduce_tasks.bind(this),
-    ][s]();
-  }
 }
 
 let mutant = new Mutant;
 // OVERRIDES
-mutant.emote = 'slight_smile';
-mutant.stage = 4;
-bgm_id = bgm.play();
+// mutant.clickable = false;
+// mutant.emote = 'slight_smile';
+// bgm_id = bgm.play();
+// mutant.introduce_tasks();
 
 mutant.element.onclick = function () {
-  if (mutant.state === 'asleep') {
+  if (mutant.stage === 0) {
     mutant.wake_up();
   }
 }
@@ -324,7 +311,8 @@ document.getElementById('choice_2').onmouseenter = function () {
 }
 
 sounds.awoken_final.on('end', function () {
-  // TODO: we will be using this sound more. remove this line
-  bgm_id = bgm.play();
-  mutant.next_stage();
+  if (mutant.stage === 2) {
+    bgm_id = bgm.play();
+    mutant.introduction();
+  }
 });
