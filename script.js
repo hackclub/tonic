@@ -13,18 +13,22 @@ const sounds = {
   awoken_f: new Howl({ src: 'assets/audio/awoken_f.wav' }),
   awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav', }),
   click: new Howl({ src: 'assets/audio/click.wav' }),
+  drum: new Howl({ src: 'assets/audio/drum.wav' }),
   hover: new Howl({ src: 'assets/audio/hover.wav' }),
 };
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 2;
+const TIME_SCALE = 1;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
 }
 
-function play_sound (sound) {
+function play_sound (sound, { randomize = false } = {}) {
+  if (randomize) {
+    sounds[sound].rate(1.0 + Math.random());
+  }
   sounds[sound].play();
 }
 
@@ -131,10 +135,28 @@ class Mutant {
     await this.halo.say('And guide you through them, every step of the way!');
     await this.smile_hearts.say("At the end, you'll have a beautiful Jekyll theme published for the world to see!");
     await this.grinning.say('Ready to see the first task?');
-    await this.choice1({
+    await this.slight_smile.choice1({
       option_a: "Let's go",
-      callback_a: async () => {},
+      callback_a: async () => this.introduce_tasks(),
     })
+  }
+  async introduce_tasks () {
+    document.getElementById('tasks_container').className = '';
+    // TODO: don't hardcode IDs
+    await sleep(1500);
+    play_sound('drum', { randomize: true });
+    document.getElementById('tasks_list_container').classList.remove('dn');
+    document.getElementById('tasks_heading_setting_up').className = '';
+    document.getElementById('task_github_setup').className = '';
+    await sleep(666);
+    play_sound('drum', { randomize: true });
+    document.getElementById('locked_divider').className = '';
+    document.getElementById('task_tonic_setup').className = '';
+    await sleep(333);
+    play_sound('drum', { randomize: true });
+    document.getElementById('task_your_first_page').className = '';
+    await sleep(1000);
+    await this.grinning.say('This is your *task list*!');
   }
   /**
    * Make Mutant say something, awaiting a promise which resolves when Mutant
