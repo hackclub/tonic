@@ -74,7 +74,6 @@ async function yap(text, {
 
   function next_yap() {
     if (yap_queue.length === 0) {
-      console.log('yap done')
       endCallback()
       return
     }
