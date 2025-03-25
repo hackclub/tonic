@@ -1,21 +1,21 @@
 const bgm = new Howl({
-  src: 'assets/audio/bgm.wav',
+  src: '/assets/audio/bgm.wav',
   html5: true,
   loop: true,
 });
 let bgm_id;
 
 const sounds = {
-  awoken_blip: new Howl({ src: 'assets/audio/awoken_blip.wav' }),
-  awoken_c: new Howl({ src: 'assets/audio/awoken_c.wav' }),
-  awoken_d: new Howl({ src: 'assets/audio/awoken_d.wav' }),
-  awoken_e: new Howl({ src: 'assets/audio/awoken_e.wav' }),
-  awoken_f: new Howl({ src: 'assets/audio/awoken_f.wav' }),
-  awoken_final: new Howl({ src: 'assets/audio/awoken_final.wav', }),
-  click: new Howl({ src: 'assets/audio/click.wav' }),
-  drum: new Howl({ src: 'assets/audio/drum.wav' }),
-  hover: new Howl({ src: 'assets/audio/hover.wav' }),
-  negative_click: new Howl({ src: 'assets/audio/negative_click.wav' }),
+  awoken_blip: new Howl({ src: '/assets/audio/awoken_blip.wav' }),
+  awoken_c: new Howl({ src: '/assets/audio/awoken_c.wav' }),
+  awoken_d: new Howl({ src: '/assets/audio/awoken_d.wav' }),
+  awoken_e: new Howl({ src: '/assets/audio/awoken_e.wav' }),
+  awoken_f: new Howl({ src: '/assets/audio/awoken_f.wav' }),
+  awoken_final: new Howl({ src: '/assets/audio/awoken_final.wav', }),
+  click: new Howl({ src: '/assets/audio/click.wav' }),
+  drum: new Howl({ src: '/assets/audio/drum.wav' }),
+  hover: new Howl({ src: '/assets/audio/hover.wav' }),
+  negative_click: new Howl({ src: '/assets/audio/negative_click.wav' }),
 };
 
 Howler.volume(0.5);
@@ -38,7 +38,7 @@ function play_sound (sound, { randomize = false } = {}) {
 
 function show_image (src) {
   document.getElementById('mutant_container').className = '';
-  document.getElementById('mutant_image').src = 'assets/img/' + src + '.png';
+  document.getElementById('mutant_image').src = '/assets/img/' + src + '.png';
   document.getElementById('image_container').classList.remove('hidden-w');
 }
 
@@ -305,7 +305,7 @@ class Mutant {
     this.element.className = v ? 'clickable' : '';
   }
   set emote (e) {
-    this.element.src = 'assets/ms/' + e + '.svg';
+    this.element.src = '/assets/ms/' + e + '.svg';
   }
 }
 
@@ -332,14 +332,14 @@ document.getElementById('music_toggle').onclick = function () {
   } else {
     bgm.stop(bgm_id);
   }
-  document.getElementById('music_toggle_icon').src = music_enabled ? 'assets/ms/speaker_medium_volume.svg' : 'assets/ms/speaker_muted.svg';
+  document.getElementById('music_toggle_icon').src = music_enabled ? '/assets/ms/speaker_medium_volume.svg' : '/assets/ms/speaker_muted.svg';
 }
 
 // document.getElementById('sound_toggle').onclick = function () {
 //   sound_enabled = !sound_enabled;
 //   let volume = sound_enabled ? 1 : 0;
 //   // ?
-//   document.getElementById('sound_toggle_icon').src = sound_enabled ? 'assets/ms/speaker_medium_volume.svg' : 'assets/ms/speaker_muted.svg';
+//   document.getElementById('sound_toggle_icon').src = sound_enabled ? '/assets/ms/speaker_medium_volume.svg' : '/assets/ms/speaker_muted.svg';
 // }
 
 mutant.element.onclick = function () {
