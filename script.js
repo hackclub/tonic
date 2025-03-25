@@ -22,6 +22,9 @@ Howler.volume(0.5);
 
 const TIME_SCALE = 1;
 
+let music_enabled = true;
+// let sound_enabled = true;
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
 }
@@ -308,15 +311,36 @@ class Mutant {
 
 let mutant = new Mutant;
 // OVERRIDES
-// mutant.clickable = false;
-// mutant.emote = 'slight_smile';
-// bgm_id = bgm.play();
-// mutant.introduce_tasks();
+mutant.clickable = false;
+mutant.emote = 'slight_smile';
+bgm_id = bgm.play();
+mutant.introduce_tasks();
 
 // for team sync
 document.getElementById('task_github_setup').querySelector('a').onclick = document.getElementById('task_tonic_setup').querySelector('a').onclick = document.getElementById('task_your_first_page').querySelector('a').onclick = function () {
   play_sound('negative_click');
 }
+
+document.getElementById('music_toggle').onmouseenter = function () {
+  play_sound('hover');
+}
+document.getElementById('music_toggle').onclick = function () {
+  play_sound('click');
+  music_enabled = !music_enabled;
+  if (music_enabled) {
+    bgm_id = bgm.play();
+  } else {
+    bgm.stop(bgm_id);
+  }
+  document.getElementById('music_toggle_icon').src = music_enabled ? 'assets/ms/speaker_medium_volume.svg' : 'assets/ms/speaker_muted.svg';
+}
+
+// document.getElementById('sound_toggle').onclick = function () {
+//   sound_enabled = !sound_enabled;
+//   let volume = sound_enabled ? 1 : 0;
+//   // ?
+//   document.getElementById('sound_toggle_icon').src = sound_enabled ? 'assets/ms/speaker_medium_volume.svg' : 'assets/ms/speaker_muted.svg';
+// }
 
 mutant.element.onclick = function () {
   if (mutant.stage === 0) {
