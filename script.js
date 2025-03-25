@@ -49,7 +49,7 @@ class Mutant {
    * @returns {Proxy}
    */
   constructor () {
-    this.state = 'asleep';
+    this.stage = 0;
     return new Proxy(this, {
       get: (target, prop) => {
         if (prop in target) {
@@ -61,13 +61,15 @@ class Mutant {
       }
     });
   }
+  next_stage () {
+    this.stage++;
+  }
   async wake_up () {
-    this.state = 'awoken';
     this.emote = 'flushed';
     this.clickable = false;
     play_sound('awoken_blip');
     await sleep(2100);
-    this.apologize();
+    this.next_stage();
   }
   async apologize () {
     play_sound('awoken_c');
@@ -84,6 +86,7 @@ class Mutant {
     });
     await this.grinning.say("I'm *Mutant*!", { sleep_ms: 500 });
     play_sound('awoken_final');
+    // calls Mutant.next_stage() on end
   }
   async introduction () {
     await this.hand_over_mouth_open_eyes.say("I don't know very much...");
@@ -137,7 +140,7 @@ class Mutant {
     await this.grinning.say('Ready to see the first task?');
     await this.slight_smile.choice1({
       option_a: "Let's go",
-      callback_a: async () => this.introduce_tasks(),
+      callback_a: async () => this.next_stage(),
     })
   }
   async introduce_tasks () {
@@ -280,9 +283,27 @@ class Mutant {
   set emote (e) {
     this.element.src = 'assets/ms/' + e + '.svg';
   }
+  set stage (s) {
+    // 0: Mutant is asleep
+    // 1: Mutant just woke up
+    // 2: Mutant is apologizing for falling asleep
+    // 3: Mutant is introducing Jekyll for the first time
+    // 4: Mutant is revealing the task list
+    [
+      () => {},
+      this.wake_up.bind(this),
+      this.apologize.bind(this),
+      this.introduction.bind(this),
+      this.introduce_tasks.bind(this),
+    ][s]();
+  }
 }
 
 let mutant = new Mutant;
+// OVERRIDES
+mutant.emote = 'slight_smile';
+mutant.stage = 4;
+bgm_id = bgm.play();
 
 mutant.element.onclick = function () {
   if (mutant.state === 'asleep') {
@@ -303,6 +324,7 @@ document.getElementById('choice_2').onmouseenter = function () {
 }
 
 sounds.awoken_final.on('end', function () {
+  // TODO: we will be using this sound more. remove this line
   bgm_id = bgm.play();
-  mutant.introduction();
+  mutant.next_stage();
 });
