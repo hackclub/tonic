@@ -1,3 +1,6 @@
+import tasks from "./tasks.js";
+tasks.register_all();
+
 const bgm = new Howl({
   src: '/assets/audio/bgm.wav',
   html5: true,
@@ -161,19 +164,15 @@ class Mutant {
   async introduce_tasks () {
     this.stage = 4;
     show_tasks();
-    // TODO: don't hardcode IDs
     await sleep(1500);
     play_sound('drum', { randomize: true });
-    document.getElementById('tasks_list_container').classList.remove('dn');
-    document.getElementById('tasks_heading_setting_up').className = '';
-    document.getElementById('task_github_setup').className = '';
+    tasks.set_state('GitHub setup', 3);
     await sleep(666);
     play_sound('drum', { randomize: true });
-    document.getElementById('locked_divider').className = '';
-    document.getElementById('task_tonic_setup').className = '';
+    tasks.set_state('Jekyll setup', 1);
     await sleep(333);
     play_sound('drum', { randomize: true });
-    document.getElementById('task_your_first_page').className = '';
+    tasks.set_state('Your first page', 1);
     await sleep(1000);
     await this.grinning.say('These are *your tasks*!');
     await this.slight_smile.say("Every time you come here, you'll see these first.");
@@ -183,7 +182,7 @@ class Mutant {
     await this.hand_over_mouth.say("...and you can always go back to a task you've already finished, too.");
     await this.grinning.say("Now, it's time to get started!");
     await this.grinning.say('Click *GitHub setup* to start building your Jekyll theme!')
-    document.getElementById('tasks_list_container').classList.remove('in');
+    document.getElementById('tasks_container').classList.remove('in');
   }
   /**
    * Make Mutant say something, awaiting a promise which resolves when Mutant
@@ -309,7 +308,7 @@ class Mutant {
   }
 }
 
-let mutant = new Mutant;
+export const mutant = new Mutant;
 // OVERRIDES
 mutant.clickable = false;
 mutant.emote = 'slight_smile';
@@ -317,9 +316,9 @@ bgm_id = bgm.play();
 mutant.introduce_tasks();
 
 // for team sync
-document.getElementById('task_github_setup').querySelector('a').onclick = document.getElementById('task_tonic_setup').querySelector('a').onclick = document.getElementById('task_your_first_page').querySelector('a').onclick = function () {
-  play_sound('negative_click');
-}
+// document.getElementById('task_github_setup').querySelector('a').onclick = document.getElementById('task_tonic_setup').querySelector('a').onclick = document.getElementById('task_your_first_page').querySelector('a').onclick = function () {
+//   play_sound('negative_click');
+// }
 
 document.getElementById('music_toggle').onmouseenter = function () {
   play_sound('hover');

@@ -256,7 +256,7 @@ button:hover {
   font-style:italic;
 }
 
-#locked_divider {
+.locked_divider {
   text-transform:uppercase;
   font-size:11px;
   position:relative;
@@ -267,7 +267,7 @@ button:hover {
   letter-spacing:2px;
 }
 
-#locked_divider::before, #locked_divider::after {
+.locked_divider::before, .locked_divider::after {
   content:"";
   position:absolute;
   top:50%;
@@ -276,11 +276,11 @@ button:hover {
   background-color:#999;
 }
 
-#locked_divider::before {
+.locked_divider::before {
   left:0;
 }
 
-#locked_divider::after {
+.locked_divider::after {
   right:0;
 }
 
@@ -319,6 +319,10 @@ button:hover {
   height:20px;
   vertical-align:middle;
   opacity:0.75;
+}
+
+.task_middot {
+  margin:0 4px;
 }
 
 .hidden-w {
