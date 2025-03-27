@@ -100,6 +100,9 @@ function create_list_item (task) {
   list_item.appendChild(icon);
   // name
   const name = document.createElement('a');
+  name.onmouseenter = function () {
+    play_sound('hover');
+  }
   list_item.appendChild(name);
   // middot
   const middot = document.createElement('span');
