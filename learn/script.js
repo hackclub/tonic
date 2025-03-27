@@ -19,6 +19,7 @@ const sounds = {
   drum: new Howl({ src: '/assets/audio/drum.wav' }),
   hover: new Howl({ src: '/assets/audio/hover.wav' }),
   negative_click: new Howl({ src: '/assets/audio/negative_click.wav' }),
+  task_complete: new Howl({ src: '/assets/audio/task_complete.wav' }),
 };
 
 Howler.volume(0.5);
@@ -28,34 +29,34 @@ const TIME_SCALE = 1;
 let music_enabled = true;
 // let sound_enabled = true;
 
-function sleep(ms) {
+export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms / TIME_SCALE));
 }
 
-function play_sound (sound, { randomize = false } = {}) {
+export function play_sound (sound, { randomize = false } = {}) {
   if (randomize) {
     sounds[sound].rate(1.0 + Math.random());
   }
   sounds[sound].play();
 }
 
-function show_image (src) {
+export function show_image (src) {
   document.getElementById('mutant_container').className = '';
   document.getElementById('mutant_image').src = '/assets/img/' + src + '.png';
   document.getElementById('image_container').classList.remove('hidden-w');
 }
 
-function hide_image () {
+export function hide_image () {
   document.getElementById('mutant_container').className = 'recenter';
   document.getElementById('image_container').classList.add('hidden-w');
 }
 
-function show_tasks () {
+export function show_tasks () {
   document.getElementById('mutant_container').className = '';
   document.getElementById('tasks_container').classList.remove('hidden-w');
 }
 
-function hide_tasks () {
+export function hide_tasks () {
   document.getElementById('mutant_container').className = 'recenter';
   document.getElementById('tasks_container').classList.add('hidden-w');
 }
@@ -314,11 +315,6 @@ mutant.clickable = false;
 mutant.emote = 'slight_smile';
 bgm_id = bgm.play();
 mutant.introduce_tasks();
-
-// for team sync
-// document.getElementById('task_github_setup').querySelector('a').onclick = document.getElementById('task_tonic_setup').querySelector('a').onclick = document.getElementById('task_your_first_page').querySelector('a').onclick = function () {
-//   play_sound('negative_click');
-// }
 
 document.getElementById('music_toggle').onmouseenter = function () {
   play_sound('hover');

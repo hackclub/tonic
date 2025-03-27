@@ -1,4 +1,5 @@
 import all_tasks from './tasks/all.js';
+import { mutant, hide_image, hide_tasks, play_sound, show_image, show_tasks, sleep } from './script.js';
 
 // polyfill
 function group_by (iterable, callbackfn) {
@@ -164,6 +165,39 @@ function update_list_item (task) {
     task.description_element.className = 'task_description';
     task.description_element.innerHTML = task.description;
   }
+  // onclick
+  if (task.state === 1 || task.state === 2) {
+    task.name_element.onclick = function () {
+      play_sound('negative_click');
+    }
+  }
+  // TODO: split here
+  else if (task.state === 3 || task.state === 4) {
+    task.name_element.onclick = async function () {
+      play_sound('click');
+      hide_tasks();
+      await sleep(500);
+      await task.callback();
+      show_tasks();
+      if (get_state(task.name) !== 3) return;
+      document.getElementById('tasks_container').classList.add('in');
+      await sleep(1000);
+      play_sound('task_complete');
+      set_state(task.name, 4);
+      await sleep(1500);
+      for (const entry of Object.entries(task.updates)) {
+        const task_name = entry[0];
+        const new_state = entry[1];
+        const old_state = get_state(task_name);
+        if (old_state < new_state) {
+          play_sound('drum', { randomize: true });
+          set_state(task_name, new_state);
+          await sleep(333);
+        }
+      }
+      document.getElementById('tasks_container').classList.remove('in');
+    }
+  }
   // update list group
   update_list_group(task.group);
 }
@@ -185,6 +219,11 @@ function register_all () {
   for (const task of Object.values(all_tasks)) {
     update_list_item(task);
   }
+}
+
+function get_state (task_name) {
+  const task = Object.values(all_tasks).find(task => task.name === task_name);
+  return task.state;
 }
 
 /**

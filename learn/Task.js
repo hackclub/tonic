@@ -3,10 +3,11 @@ export default class Task {
     this.name = opts.name;
     this.description = opts.description;
     this.group = opts.group;
+    this.updates = opts.updates || {};
     this.state = 0;
     return this;
   }
-  callback (c) {
+  with_callback (c) {
     this.callback = c;
     return this;
   }
