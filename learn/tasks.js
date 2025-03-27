@@ -1,5 +1,5 @@
 import all_tasks from './tasks/all.js';
-import { mutant, hide_image, hide_tasks, play_sound, show_image, show_tasks, sleep } from './script.js';
+import { mutant, hide_image, hide_tasks, play_sound, show_image, show_tasks, sleep, fade_bgm, play_bgm } from './script.js';
 
 // polyfill
 function group_by (iterable, callbackfn) {
@@ -184,7 +184,15 @@ function update_list_item (task) {
       await sleep(1000);
       play_sound('task_complete');
       set_state(task.name, 4);
-      await sleep(1500);
+      if (Object.values(all_tasks).filter(t => t.group === task.group).every(t => t.state === 4)) {
+        await fade_bgm();
+        await sleep(500);
+        play_sound('awoken_final');
+        await sleep(4000);
+        play_bgm();
+      } else {
+        await sleep(1500);
+      }
       for (const entry of Object.entries(task.updates)) {
         const task_name = entry[0];
         const new_state = entry[1];

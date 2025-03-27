@@ -40,6 +40,19 @@ export function play_sound (sound, { randomize = false } = {}) {
   sounds[sound].play();
 }
 
+export function play_bgm () {
+  if (music_enabled) {
+    bgm_id = bgm.play();
+  }
+}
+
+export async function fade_bgm () {
+  if (music_enabled) {
+    bgm.fade(1, 0, 1500, bgm_id);
+    await sleep(1500);
+  }
+}
+
 export function show_image (src) {
   document.getElementById('mutant_container').className = '';
   document.getElementById('mutant_image').src = '/assets/img/' + src + '.png';
