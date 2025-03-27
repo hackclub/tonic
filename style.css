@@ -247,10 +247,6 @@ button:hover {
   color:#999;
 }
 
-#tasks_container p.locked a:hover {
-  cursor:default;
-}
-
 #tasks_container span {
   font-size:13px;
   font-style:italic;
