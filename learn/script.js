@@ -204,9 +204,9 @@ class Mutant {
     const hour = new Date().getHours();
     if (hour >= 6 && hour <= 11) {
       await this.grinning.say('Good morning! Ready to get back to it?');
-    } else if (hour >= 12 && hour <= 4) {
+    } else if (hour >= 12 && hour <= 16) {
       await this.grinning.say('Afternoon! How are you?');
-    } else if (hour >= 5 && hour <= 10) {
+    } else if (hour >= 17 && hour <= 22) {
       await this.grinning.say('Evening! Ready to work on that theme?');
     } else {
       await this.hushed.say('Burning the midnight oil, are we?');
