@@ -181,6 +181,7 @@ function update_list_item (task) {
       hide_tasks();
       await sleep(500);
       await task.callback();
+      mutant.text_element.innerHTML = '';
       show_tasks();
       if (get_state(task.name) !== 3) return;
       document.getElementById('tasks_container').classList.add('in');
