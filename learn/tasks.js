@@ -174,16 +174,15 @@ function update_list_item (task) {
       play_sound('negative_click');
     }
   }
-  // TODO: split here
-  else if (task.state === 3 || task.state === 4) {
+  else if (task.state === 3) {
     task.name_element.onclick = async function () {
       play_sound('click');
       hide_tasks();
       await sleep(500);
       await task.callback();
+      mutant.emote = 'slight_smile';
       mutant.text_element.innerHTML = '';
       show_tasks();
-      if (get_state(task.name) !== 3) return;
       document.getElementById('tasks_container').classList.add('in');
       await sleep(1000);
       play_sound('task_complete');
@@ -208,6 +207,22 @@ function update_list_item (task) {
         }
       }
       document.getElementById('tasks_container').classList.remove('in');
+    }
+  } else {
+    task.name_element.onclick = async function () {
+      play_sound('click');
+      hide_tasks();
+      await sleep(500);
+      await mutant.thinking.say(`Do you want to go over *${task.name}* again?`);
+      await mutant.thinking.choice2({
+        option_a: 'Yes',
+        option_b: 'No',
+        callback_a: async () => await task.callback(),
+        callback_b: async () => {},
+      });
+      mutant.emote = 'slight_smile';
+      mutant.text_element.innerHTML = '';
+      show_tasks();
     }
   }
   // update list group
