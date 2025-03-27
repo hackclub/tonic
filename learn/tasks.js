@@ -213,7 +213,7 @@ function update_list_item (task) {
 /**
  * Add every single known Task to the DOM.
  */
-function register_all () {
+function register_all (tasks_state_override = {}) {
   const grouped = group_by(Object.values(all_tasks), ({ group }) => group);
   const tasks_container = document.getElementById('tasks_container');
 
@@ -226,6 +226,12 @@ function register_all () {
 
   for (const task of Object.values(all_tasks)) {
     update_list_item(task);
+  }
+
+  for (const entry of Object.entries(tasks_state_override)) {
+    const task_name = entry[0];
+    const state_override = entry[1];
+    set_state(task_name, state_override);
   }
 }
 

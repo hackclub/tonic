@@ -1,5 +1,4 @@
 import tasks from "./tasks.js";
-tasks.register_all();
 
 const bgm = new Howl({
   src: '/assets/audio/bgm.wav',
@@ -177,6 +176,7 @@ class Mutant {
   }
   async introduce_tasks () {
     this.stage = 4;
+    document.getElementById('tasks_container').classList.add('in');
     show_tasks();
     await sleep(1500);
     play_sound('drum', { randomize: true });
@@ -197,6 +197,23 @@ class Mutant {
     await this.grinning.say("Now, it's time to get started!");
     await this.grinning.say('Click *GitHub setup* to start building your Jekyll theme!')
     document.getElementById('tasks_container').classList.remove('in');
+  }
+  async greeting () {
+    this.stage = 5;
+    await sleep(500);
+    const hour = new Date().getHours();
+    if (hour >= 6 && hour <= 11) {
+      await this.grinning.say('Good morning! Ready to get back to it?');
+    } else if (hour >= 12 && hour <= 4) {
+      await this.grinning.say('Afternoon! How are you?');
+    } else if (hour >= 5 && hour <= 10) {
+      await this.grinning.say('Evening! Ready to work on that theme?');
+    } else {
+      await this.hushed.say('Burning the midnight oil, are we?');
+    }
+    this.emote = 'slight_smile';
+    this.text_element.innerHTML = '';
+    show_tasks();
   }
   /**
    * Make Mutant say something, awaiting a promise which resolves when Mutant
@@ -327,7 +344,14 @@ export const mutant = new Mutant;
 mutant.clickable = false;
 mutant.emote = 'slight_smile';
 bgm_id = bgm.play();
-mutant.introduce_tasks();
+mutant.greeting();
+const tasks_state_override = {
+  'GitHub setup': 3,
+  'Jekyll setup': 1,
+  'Your first page': 1,
+};
+
+tasks.register_all(tasks_state_override);
 
 document.getElementById('music_toggle').onmouseenter = function () {
   play_sound('hover');
