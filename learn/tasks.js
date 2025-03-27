@@ -186,23 +186,28 @@ function update_list_item (task) {
       document.getElementById('tasks_container').classList.add('in');
       await sleep(1000);
       play_sound('task_complete');
-      set_state(task.name, 4);
+      await set_state(task.name, 4);
       if (Object.values(all_tasks).filter(t => t.group === task.group).every(t => t.state === 4)) {
         await fade_bgm();
         await sleep(500);
         play_sound('awoken_final');
         await sleep(4000);
+        const task_which_requires_group = Object.values(all_tasks).find(t => t.requires_group === task.group);
+        if (task_which_requires_group) {
+          play_sound('drum', { randomize: true });
+          await set_state(task_which_requires_group.name, 3);
+        }
         play_bgm();
       } else {
         await sleep(1500);
       }
-      for (const entry of Object.entries(task.updates)) {
+      for (const entry of Object.entries(task.updates_on_complete)) {
         const task_name = entry[0];
         const new_state = entry[1];
         const old_state = get_state(task_name);
         if (old_state < new_state) {
           play_sound('drum', { randomize: true });
-          set_state(task_name, new_state);
+          await set_state(task_name, new_state);
           await sleep(333);
         }
       }
@@ -232,7 +237,7 @@ function update_list_item (task) {
 /**
  * Add every single known Task to the DOM.
  */
-function register_all (tasks_state_override = {}) {
+async function register_all (tasks_state_override = {}) {
   const grouped = group_by(Object.values(all_tasks), ({ group }) => group);
   const tasks_container = document.getElementById('tasks_container');
 
@@ -250,7 +255,7 @@ function register_all (tasks_state_override = {}) {
   for (const entry of Object.entries(tasks_state_override)) {
     const task_name = entry[0];
     const state_override = entry[1];
-    set_state(task_name, state_override);
+    await set_state(task_name, state_override);
   }
 }
 
@@ -265,10 +270,25 @@ function get_state (task_name) {
  * @param {String} task_name
  * @param {number} state
  */
-function set_state (task_name, state) {
+async function set_state (task_name, state) {
   const task = Object.values(all_tasks).find(task => task.name === task_name);
   task.state = state;
   update_list_item(task);
+  if (state === 3) {
+    if (Object.entries(task.updates_on_reveal).length > 0) {
+      await sleep(666);
+    }
+    for (const entry of Object.entries(task.updates_on_reveal)) {
+      const task_name = entry[0];
+      const new_state = entry[1];
+      const old_state = get_state(task_name);
+      if (old_state < new_state) {
+        play_sound('drum', { randomize: true });
+        await set_state(task_name, new_state);
+        await sleep(333);
+      }
+    }
+  }
 }
 
 export default {

@@ -180,13 +180,13 @@ class Mutant {
     show_tasks();
     await sleep(1500);
     play_sound('drum', { randomize: true });
-    tasks.set_state('GitHub setup', 3);
+    await tasks.set_state('GitHub setup', 3);
     await sleep(666);
     play_sound('drum', { randomize: true });
-    tasks.set_state('Jekyll setup', 1);
+    await tasks.set_state('Jekyll setup', 1);
     await sleep(333);
     play_sound('drum', { randomize: true });
-    tasks.set_state('Your first page', 1);
+    await tasks.set_state('Your first page', 1);
     await sleep(1000);
     await this.grinning.say('These are *your tasks*!');
     await this.slight_smile.say("Every time you come here, you'll see these first.");
@@ -351,7 +351,7 @@ const tasks_state_override = {
   'Your first page': 1,
 };
 
-tasks.register_all(tasks_state_override);
+await tasks.register_all(tasks_state_override);
 
 document.getElementById('music_toggle').onmouseenter = function () {
   play_sound('hover');
@@ -393,8 +393,8 @@ document.getElementById('choice_2').onmouseenter = function () {
 }
 
 sounds.awoken_final.on('end', function () {
+  bgm_id = bgm.play();
   if (mutant.stage === 2) {
-    bgm_id = bgm.play();
     mutant.introduction();
   }
 });

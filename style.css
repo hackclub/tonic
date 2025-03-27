@@ -227,15 +227,12 @@ button:hover {
 #tasks_container h3 {
   color:var(--em-color);
   font-style:italic;
+  margin:5px 0;
 }
 
 #tasks_container p.locked {
   color:#999;
   font-size:13px;
-}
-
-#tasks_container p:first-of-type {
-  margin-top:8px;
 }
 
 #tasks_container a {

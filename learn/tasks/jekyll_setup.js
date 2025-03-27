@@ -1,11 +1,11 @@
 import Task from '../Task.js';
-import { mutant, hide_image, hide_tasks, show_image, show_tasks } from '../script.js';
+import { mutant, hide_image, show_image } from '../script.js';
 
 const jekyll_setup = new Task({
   name: 'Jekyll setup',
   description: 'Set up Jekyll so you can start building your theme!',
   group: 'Setting up',
-  updates: {
+  updates_on_complete: {
     'Your first page': 3
   },
 }).with_callback(async () => {

@@ -1,5 +1,5 @@
 import Task from '../Task.js';
-import { mutant, hide_image, hide_tasks, show_image, show_tasks } from '../script.js';
+import { mutant, hide_image, show_image } from '../script.js';
 
 const your_first_page = new Task({
   name: 'Your first page',
