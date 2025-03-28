@@ -227,10 +227,12 @@ class Mutant {
   async say (text, { sleep_ms = 1000 } = {}) {
     this.text_element.innerHTML = '';
     this.text_element.classList.remove('hidden-h');
+    const link = text.match(/\^(.+?)\$(.+?)\^/) || [];
+    const link_href = link[2];
     let element_to_append_to = this.text_element;
     await new Promise(resolve => {
       yap(
-        text,
+        text.replace(/\^(.+?)\$(.+?)\^/, '^$1^'),
         {
           baseRate: 3.5 * TIME_SCALE,
           rateVariance: 2,
@@ -248,6 +250,16 @@ class Mutant {
                 const i = document.createElement('i');
                 this.text_element.appendChild(i);
                 element_to_append_to = i;
+              } else {
+                element_to_append_to = this.text_element;
+              }
+            } else if (letter === '^') {
+              if (element_to_append_to === this.text_element) {
+                const a = document.createElement('a');
+                a.href = link_href;
+                a.setAttribute('target', '_blank');
+                this.text_element.appendChild(a);
+                element_to_append_to = a;
               } else {
                 element_to_append_to = this.text_element;
               }
@@ -351,6 +363,7 @@ const tasks_state_override = {
   'Your first page': 1,
 };
 
+// await tasks.register_all();
 await tasks.register_all(tasks_state_override);
 
 document.getElementById('music_toggle').onmouseenter = function () {

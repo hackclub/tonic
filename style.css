@@ -163,6 +163,11 @@ main {
   height:50px;
 }
 
+#mutant_text a {
+  color:#47858e;
+  font-weight:bold;
+}
+
 #choice_container {
   height:84px;
 }
