@@ -194,8 +194,12 @@ class Mutant {
     await this.grinning.say('...learning more and more about Jekyll as you go!');
     await this.hand_over_mouth_open_eyes.say("I'll always save your progress, so you can keep track of what to do next...");
     await this.hand_over_mouth.say("...and you can always go back to a task you've already finished, too.");
-    await this.grinning.say("Now, it's time to get started!");
-    await this.grinning.say('Click *GitHub setup* to start building your Jekyll theme!')
+    await this.grinning.say('Sound good?')
+    await this.slight_smile.choice1({
+      option_a: 'I think so',
+      callback_a: async () => await this.grinning.say('Great!'),
+    });
+    await this.grinning.say('Click *GitHub setup* to get started!');
     document.getElementById('tasks_container').classList.remove('in');
   }
   async greeting () {
@@ -356,6 +360,7 @@ export const mutant = new Mutant;
 mutant.clickable = false;
 mutant.emote = 'slight_smile';
 bgm_id = bgm.play();
+// mutant.introduce_tasks();
 mutant.greeting();
 const tasks_state_override = {
   'GitHub setup': 3,
