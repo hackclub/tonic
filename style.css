@@ -225,9 +225,8 @@ button:hover {
   margin:5px 0;
 }
 
-#tasks_container p.locked {
-  color:#999;
-  font-size:13px;
+#tasks_container .icon {
+  margin-right:4px;
 }
 
 #tasks_container a {
@@ -235,13 +234,21 @@ button:hover {
   border-bottom:2px solid #70604440;
 }
 
+#tasks_container span {
+  font-size:13px;
+  font-style:italic;
+}
+
+#tasks_container p.locked {
+  font-size:13px;
+}
+
 #tasks_container p.locked a {
   color:#999;
 }
 
-#tasks_container span {
-  font-size:13px;
-  font-style:italic;
+#tasks_container p.locked span {
+  color:#787878;
 }
 
 .locked_divider {
