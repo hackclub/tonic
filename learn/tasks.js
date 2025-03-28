@@ -197,7 +197,6 @@ function update_list_item (task) {
           play_sound('drum', { randomize: true });
           await set_state(task_which_requires_group.name, 3);
         }
-        play_bgm();
       } else {
         await sleep(1500);
       }
