@@ -179,7 +179,9 @@ function update_list_item (task) {
       play_sound('click');
       hide_tasks();
       await sleep(500);
+      document.getElementById('current_task_name').innerHTML = task.name;
       await task.callback();
+      document.getElementById('current_task_name').innerHTML = '';
       mutant.emote = 'slight_smile';
       mutant.text_element.innerHTML = '';
       show_tasks();
@@ -221,9 +223,13 @@ function update_list_item (task) {
       await mutant.thinking.choice2({
         option_a: 'Yes',
         option_b: 'No',
-        callback_a: async () => await task.callback(),
+        callback_a: async () => {
+          document.getElementById('current_task_name').innerHTML = task.name;
+          await task.callback();
+        },
         callback_b: async () => {},
       });
+      document.getElementById('current_task_name').innerHTML = '';
       mutant.emote = 'slight_smile';
       mutant.text_element.innerHTML = '';
       show_tasks();

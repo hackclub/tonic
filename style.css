@@ -218,16 +218,21 @@ button:hover {
   overflow-y:scroll;
 }
 
-#tasks_container h2, #tasks_container h3, #attribution_container h2 {
+#current_task_name, #tasks_container h2, #tasks_container h3, #attribution_container h2 {
   font-family:var(--font-stack);
   text-transform:none;
   font-weight:400;
 }
 
-#tasks_container h3 {
+#current_task_name, #tasks_container h3 {
   color:var(--em-color);
   font-style:italic;
   margin:5px 0;
+}
+
+#current_task_name {
+  position:absolute;
+  top:10px;
 }
 
 #tasks_container .icon {
