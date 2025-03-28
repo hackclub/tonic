@@ -208,14 +208,9 @@ button:hover {
   border:2px solid #70604440;
   display:flex;
   flex-direction:column;
-}
-
-#tasks_list_container {
-  overflow-y:scroll;
-  padding:10px;
   box-shadow:0 0 10px #70604440 inset;
-  background-color:#f9e9d9;
   background-image:url("https://www.transparenttextures.com/patterns/p5.png");
+  overflow-y:scroll;
 }
 
 #tasks_container h2, #tasks_container h3, #attribution_container h2 {
