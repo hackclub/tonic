@@ -151,7 +151,7 @@ main {
   cursor:pointer;
 }
 
-#mutant_text, #choice_container, #image_container, #tasks_container {
+#mutant_text, #choice_container, #text_entry_container, #image_container, #tasks_container {
   position:relative;
   transition-timing-function:ease-in-out;
   overflow-x:hidden;
@@ -172,6 +172,36 @@ main {
   height:84px;
 }
 
+#text_entry_container {
+  width:300px;
+  height:64px;
+}
+
+#text_entry_form {
+  display:flex;
+  flex-direction:column;
+}
+
+#text_entry {
+  outline:none;
+  background:transparent;
+  border:3px solid #706044;
+  border-radius:20px;
+  color:var(--color);
+  padding:10px;
+  width:300px;
+  height:40px;
+  font-size:14px;
+  font-family: var(--font-stack);
+}
+
+#text_entry_form label {
+  font-size:14px;
+  position:relative;
+  left:11px;
+  top:4px;
+}
+
 button {
   width:200px;
   height:40px;
@@ -185,7 +215,7 @@ button {
   user-select:none;
 }
 
-button:hover {
+button:hover, #submit_text_entry:hover {
   animation:shake_subtle 2s;
   animation-iteration-count:infinite;
   cursor:pointer;

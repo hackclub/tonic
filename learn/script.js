@@ -338,6 +338,29 @@ class Mutant {
       }
     });
   }
+  async text_entry (object) {
+    await new Promise(resolve => {
+      let { placeholder, exp, callback } = object;
+      document.getElementById('text_entry_container').classList.remove('hidden-h');
+      document.getElementById('text_entry').placeholder = placeholder;
+      document.getElementById('text_entry').onkeydown = async function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (!e.shiftKey) return;
+          if (!document.getElementById('text_entry').value.match(exp)) {
+            play_sound('negative_click');
+            return;
+          }
+          play_sound('click');
+          document.getElementById('text_entry_container').classList.add('hidden-h');
+          document.activeElement.blur();
+          await sleep(500);
+          await callback();
+          resolve();
+        }
+      }
+    });
+  }
   get element () {
     return document.getElementById('mutant');
   }
