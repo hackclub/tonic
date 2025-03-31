@@ -13,6 +13,10 @@ export default class Task {
     this.callback = c;
     return this;
   }
+  override (c) {
+    this.callback = c;
+    return this;
+  }
   get id () {
     return `task_${this.name.split(' ').join('_').toLowerCase()}`;
   }
