@@ -245,6 +245,7 @@ function update_list_item (task) {
 async function register_all (tasks_state_override = {}) {
   const grouped = group_by(Object.values(all_tasks), ({ group }) => group);
   const tasks_container = document.getElementById('tasks_container');
+  tasks_container.querySelectorAll('div').forEach(div => div.remove());
 
   for (const entry of Object.entries(grouped)) {
     const group_name = entry[0];
