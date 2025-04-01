@@ -137,27 +137,19 @@ class Mutant {
       callback_a: async () => await this.grinning.say("Great! But I'll remind you about it, just in case."),
       callback_b: async () => await this.grinning.say("That's okay! Let me tell you about it..."),
     });
-    show_image('jekyll-logo-2x');
-    await this.thinking.say('*Jekyll* is a tool that can help you _build a website_.');
-    show_image('jekyll-new-code');
-    await this.slight_smile.say('With Jekyll, you can write just a little bit of code...');
-    show_image('jekyll-new');
-    await this.grinning.say("...and get a beautiful site in return!");
+    await this.thinking.say('*Jekyll* is a tool that can help you _build a website_.', { image: 'jekyll-logo-2x' });
+    await this.slight_smile.say('With Jekyll, you can write just a little bit of code...', { image: 'jekyll-new-code' });
+    await this.grinning.say("...and get a beautiful site in return!", { image: 'jekyll-new' });
     await this.slight_smile.say('You just need to pick a *theme* to decide how it looks.');
     await this.slight_smile.say("Let's look at a few different themes now.");
-    show_image('nimmoi');
-    await this.thinking.say("This theme is all about purple...");
-    show_image('parchment');
-    await this.slight_smile.say("This one's more yellow, like an old sheet of paper...");
-    show_image('lifeblood');
-    await this.grinning.say("And this one's a nice, bright white!");
+    await this.thinking.say("This theme is all about purple...", { image: 'nimmoi' });
+    await this.slight_smile.say("This one's more yellow, like an old sheet of paper...", { image: 'parchment' });
+    await this.grinning.say("And this one's a nice, bright white!", { image: 'lifeblood' });
     await this.thinking.say('A Jekyll theme can be as simple or as complex as you want.');
     await this.thinking.say("Look at this one: it has some navigation that the other themes don't.");
     await this.grin.say('The only limit is your imagination!');
-    hide_image();
-    await this.hand_over_mouth_open_eyes.say("But I don't just want you to pick an existing theme...");
+    await this.hand_over_mouth_open_eyes.say("But I don't just want you to pick an existing theme...", { image: null });
     await this.grinning.say('I want to teach you how to build your own!');
-    hide_image();
     await this.grinning.say('What do you think?');
     await this.slight_smile.choice2({
       option_a: 'Sounds like fun',
@@ -226,14 +218,28 @@ class Mutant {
    * Make text italic by placing `_` on either side.
    * @param {string} text
    * @param {object} [param1]
+   * @param {string|null} [param1.image]
+   * @param {number} [param1.image_width]
    * @param {number} [param1.sleep_ms] Sleep duration after the promise resolves.
    */
-  async say (text, { sleep_ms = 1000 } = {}) {
+  async say (text, {
+    sleep_ms = 1000,
+    image = undefined,
+    image_width = undefined
+  } = {}) {
     this.text_element.innerHTML = '';
     this.text_element.classList.remove('hidden-h');
     const link = text.match(/\^(.+?)\$(.+?)\^/) || [];
     const link_href = link[2];
     let element_to_append_to = this.text_element;
+    if (typeof image === 'string') {
+      show_image(image);
+    } else if (image === null) {
+      hide_image();
+    }
+    if (typeof image_width === 'number') {
+      document.getElementById('mutant_image').style.width = `${image_width}px`;
+    }
     await new Promise(resolve => {
       yap(
         text.replace(/\^(.+?)\$(.+?)\^/, '^$1^'),
