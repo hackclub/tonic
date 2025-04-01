@@ -225,7 +225,7 @@ class Mutant {
   async say (text, {
     sleep_ms = 1000,
     image = undefined,
-    image_width = undefined
+    image_width = 400
   } = {}) {
     this.text_element.innerHTML = '';
     this.text_element.classList.remove('hidden-h');
