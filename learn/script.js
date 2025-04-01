@@ -386,19 +386,19 @@ class Mutant {
 
 export const mutant = new Mutant;
 // OVERRIDES
-mutant.clickable = false;
-mutant.emote = 'slight_smile';
-bgm_id = bgm.play();
+// mutant.clickable = false;
+// mutant.emote = 'slight_smile';
+// bgm_id = bgm.play();
 // mutant.introduce_tasks();
-mutant.greeting();
-const tasks_state_override = {
-  'GitHub setup': 3,
-  'Jekyll setup': 1,
-  'Your first page': 1,
-};
+// mutant.greeting();
+// const tasks_state_override = {
+//   'GitHub setup': 3,
+//   'Jekyll setup': 1,
+//   'Your first page': 1,
+// };
 
-// await tasks.register_all();
-await tasks.register_all(tasks_state_override);
+await tasks.register_all();
+// await tasks.register_all(tasks_state_override);
 
 document.getElementById('music_toggle').onmouseenter = function () {
   play_sound('hover');
