@@ -24,6 +24,7 @@ const sounds = {
 Howler.volume(0.5);
 
 const TIME_SCALE = 1;
+let overrides_enabled = false;
 
 let music_enabled = true;
 // let sound_enabled = true;
@@ -400,7 +401,8 @@ async function override () {
   await tasks.register_all(tasks_state_override);
 }
 window.onkeydown = async function (e) {
-  if (e.key === '!') {
+  if (e.key === '!' && !overrides_enabled) {
+    overrides_enabled = true;
     await override();
   }
 }
