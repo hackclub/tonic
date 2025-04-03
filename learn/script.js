@@ -64,6 +64,24 @@ export function hide_image () {
   document.getElementById('image_container').classList.add('hidden-w');
 }
 
+export function show_code (code) {
+  document.getElementById('mutant_container').className = '';
+  document.getElementById('mutant_code').innerHTML = code;
+  document.getElementById('code_container').classList.remove('hidden-w');
+}
+
+export function hide_code () {
+  document.getElementById('mutant_container').className = 'recenter';
+  document.getElementById('code_container').classList.add('hidden-w');
+}
+
+document.getElementById('mutant_code_copy').onclick = async function () {
+  navigator.clipboard.writeText(document.getElementById('mutant_code').innerText);
+  document.getElementById('mutant_code_copy').innerHTML = 'Copied!';
+  await sleep(1500);
+  document.getElementById('mutant_code_copy').innerHTML = 'Copy';
+}
+
 export function show_tasks () {
   document.getElementById('mutant_container').className = '';
   document.getElementById('tasks_container').classList.remove('hidden-w');
@@ -226,7 +244,8 @@ class Mutant {
   async say (text, {
     sleep_ms = 1000,
     image = undefined,
-    image_width = 400
+    image_width = 400,
+    code = undefined,
   } = {}) {
     this.text_element.innerHTML = '';
     this.text_element.classList.remove('hidden-h');
@@ -240,6 +259,11 @@ class Mutant {
     }
     if (typeof image_width === 'number') {
       document.getElementById('mutant_image').style.width = `${image_width}px`;
+    }
+    if (typeof code === 'string') {
+      show_code(code);
+    } else if (code === null) {
+      hide_code();
     }
     await new Promise(resolve => {
       yap(
@@ -394,8 +418,8 @@ async function override () {
   // mutant.introduce_tasks();
   mutant.greeting();
   const tasks_state_override = {
-    'GitHub setup': 3,
-    'Jekyll setup': 1,
+    'GitHub setup': 4,
+    'Jekyll setup': 3,
     'Your first page': 1,
   };
   await tasks.register_all(tasks_state_override);

@@ -151,7 +151,7 @@ main {
   cursor:pointer;
 }
 
-#mutant_text, #choice_container, #text_entry_container, #image_container, #tasks_container {
+#mutant_text, #choice_container, #text_entry_container, #image_container, #code_container, #tasks_container {
   position:relative;
   transition-timing-function:ease-in-out;
   overflow-x:hidden;
@@ -233,6 +233,29 @@ button:hover, #submit_text_entry:hover {
 #image_container img {
   width:400px;
   height:auto;
+}
+
+#code_container {
+  width:400px;
+  overflow:scroll;
+  max-height:350px;
+}
+
+#mutant_code {
+  border:2px solid #70604440;
+  background-color:#f9e9d9;
+  box-shadow:0 0 10px #70604440 inset;
+  padding:10px;
+  font-size:12px;
+  overflow:auto;
+  margin-bottom:10px;
+}
+
+#mutant_code_copy {
+  border-width:2px;
+  width:70px;
+  height:30px;
+  font-size:13px;
 }
 
 #tasks_container {
