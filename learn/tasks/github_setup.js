@@ -65,13 +65,32 @@ const github_setup = new Task({
   await mutant.slight_smile.say('Great work getting that online.');
   await mutant.grinning.say('Just one more thing before we move on!');
   await mutant.thinking.say('Each time you upload changes to GitHub, your repository gains one *commit*.');
-  await mutant.hushed.say('From now on, you should expect to push _at least one commit_ to your repository...');
-  await mutant.hushed.say('...during each task you complete!')
-  await mutant.grinning.say("I'll ask you to give me a link directly to a commit from time to time.");
-  await mutant.slight_smile.choice1({
-    option_a: 'Sounds good',
-    callback_a: async () => {},
-  })
+  await mutant.thinking.say("I'm going to have you *regularly push commits* to the repository you just made...");
+  await mutant.thinking.say('...and give me *direct links* to them afterwards.');
+  await mutant.hushed.say('That means no uploading your entire theme all at once at the end!');
+  await mutant.hand_over_mouth_open_eyes.say("The way I'll have you push commits depends on how _experienced_ you are.");
+  await mutant.thinking.say("I'd like to ask you...");
+  await mutant.thinking.say('Do you already know how to use GitHub from a *terminal*?');
+  await mutant.thinking.choice2({
+    option_a: 'Yes, I do',
+    option_b: "No, I don't",
+    callback_a: async () => await mutant.grinning.say('Amazing!'),
+    callback_b: async () => {
+      await mutant.grinning.say("That's okay! There's another option.");
+      await mutant.grinning.say("I'm going to have you download a tool called *GitHub Desktop*!");
+      await mutant.slight_smile.say('This will make it easy to push commits to your repository.');
+      await mutant.thinking.say('All you need to do is *sign in* with your GitHub account...', { image: 'github_desktop_sign_in', image_width: 200 });
+      await mutant.thinking.say('...and *clone* the repository that we just made.');
+      await mutant.grinning.say('Then, you just make changes, and *commit them* at the bottom left!', { image: 'github_desktop_commit', image_width: 400 });
+      await mutant.slight_smile.say("Let's download ^GitHub Desktop$https://github.com/apps/desktop^ now.", { image: null });
+      await mutant.slight_smile.choice1({
+        option_a: 'I did it',
+        callback_a: async () => await mutant.grinning.say('Wonderful!'),
+      });
+    }
+  });
+  await mutant.slight_smile.say("I'll trust that you're ready to push commits to your repository on your own.");
+  await mutant.grinning.say("Let's move on to the next task!");
 })
 
 export default github_setup;
