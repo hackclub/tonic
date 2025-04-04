@@ -78,10 +78,9 @@ const github_setup = new Task({
     callback_b: async () => {
       await mutant.grinning.say("That's okay! There's another option.");
       await mutant.grinning.say("I'm going to have you download a tool called *GitHub Desktop*!");
-      await mutant.slight_smile.say('This will make it easy to push commits to your repository.');
-      await mutant.thinking.say('All you need to do is *sign in* with your GitHub account...', { image: 'github_desktop_sign_in', image_width: 200 });
-      await mutant.thinking.say('...and *clone* the repository that we just made.');
-      await mutant.grinning.say('Then, you just make changes, and *commit them* at the bottom left!', { image: 'github_desktop_commit', image_width: 400 });
+      await mutant.thinking.say('After you install it, all you need to do is *sign in* with your GitHub account...', { image: 'github_desktop_sign_in', image_width: 200 });
+      await mutant.thinking.say('...and *clone* the repository that we just made.', { image: 'github_desktop_clone', image_width: 400 });
+      await mutant.grinning.say('Then, after you make changes, you *commit them* at the bottom left!', { image: 'github_desktop_commit' });
       await mutant.slight_smile.say("Let's download ^GitHub Desktop$https://github.com/apps/desktop^ now.", { image: null });
       await mutant.slight_smile.choice1({
         option_a: 'I did it',
