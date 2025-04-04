@@ -101,6 +101,7 @@ class Mutant {
    */
   constructor () {
     this.stage = 0;
+    this.image_width = 400;
     return new Proxy(this, {
       get: (target, prop) => {
         if (prop in target) {
@@ -244,7 +245,7 @@ class Mutant {
   async say (text, {
     sleep_ms = 1000,
     image = undefined,
-    image_width = 400,
+    image_width = this.image_width,
     code = undefined,
   } = {}) {
     this.text_element.innerHTML = '';
@@ -258,8 +259,9 @@ class Mutant {
       hide_image();
     }
     if (typeof image_width === 'number') {
-      document.getElementById('mutant_image').style.width = `${image_width}px`;
+      this.image_width = image_width;
     }
+    document.getElementById('mutant_image').style.width = `${this.image_width}px`;
     if (typeof code === 'string') {
       show_code(code);
     } else if (code === null) {
