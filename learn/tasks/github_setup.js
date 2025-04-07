@@ -44,14 +44,18 @@ const github_setup = new Task({
     callback_a: async () => await mutant.smile_hearts.say('Lovely!'),
   });
   await mutant.slight_smile.say("We're going to create a *new repository* to store your Jekyll theme in.")
-  await mutant.thinking.say("You'll want to click the *+* at the top right, and select *\"New repository\"*.", { image: 'new_repository' });
-  await mutant.slight_smile.say("Make sure that _you're the owner_, then give the repository a _fun name_.", { image: 'repository_name' });
+  await mutant.thinking.say("We'll be using a _template repository_ called *tonic-starter* as a baseline.", { image: 'tonic_starter', image_width: 300 });
+  await mutant.slight_smile.say("Let's visit the ^tonic-starter$https://github.com/hackclub/tonic-starter^ repository now.");
+  await mutant.slight_smile.choice1({
+    option_a: 'I did it',
+    callback_a: async () => await mutant.grinning.say('Excellent!'),
+  })
+  await mutant.thinking.say('Now, click *"Use this template"*, then click *"Create a new repository"*.', { image: 'use_this_template' });
+  await mutant.slight_smile.say("Make sure that _you're the owner_, then give your new repository a _fun name_.", { image: 'repository_name' });
   await mutant.hushed.say("Don't just call it *\"my-theme\"*, like I've done here!");
-  await mutant.thinking.say('Next, make sure the repository is set to *Public*...', { image: 'repository_settings' });
-  await mutant.thinking.say('...and *"Add a README file"* is checked.');
-  await mutant.grinning.say("We'll update this file later on!");
-  await mutant.slight_smile.say('Finally, click *"Create repository"*.', { image: 'create_repository', image_width: 200 });
-  await mutant.grinning.say("Come back here when you're done and I'll ask you for the repository link!", { image: null });
+  await mutant.thinking.say('Make sure the repository is set to *Public* so anyone can see it...', { image: 'repository_visibility', image_width: 400 });
+  await mutant.grinning.say('Then, click *"Create repository"*!', { image: 'create_repository', image_width: 200 });
+  await mutant.slight_smile.say("Come back here when you're done and I'll ask you for the repository link.", { image: null });
   await mutant.slight_smile.choice1({
     option_a: 'All done',
     callback_a: async () => await mutant.grinning.say('Excellent!'),
@@ -68,27 +72,34 @@ const github_setup = new Task({
   await mutant.thinking.say("I'm going to have you *regularly push commits* to the repository you just made...");
   await mutant.thinking.say('...and give me *direct links* to them afterwards.');
   await mutant.hushed.say('That means no uploading your entire theme all at once at the end!');
-  await mutant.hand_over_mouth_open_eyes.say("The way I'll have you push commits depends on how _experienced_ you are.");
-  await mutant.thinking.say("I'd like to ask you...");
-  await mutant.thinking.say('Do you already know how to use GitHub from a *terminal*?');
+  await mutant.hushed.say("Now, I'd like to ask you...");
+  await mutant.thinking.say('Are you able to use GitHub from a *terminal*?');
   await mutant.thinking.choice2({
-    option_a: 'Yes, I do',
-    option_b: "No, I don't",
-    callback_a: async () => await mutant.grinning.say('Amazing!'),
+    option_a: 'Yes, I can',
+    option_b: "No, I can't",
+    callback_a: async () => {
+      await mutant.grinning.say('Amazing!');
+      await mutant.slight_smile.say("I'll trust that you're ready to push commits to your repository on your own.");
+    },
     callback_b: async () => {
       await mutant.grinning.say("That's okay! There's another option.");
-      await mutant.grinning.say("I'm going to have you download a tool called *GitHub Desktop*!");
-      await mutant.thinking.say('After you install it, all you need to do is *sign in* with your GitHub account...', { image: 'github_desktop_sign_in', image_width: 200 });
-      await mutant.thinking.say('...and *clone* the repository that we just made.', { image: 'github_desktop_clone', image_width: 400 });
-      await mutant.grinning.say('Then, after you make changes, you *commit them* at the bottom left!', { image: 'github_desktop_commit' });
-      await mutant.slight_smile.say("Let's download ^GitHub Desktop$https://github.com/apps/desktop^ now.", { image: null });
+      await mutant.hand_over_mouth_open_eyes.say("If you don't know how to use a terminal, or aren't allowed to install one...");
+      await mutant.grinning.say('...you can create a *Codespace*!')
+      await mutant.slight_smile.say('This is a feature provided by GitHub that lets you develop your theme completely online.');
+      await mutant.thinking.say("You'll want to go to your repository and click *\"Code\"*.", { image: 'code_button', image_width: 200 });
+      await mutant.thinking.say('Click *"Codespaces"*, then click *"Create codespace on main"*.', { image: 'create_codespace_on_main', image_width: 400 });
+      await mutant.grinning.say('This will open a fresh codespace in a new tab!');
+      await mutant.slight_smile.say("It'll take a couple of minutes to set itself up for the first time...");
+      await mutant.grinning.say("...but as soon as you see something like this, that means it's all done!", { image: 'shell_prompt' });
+      // TODO: use the same link that the user provided in text entry
+      await mutant.slight_smile.say("Let's go to your repository and create a codespace now.", { image: null });
       await mutant.slight_smile.choice1({
         option_a: 'I did it',
         callback_a: async () => await mutant.grinning.say('Wonderful!'),
       });
+      await mutant.slight_smile.say("I'll show you how to push a commit from your codespace in a little while.")
     }
   });
-  await mutant.slight_smile.say("I'll trust that you're ready to push commits to your repository on your own.");
   await mutant.grinning.say("Let's move on to the next task!");
 })
 
