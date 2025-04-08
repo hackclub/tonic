@@ -44,7 +44,7 @@ const github_setup = new Task({
     callback_a: async () => await mutant.smile_hearts.say('Lovely!'),
   });
   await mutant.slight_smile.say("We're going to create a *new repository* to store your Jekyll theme in.")
-  await mutant.thinking.say("We'll be using a _template repository_ called *tonic-starter* as a baseline.", { image: 'tonic_starter', image_width: 300 });
+  await mutant.thinking.say("We'll be using a _template repository_ called *tonic-starter* as a baseline.", { image: 'public_template', image_width: 300 });
   await mutant.slight_smile.say("Let's visit the ^tonic-starter$https://github.com/hackclub/tonic-starter^ repository now.");
   await mutant.slight_smile.choice1({
     option_a: 'I did it',
