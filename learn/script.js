@@ -85,11 +85,13 @@ document.getElementById('mutant_code_copy').onclick = async function () {
 export function show_tasks () {
   document.getElementById('mutant_container').className = '';
   document.getElementById('tasks_container').classList.remove('hidden-w');
+  document.getElementById('tasks_container').classList.remove('in');
 }
 
 export function hide_tasks () {
   document.getElementById('mutant_container').className = 'recenter';
   document.getElementById('tasks_container').classList.add('hidden-w');
+  document.getElementById('tasks_container').classList.add('in');
 }
 
 class Mutant {
@@ -421,8 +423,8 @@ async function override () {
   mutant.greeting();
   const tasks_state_override = {
     'GitHub setup': 4,
-    'Jekyll setup': 3,
-    'Your first page': 1,
+    'Jekyll setup': 4,
+    'Your first page': 3,
   };
   await tasks.register_all(tasks_state_override);
 }
