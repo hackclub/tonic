@@ -72,35 +72,26 @@ const github_setup = new Task({
   await mutant.thinking.say("I'm going to have you *regularly push commits* to the repository you just made...");
   await mutant.thinking.say('...and give me *direct links* to them afterwards.');
   await mutant.hushed.say('That means no uploading your entire theme all at once at the end!');
-  await mutant.hushed.say("Now, I'd like to ask you...");
-  await mutant.thinking.say('Are you able to use GitHub from a *terminal*?');
-  await mutant.thinking.choice2({
-    option_a: 'Yes, I can',
-    option_b: "No, I can't",
-    callback_a: async () => {
-      await mutant.grinning.say('Amazing!');
-      await mutant.slight_smile.say("I'll trust that you're ready to push commits to your repository on your own.");
-    },
-    callback_b: async () => {
-      await mutant.grinning.say("That's okay! There's another option.");
-      await mutant.hand_over_mouth_open_eyes.say("If you don't know how to use a terminal, or aren't allowed to install one...");
-      await mutant.grinning.say('...you can create a *Codespace*!')
-      await mutant.slight_smile.say('This is a feature provided by GitHub that lets you develop your theme completely online.');
-      await mutant.thinking.say("You'll want to go to your repository and click *\"Code\"*.", { image: 'code_button', image_width: 200 });
-      await mutant.thinking.say('Click *"Codespaces"*, then click *"Create codespace on main"*.', { image: 'create_codespace_on_main', image_width: 400 });
-      await mutant.grinning.say('This will open a fresh codespace in a new tab!');
-      await mutant.slight_smile.say("It'll take a couple of minutes to set itself up for the first time...");
-      await mutant.grinning.say("...but as soon as you see something like this, that means it's all done!", { image: 'shell_prompt' });
-      // TODO: use the same link that the user provided in text entry
-      await mutant.slight_smile.say("Let's go to your repository and create a codespace now.", { image: null });
-      await mutant.slight_smile.choice1({
-        option_a: 'I did it',
-        callback_a: async () => await mutant.grinning.say('Wonderful!'),
-      });
-      await mutant.slight_smile.say("I'll show you how to push a commit from your codespace in a little while.")
-    }
+  await mutant.grinning.say("To accomplish this, I'd like to have you create a *codespace*.");
+  await mutant.slight_smile.say('This is a feature provided by GitHub that lets you develop your theme completely online.');
+  await mutant.hand_over_mouth_open_eyes.say("If you know what you're doing, it's possible to push commits without one...");
+  await mutant.grinning.say('However, I *strongly recommend* that you set one up!');
+  await mutant.slight_smile.say("It'll make installing Jekyll and other required tools *much easier*.");
+  await mutant.hushed.say("If you aren't allowed to download things on your computer, it might even be your only option!");
+  await mutant.grinning.say("So, how do you create a codespace?");
+  await mutant.thinking.say("You'll want to go to your repository and click *\"Code\"*.", { image: 'code_button', image_width: 200 });
+  await mutant.thinking.say('Click *"Codespaces"*, then click *"Create codespace on main"*.', { image: 'create_codespace_on_main', image_width: 400 });
+  await mutant.grinning.say('This will open a fresh codespace in a new tab!');
+  await mutant.slight_smile.say("It'll take a couple of minutes to set itself up for the first time...");
+  await mutant.grinning.say("...but as soon as you see something like this, that means it's all done!", { image: 'shell_prompt' });
+  // TODO: use the same link that the user provided in text entry
+  await mutant.slight_smile.say("Let's go to your repository and create a codespace now.", { image: null });
+  await mutant.slight_smile.choice1({
+    option_a: 'I did it',
+    callback_a: async () => await mutant.grinning.say('Wonderful!'),
   });
-  await mutant.grinning.say("Let's move on to the next task!");
+  await mutant.slight_smile.say("I'll show you how to push a commit from your codespace during the next task.");
+  await mutant.grinning.say('Speaking of which...');
 })
 
 export default github_setup;
