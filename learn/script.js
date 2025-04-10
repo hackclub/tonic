@@ -254,6 +254,8 @@ class Mutant {
     this.text_element.classList.remove('hidden-h');
     const link = text.match(/\^(.+?)\$(.+?)\^/) || [];
     const link_href = link[2];
+    const escaped = text.match(/@(.)/) || [];
+    const escaped_char = escaped[1];
     let element_to_append_to = this.text_element;
     if (typeof image === 'string') {
       show_image(image);
@@ -271,7 +273,7 @@ class Mutant {
     }
     await new Promise(resolve => {
       yap(
-        text.replace(/\^(.+?)\$(.+?)\^/, '^$1^'),
+        text.replace(/\^(.+?)\$(.+?)\^/, '^$1^').replace(/@./, '@'),
         {
           baseRate: 3.5 * TIME_SCALE,
           rateVariance: 2,
@@ -302,6 +304,8 @@ class Mutant {
               } else {
                 element_to_append_to = this.text_element;
               }
+            } else if (letter === '@') {
+              element_to_append_to.innerHTML += escaped_char;
             } else {
               element_to_append_to.innerHTML += letter;
             }
@@ -424,7 +428,11 @@ async function override () {
   const tasks_state_override = {
     'GitHub setup': 4,
     'Jekyll setup': 4,
-    'Your first page': 3,
+    'Your first page': 4,
+    'The config file': 3,
+    'Layouts': 2,
+    'Includes': 2,
+    'Sass': 2,
   };
   await tasks.register_all(tasks_state_override);
 }
