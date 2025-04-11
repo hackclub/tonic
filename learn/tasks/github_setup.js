@@ -90,8 +90,8 @@ const github_setup = new Task({
     option_a: 'I did it',
     callback_a: async () => await mutant.grinning.say('Wonderful!'),
   });
-  await mutant.slight_smile.say("I'll show you how to push a commit from your codespace during the next task.");
-  await mutant.grinning.say('Speaking of which...');
+  await mutant.slight_smile.say("I'll show you how to push a commit from your codespace in a little while.");
+  await mutant.grinning.say("Let's move on to the next task!");
 })
 
 export default github_setup;
