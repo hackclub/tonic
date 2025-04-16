@@ -377,6 +377,22 @@ class Mutant {
       }
     });
   }
+  async repeatable (object) {
+    let { question, response, callback } = object;
+    let chose_option_a = false;
+    while (!chose_option_a) {
+      await callback();
+      hide_image();
+      await question();
+      await this.choice2({
+        option_a: 'I think so',
+        option_b: 'Show me that again',
+        callback_a: async () => chose_option_a = true,
+        callback_b: () => {},
+      });
+    }
+    await response();
+  }
   async text_entry (object) {
     await new Promise(resolve => {
       let { placeholder, exp, callback } = object;
