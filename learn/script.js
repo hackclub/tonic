@@ -190,8 +190,8 @@ class Mutant {
   }
   async introduce_tasks () {
     this.stage = 4;
-    document.getElementById('tasks_container').classList.add('in');
     show_tasks();
+    document.getElementById('tasks_container').classList.add('in');
     await sleep(1500);
     play_sound('drum', { randomize: true });
     await tasks.set_state('GitHub setup', 3);
