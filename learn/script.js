@@ -66,7 +66,7 @@ export function hide_image () {
 
 export function show_code (code) {
   document.getElementById('mutant_container').className = '';
-  document.getElementById('mutant_code').innerHTML = code;
+  document.getElementById('mutant_code').innerText = code;
   document.getElementById('code_container').classList.remove('hidden-w');
 }
 
@@ -445,10 +445,10 @@ async function override () {
     'GitHub setup': 4,
     'Jekyll setup': 4,
     'Your first page': 4,
-    'The config file': 3,
-    'Layouts': 2,
-    'Includes': 2,
-    'Sass': 2,
+    'The config file': 4,
+    'Layouts': 3,
+    'Includes': 3,
+    'Sass': 3,
   };
   await tasks.register_all(tasks_state_override);
 }
