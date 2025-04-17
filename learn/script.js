@@ -5,6 +5,11 @@ const bgm = new Howl({
   html5: true,
   loop: true,
 });
+const bgm_final = new Howl({
+  src: '/assets/audio/bgm_final.wav',
+  html5: true,
+  loop: true,
+});
 let bgm_id;
 
 const sounds = {
