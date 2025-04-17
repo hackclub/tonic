@@ -189,6 +189,8 @@ function update_list_item (task) {
       await sleep(1000);
       play_sound('task_complete');
       await set_state(task.name, 4);
+      const potentially_unlocked_mid_group_task = Object.values(all_tasks).find(t => t.requires_tasks?.includes(task.name));
+      const required_tasks_for_potentially_unlocked_mid_group_task = Object.values(all_tasks).filter(t => potentially_unlocked_mid_group_task?.requires_tasks?.includes(t.name));
       if (Object.values(all_tasks).filter(t => t.group === task.group).every(t => t.state === 4)) {
         await fade_bgm();
         await sleep(500);
@@ -199,6 +201,11 @@ function update_list_item (task) {
           play_sound('drum', { randomize: true });
           await set_state(task_which_requires_group.name, 3);
         }
+      } else if (required_tasks_for_potentially_unlocked_mid_group_task.length > 0 && required_tasks_for_potentially_unlocked_mid_group_task.every(t => t.state === 4)) {
+        // TODO: outdent?
+        await sleep(1500);
+        play_sound('drum', { randomize: true });
+        await set_state(potentially_unlocked_mid_group_task.name, 3);
       } else {
         await sleep(1500);
       }
@@ -280,6 +287,7 @@ async function set_state (task_name, state) {
   const task = Object.values(all_tasks).find(task => task.name === task_name);
   task.state = state;
   update_list_item(task);
+  document.getElementById('tasks_container').scrollTop = document.getElementById('tasks_container').scrollHeight;
   if (state === 3) {
     if (Object.entries(task.updates_on_reveal).length > 0) {
       await sleep(666);
@@ -297,7 +305,12 @@ async function set_state (task_name, state) {
   }
 }
 
+function all_tasks_completed () {
+  return Object.values(all_tasks).every(task => task.state === 4);
+}
+
 export default {
   register_all,
   set_state,
+  all_tasks_completed,
 }

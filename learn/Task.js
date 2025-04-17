@@ -4,6 +4,7 @@ export default class Task {
     this.description = opts.description;
     this.group = opts.group;
     this.requires_group = opts.requires_group || null;
+    this.requires_tasks = opts.requires_tasks || [];
     this.updates_on_reveal = opts.updates_on_reveal || {};
     this.updates_on_complete = opts.updates_on_complete || {};
     this.state = 0;

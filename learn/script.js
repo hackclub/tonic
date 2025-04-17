@@ -238,6 +238,18 @@ class Mutant {
     this.text_element.innerHTML = '';
     show_tasks();
   }
+  async complete () {
+    this.stage = 6;
+    hide_tasks();
+    await sleep(1500);
+    await this.grinning.say('You did it!');
+    await this.grinning.say("You've completed all the tasks I have for you.");
+    await this.smile_with_tear.say('I knew you could do it!');
+    // TODO
+    this.emote = 'slight_smile';
+    this.text_element.innerHTML = '';
+    show_tasks();
+  }
   /**
    * Make Mutant say something, awaiting a promise which resolves when Mutant
    * finishes saying it.
@@ -451,8 +463,8 @@ async function override () {
     'Jekyll setup': 4,
     'Your first page': 4,
     'The config file': 4,
-    'Layouts': 3,
-    'Includes': 3,
+    'Layouts': 4,
+    'Includes': 4,
     'Sass': 3,
   };
   await tasks.register_all(tasks_state_override);
@@ -506,7 +518,12 @@ document.getElementById('choice_2').onmouseenter = function () {
 }
 
 sounds.awoken_final.on('end', function () {
-  bgm_id = bgm.play();
+  if (tasks.all_tasks_completed()) {
+    bgm_id = bgm_final.play();
+    mutant.complete();
+  } else {
+    bgm_id = bgm.play();
+  }
   if (mutant.stage === 2) {
     mutant.introduction();
   }
