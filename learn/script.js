@@ -80,6 +80,7 @@ export function hide_code () {
   document.getElementById('code_container').classList.add('hidden-w');
 }
 
+// TODO: remove the copy button!
 document.getElementById('mutant_code_copy').onclick = async function () {
   navigator.clipboard.writeText(document.getElementById('mutant_code').innerText);
   document.getElementById('mutant_code_copy').innerHTML = 'Copied!';
@@ -498,6 +499,12 @@ document.getElementById('music_toggle').onclick = function () {
 //   // ?
 //   document.getElementById('sound_toggle_icon').src = sound_enabled ? '/assets/ms/speaker_medium_volume.svg' : '/assets/ms/speaker_muted.svg';
 // }
+
+mutant.element.onmouseenter = function () {
+  if (mutant.clickable) {
+    play_sound('hover');
+  }
+}
 
 mutant.element.onclick = function () {
   if (mutant.stage === 0) {
