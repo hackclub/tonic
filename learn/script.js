@@ -12,6 +12,8 @@ const bgm_final = new Howl({
 });
 let bgm_id;
 
+// TODO: image credit - attribution of all logos used
+
 const sounds = {
   awoken_blip: new Howl({ src: '/assets/audio/awoken_blip.wav' }),
   awoken_c: new Howl({ src: '/assets/audio/awoken_c.wav' }),
@@ -507,6 +509,9 @@ mutant.element.onmouseenter = function () {
 }
 
 mutant.element.onclick = function () {
+  if (mutant.clickable) {
+    play_sound('click');
+  }
   if (mutant.stage === 0) {
     mutant.wake_up();
   }
