@@ -417,6 +417,7 @@ class Mutant {
     await new Promise(resolve => {
       let { placeholder, exp, callback } = object;
       document.getElementById('text_entry_container').classList.remove('hidden-h');
+      document.getElementById('text_entry').value = '';
       document.getElementById('text_entry').placeholder = placeholder;
       document.getElementById('text_entry').onkeydown = async function (e) {
         if (e.key === 'Enter') {
