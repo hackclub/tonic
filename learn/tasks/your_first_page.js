@@ -1,6 +1,8 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image, show_code } from '../script.js';
 
+// TODO: make sure a `title` key is added in the front matter
+
 const your_first_page = new Task({
   name: 'Your first page',
   description: 'Give your theme a front page!',
@@ -8,25 +10,25 @@ const your_first_page = new Task({
 }).with_callback(async () => {
   await mutant.hushed.say("Now that you've installed Jekyll...");
   await mutant.grinning.say("...it's time to give your Jekyll theme a front page!");
-  await mutant.thinking.say("In the next section, you'll use the programming languages *HTML* and *CSS* to create your theme.");
+  await mutant.thinking.say("In the next section, you'll use *HTML* and *CSS* to start building your theme.");
   await mutant.thinking.say('However, when other people use your theme, they create pages using a language called *Markdown*.');
   await mutant.hushed.say("So, it's important that you learn about it, too!");
-  await mutant.slight_smile.say('Markdown is known for its simplicity.', { image: 'markdown_paragraph' });
-  await mutant.grinning.say("In fact, you don't need any extra symbols to write most of the content on a page!");
-  await mutant.slight_smile.say('However, there are a few symbols that you need to know about.');
-  await mutant.thinking.say('You can make text *bold* by adding two asterisks on either side...', { image: 'markdown_bold' });
-  await mutant.thinking.say('...and make text _italic_ by adding one asterisk on either side.', { image: 'markdown_italic' });
-  await mutant.hand_over_mouth_open_eyes.say("Headings can be added to a page using up to 6 *#*'s before a line of text...", { image: 'markdown_headings', image_width: 200 });
-  await mutant.slight_smile.say('...and links to other pages can be added by combining parentheses and square brackets.', { image: 'markdown_link', image_width: 400 });
-  await mutant.hushed.say("Finally, there's the *front matter block*.", { image: 'empty_front_matter_block', image_width: 200 });
-  await mutant.hushed.say('You can see one of these in the *index.md* file in your codespace.');
-  await mutant.thinking.say('The front matter block is completely unique to Jekyll, and allows you to _configure_ a page.');
-  await mutant.thinking.say("For example, if you wanted to set a page's title or layout, you'd do it here.", { image: 'front_matter_block' });
-  await mutant.hushed.say('Does all of this make sense?', { image: null });
-  // TODO: show me that again
-  await mutant.hushed.choice1({
-    option_a: 'I think so',
-    callback_a: async () => await mutant.grinning.say('Excellent!'),
+  await mutant.repeatable({
+    question: async () => await mutant.hushed.say('Does all of this make sense?'),
+    response: async () => await mutant.grinning.say('Excellent!'),
+    callback: async () => {
+      await mutant.slight_smile.say('Markdown is known for its simplicity.', { image: 'markdown_paragraph', image_width: 400 });
+      await mutant.grinning.say("In fact, you don't need any extra symbols to write most of the content on a page!");
+      await mutant.slight_smile.say('However, there are a few symbols that you need to know about.');
+      await mutant.thinking.say('You can make text *bold* by adding two asterisks on either side...', { image: 'markdown_bold' });
+      await mutant.thinking.say('...and make text _italic_ by adding one asterisk on either side.', { image: 'markdown_italic' });
+      await mutant.hand_over_mouth_open_eyes.say("Headings can be added to a page using up to 6 *#*'s before a line of text...", { image: 'markdown_headings', image_width: 200 });
+      await mutant.slight_smile.say('...and links to other pages can be added by combining parentheses and square brackets.', { image: 'markdown_link', image_width: 400 });
+      await mutant.hushed.say("Finally, there's the *front matter block*.", { image: 'empty_front_matter_block', image_width: 200 });
+      await mutant.hushed.say('You can see one of these in the *index.md* file in your codespace.');
+      await mutant.thinking.say('The front matter block is completely unique to Jekyll, and allows you to _configure_ a page.');
+      await mutant.thinking.say("For example, if you wanted to set a page's title or layout, you'd do it here.", { image: 'front_matter_block' });
+    },
   });
   await mutant.thinking.say("I'd like you to update the *index.md* file in your codespace.");
   await mutant.grinning.say("This is the file that Jekyll will show as the front page of your whole theme!")
@@ -34,8 +36,11 @@ const your_first_page = new Task({
   await mutant.slight_smile.say("Whether you're making something light, dark, or space-themed...");
   await mutant.grinning.say('...the *index.md* file is where you need to tell that to the world!');
   await mutant.slight_smile.say('This is what that file looks like now.', { image: 'tonic_starter_index' });
-  await mutant.slight_smile.say('Update it to use the name of your theme, instead of *tonic-starter*...');
-  await mutant.slight_smile.say('...and add a sentence or two describing what your theme is going to look like.');
+  await mutant.grinning.say("Let me show you an example of what I'd like you to do to it!")
+  await mutant.slight_smile.say('First, update it to use the name of your theme, instead of *tonic-starter*.', { image: 'tonic_starter_index_2' });
+  await mutant.slight_smile.say('Then, add a sentence or two describing what your theme is going to look like.', { image: 'tonic_starter_index_3', image_width: 400 });
+  await mutant.grinning.say('Finally, add the line *title: Home* inside the front matter block!', { image: 'tonic_starter_index_4' });
+  await mutant.slight_smile.say("This line won't have any effect for now, but it will be important in a little bit.");
   await mutant.grinning.say("Let me know when you're done, and I'll show you how to commit your changes!", { image: null });
   await mutant.slight_smile.choice1({
     option_a: 'All done',
