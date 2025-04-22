@@ -1,8 +1,6 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image, show_code, hide_code } from '../script.js';
 
-// TODO: do your own research, don't just make your theme look like nimmoi
-
 const sass = new Task({
   name: 'Sass',
   description: "Make your theme look a little nicer!",
@@ -105,6 +103,7 @@ const sass = new Task({
     option_a: 'I did it',
     callback_a: async () => await mutant.grinning.say('Amazing!'),
   });
+
   await mutant.starry_eyes.say("Going forward, the example theme I'll be showing you will be pink!", { image: 'pink_index_md' });
   await mutant.thinking.say('Can you commit all of your changes and give me the link?', { image: null });
   await mutant.thinking.text_entry({
@@ -112,7 +111,20 @@ const sass = new Task({
     exp: /^(https:\/\/)?github.com\/[\w-]+\/[\w-]+\/commit\/[0-9a-f]{40}$/gm,
     callback: async () => await mutant.grinning.say('Looks good to me!'),
   });
-  await mutant.grinning.say("Let's move on!");
+  await mutant.hand_over_mouth_open_eyes.say("At this point, I'm going to let you move on, but there's a catch...");
+  await mutant.hushed.say("Now that you know the basics of Sass, I'd like to see you do some more with it.");
+  await mutant.shush.say("Later on, you'll be able to access a *gallery* of all the themes that users have made here.");
+  await mutant.hushed.say('Adding some styles of your own will help your theme stand out from all the others!');
+  await mutant.thinking.say('Maybe you could add a subtle _background image_ to the *body*...');
+  await mutant.thinking.say('...or replace the solid color with a _gradient_.')
+  await mutant.hand_over_mouth_open_eyes.say('You could use a site like *Google Fonts* to find a more exciting font than _sans-serif_...');
+  await mutant.hand_over_mouth.say('...or add variables in a *:root* rule to provide a dark theme for users who prefer it.');
+  await mutant.thinking.say('If you already have a website, maybe you could make your theme look like that instead?');
+  await mutant.grinning.say('Or you could do all of these things and more!');
+  await mutant.slight_smile.say("The point is to go further, _do some research_, and make something you're *really proud of.*")
+  await mutant.grinning.say('The choice is yours. This step is optional, but *highly recommended!*');
+  await mutant.slight_smile.say('Just remember to keep pushing commits to your repository as you work.', { sleep_ms: 1500 });
+  await mutant.slight_smile.say("I wonder what happens next?");
 })
 
 export default sass;
