@@ -1,5 +1,11 @@
 import tasks from "./tasks.js";
 
+window.addEventListener('DOMContentLoaded', () => {
+  if (!document.cookie.match(/uid=U[A-Z0-9]+/)) {
+    window.location.href = window.location.origin;
+  }
+})
+
 const bgm = new Howl({
   src: '/assets/audio/bgm.wav',
   html5: true,
@@ -469,12 +475,17 @@ async function override () {
     'The config file': 4,
     'Layouts': 4,
     'Includes': 4,
-    'Sass': 3,
+    'Sass': 4,
+    'More elements': 3,
+    '404': 3,
+    'Liquid': 3,
+    'A feature of your own': 1,
   };
   await tasks.register_all(tasks_state_override);
 }
 window.onkeydown = async function (e) {
   if (e.key === '!' && !overrides_enabled) {
+    if (!window.location.origin.startsWith('http://localhost')) return;
     overrides_enabled = true;
     await override();
   }
