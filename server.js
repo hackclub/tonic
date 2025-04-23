@@ -45,8 +45,47 @@ app.get('/auth/slack', async (req, res) => {
   }).then(R => R.json());
   if (R.ok && R.authed_user?.access_token) {
     res.cookie('uid', R.authed_user.id);
+    // Make internal request to /scrap
+    // await fetch(`${redirect_url}/scrap`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     // 'Cookie': `uid=${R.authed_user.id}`
+    //   },
+    //   body: JSON.stringify({
+    //     task: 'Login',
+    //     text_entry: '-'
+    //   })
+    // });
   }
   res.redirect('/');
+});
+
+app.post('/scrap', async (req, res) => {
+  const task = req.body.task;
+  const text_entry = req.body.text_entry;
+  const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_SCRAPS_TABLE_ID}`, {
+    headers: {
+      'Authorization': `Bearer ${process.env.AIRTABLE_PAT}`,
+      'Content-Type': 'application/json'
+    },
+    // method: 'PATCH',
+    method: 'POST',
+    body: JSON.stringify({
+      // performUpsert: { fieldsToMergeOn: ['Slack ID'] },
+      records: [
+        {
+          fields: {
+            'Slack ID': req.cookies.uid,
+            'Task': task,
+            'Text Entry': text_entry,
+          },
+        },
+      ],
+    }),
+  }).then(R => R.json());
+  console.log(R);
+  res.status(200).json({ success: true });
 });
 
 app.listen(port, () => {
