@@ -38,19 +38,27 @@ app.get("/favicon.svg", (req, res) => {
   res.sendFile(__dirname + '/favicon.svg');
 });
 
+app.get('/auth', (req, res) => {
+  res.json({ auth: !!req.cookies.uid });
+});
+
 app.get('/auth/slack', async (req, res) => {
   const R = await fetch(`https://slack.com/api/oauth.v2.access?code=${req.query.code}&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&redirect_uri=${redirect_url}/auth/slack`, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     method: 'POST',
   }).then(R => R.json());
   if (R.ok && R.authed_user?.access_token) {
-    res.cookie('uid', R.authed_user.id);
+    res.cookie('uid', R.authed_user.id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      // sameSite: 'lax'
+    });
     // Make internal request to /scrap
     // await fetch(`${redirect_url}/scrap`, {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
-    //     // 'Cookie': `uid=${R.authed_user.id}`
+    //     'Cookie': `uid=${R.authed_user.id}`
     //   },
     //   body: JSON.stringify({
     //     task: 'Login',
@@ -85,7 +93,11 @@ app.post('/scrap', async (req, res) => {
     }),
   }).then(R => R.json());
   console.log(R);
-  res.status(200).json({ success: true });
+  if (R.error) {
+    res.status(500).json({ success: false})
+  } else {
+    res.status(200).json({ success: true });
+  }
 });
 
 app.listen(port, () => {

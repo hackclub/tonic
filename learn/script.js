@@ -1,9 +1,15 @@
 import tasks from "./tasks.js";
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (!document.cookie.match(/uid=U[A-Z0-9]+/)) {
-    window.location.href = window.location.origin;
-  }
+  fetch('/auth', {
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (!data.auth) {
+        window.location.href = window.location.origin;
+      }
+    });
 })
 
 const bgm = new Howl({
