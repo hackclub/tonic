@@ -446,6 +446,23 @@ class Mutant {
             play_sound('negative_click');
             return;
           }
+          riser_id = riser.play();
+          const S = await fetch('/scrap', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              task: document.getElementById('current_task_name').innerText,
+              text_entry: document.getElementById('text_entry').value,
+            }),
+          }).then(response => response.json());
+          riser.fade(1, 0, 250, riser_id);
+          if (!S.success) {
+            play_sound('negative_click');
+            return;
+          }
           play_sound('click');
           document.getElementById('text_entry_container').classList.add('hidden-h');
           document.activeElement.blur();
