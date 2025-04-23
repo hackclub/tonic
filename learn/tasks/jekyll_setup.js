@@ -53,7 +53,12 @@ const jekyll_setup = new Task({
   await mutant.grimace.say("Well, that's not very exciting, is it?");
   await mutant.grinning.say("Don't worry, though - in a little while I'll teach you how to make it look amazing!");
   await mutant.slight_smile.say("I'm going to trust that you were able to do this - I won't ask you for any links this time.", { image: null });
-  await mutant.hand_over_mouth_open_eyes.say("However, I'm going to ask you for one in the next task, so be prepared.");
+  await mutant.hand_over_mouth_open_eyes.say('I just need you to promise me that you did it...');
+  await mutant.hand_over_mouth_open_eyes.text_entry({
+    placeholder: 'I promise!',
+    exp: /^I promise!$/gm,
+    callback: async () => await mutant.grinning.say('Perfect!'),
+  });
   await mutant.grinning.say("Let's move on!");
 })
 
