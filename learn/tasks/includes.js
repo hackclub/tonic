@@ -5,6 +5,9 @@ const includes = new Task({
   name: 'Includes',
   description: "Move parts of your theme into their own files.",
   group: 'Theme structure',
+  updates_on_complete: {
+    'Sass': 3,
+  }
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';
   await mutant.grinning.say('In the last task, I showed you how to add a basic layout to your Jekyll theme using HTML.');

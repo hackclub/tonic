@@ -1,6 +1,8 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image, show_code, hide_code } from '../script.js';
 
+// TODO: jekyll serve --watch
+
 const jekyll_setup = new Task({
   name: 'Jekyll setup',
   description: 'Set up Jekyll so you can start building your theme!',

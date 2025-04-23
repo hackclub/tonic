@@ -5,6 +5,7 @@ const liquid = new Task({
   name: 'Liquid',
   description: "Do more complex things with your Jekyll theme!",
   group: 'Going further',
+  requires_tasks: ['The config file', 'Layouts', 'Includes', 'Sass'],
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';
 })

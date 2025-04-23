@@ -1,20 +1,15 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image } from '../script.js';
 
+// TODO: whenever you change the _config.yml file, you will need to fully restart the Jekyll server
+
 const the_config_file = new Task({
   name: 'The config file',
   description: 'Apply settings to your entire theme.',
   group: 'Theme structure',
   requires_group: 'Setting up',
-  updates_on_reveal: {
-    'Layouts': 2,
-    'Includes': 2,
-    'Sass': 2,
-  },
   updates_on_complete: {
     'Layouts': 3,
-    'Includes': 3,
-    'Sass': 3,
   },
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';

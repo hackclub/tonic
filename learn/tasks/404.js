@@ -6,6 +6,7 @@ const four_oh_four = new Task({
   name: '404',
   description: "Let people know when a page is missing.",
   group: 'Going further',
+  requires_tasks: ['The config file', 'Layouts', 'Includes', 'Sass'],
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';
 })

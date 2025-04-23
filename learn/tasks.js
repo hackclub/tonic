@@ -196,11 +196,11 @@ function update_list_item (task) {
         await sleep(500);
         play_sound('awoken_final');
         await sleep(4000);
-        const task_which_requires_group = Object.values(all_tasks).find(t => t.requires_group === task.group);
-        if (task_which_requires_group) {
-          play_sound('drum', { randomize: true });
-          await set_state(task_which_requires_group.name, 3);
-        }
+        // const task_which_requires_group = Object.values(all_tasks).find(t => t.requires_group === task.group);
+        // if (task_which_requires_group) {
+        //   play_sound('drum', { randomize: true });
+        //   await set_state(task_which_requires_group.name, 3);
+        // }
       } else if (required_tasks_for_potentially_unlocked_mid_group_task.length > 0 && required_tasks_for_potentially_unlocked_mid_group_task.every(t => t.state === 4)) {
         // TODO: outdent?
         await sleep(1500);
@@ -310,6 +310,7 @@ function all_tasks_completed () {
 }
 
 export default {
+  all_tasks,
   register_all,
   set_state,
   all_tasks_completed,

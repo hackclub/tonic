@@ -94,9 +94,25 @@ app.post('/scrap', async (req, res) => {
   }).then(R => R.json());
   console.log(R);
   if (R.error) {
-    res.status(500).json({ success: false})
+    res.status(500).json({ success: false })
   } else {
     res.status(200).json({ success: true });
+  }
+});
+
+app.get('/scraps', async (req, res) => {
+  const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Scraps?fields[]=Task&filterByFormula={Slack ID}="${req.cookies.uid}"`, {
+    headers: {
+      'Authorization': `Bearer ${process.env.AIRTABLE_PAT}`,
+      'Content-Type': 'application/json'
+    },
+    method: 'GET',
+  }).then(R => R.json());
+  console.log(R);
+  if (R.error) {
+    res.status(500).json({ success: false })
+  } else {
+    res.status(200).json({ success: true, ...R });
   }
 });
 

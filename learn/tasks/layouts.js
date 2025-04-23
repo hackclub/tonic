@@ -5,6 +5,9 @@ const layouts = new Task({
   name: 'Layouts',
   description: 'Decide how each page should be structured.',
   group: 'Theme structure',
+  updates_on_complete: {
+    'Includes': 3,
+  }
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';
   await mutant.grinning.say('Earlier, I mentioned that you would be using *HTML* to create your theme.');
@@ -65,6 +68,7 @@ const layouts = new Task({
     callback_a: async () => await mutant.grin.say('Wonderful!'),
   });
   hide_code();
+  // TODO: "after all of these changes, your theme will still look exactly the same"
   await mutant.thinking.say('Can you commit your changes and give me the link?');
   await mutant.thinking.text_entry({
     placeholder: 'github.com/x/y/commit/...',

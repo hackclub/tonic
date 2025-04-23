@@ -1,12 +1,16 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image, show_code } from '../script.js';
 
-// TODO: make sure a `title` key is added in the front matter
-
 const your_first_page = new Task({
   name: 'Your first page',
   description: 'Give your theme a front page!',
   group: 'Setting up',
+  updates_on_complete: {
+    'The config file': 3,
+    'Layouts': 2,
+    'Includes': 2,
+    'Sass': 2,
+  },
 }).with_callback(async () => {
   await mutant.hushed.say("Now that you've installed Jekyll...");
   await mutant.grinning.say("...it's time to give your Jekyll theme a front page!");
@@ -27,6 +31,7 @@ const your_first_page = new Task({
       await mutant.hushed.say("Finally, there's the *front matter block*.", { image: 'empty_front_matter_block', image_width: 200 });
       await mutant.hushed.say('You can see one of these in the *index.md* file in your codespace.');
       await mutant.thinking.say('The front matter block is completely unique to Jekyll, and allows you to _configure_ a page.');
+      // TODO: update image to say "layout: default"?
       await mutant.thinking.say("For example, if you wanted to set a page's title or layout, you'd do it here.", { image: 'front_matter_block' });
     },
   });

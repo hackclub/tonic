@@ -529,9 +529,46 @@ mutant.element.onmouseenter = function () {
 mutant.element.onclick = function () {
   if (mutant.clickable) {
     play_sound('click');
-  }
-  if (mutant.stage === 0) {
-    mutant.wake_up();
+    fetch('/scraps', { credentials: 'include' })
+      .then(response => response.json())
+      .then(async (data) => {
+        if (!data.success) return;
+        if (data.records.length === 0) {
+          mutant.wake_up();
+        } else {
+          let tasks_state = {};
+          data.records.sort((a, b) => new Date(a.createdTime) - new Date(b.createdTime));
+          console.log(data.records);
+          for (const record of data.records) {
+            const task_name = record.fields['Task'];
+            const task = Object.values(tasks.all_tasks).find(task => task.name === task_name);
+            tasks_state[task_name] = 4;
+            for (const u_task_name of Object.keys(task.updates_on_complete)) {
+              tasks_state[u_task_name] = task.updates_on_complete[u_task_name];
+            }
+          }
+          const tasks_which_should_be_unlocked_based_on_required_tasks = Object.values(tasks.all_tasks).filter(task => {
+            if (task.requires_tasks.length === 0) return false;
+            if (tasks_state[task.name] < 3 && task.requires_tasks.every(t => tasks_state[t] === 4)) return true;
+            return false;
+          });
+          console.log(tasks_state);
+          for (const task of tasks_which_should_be_unlocked_based_on_required_tasks) {
+            tasks_state[task.name] = 3;
+          }
+          // FIXME: hardcoding this check, it's the only one of its kind
+          // if (tasks_state['More elements'] === 4 && tasks_state['404'] === 4 && tasks_state['Liquid'] === 4 && tasks_state['A feature of your own'] === undefined) {
+          //   tasks_state['A feature of your own'] = 3;
+          // } else if (tasks_state['More elements'] >= 3) {
+          //   tasks_state['A feature of your own'] = 1;
+          // }
+          await tasks.register_all(tasks_state);
+          mutant.clickable = false;
+          mutant.emote = 'slight_smile';
+          bgm_id = bgm.play();
+          mutant.greeting();
+        }
+      });
   }
 }
 
