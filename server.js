@@ -100,6 +100,16 @@ app.post('/scrap', async (req, res) => {
   }
 });
 
+app.get('/auth/logout', (req, res) => {
+  res.cookie('uid', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    // sameSite: 'lax',
+    expires: new Date(0)
+  });
+  res.redirect('/');
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

@@ -7,6 +7,10 @@ fetch('/auth', {
       document.getElementById('login').innerText = 'Play';
       document.getElementById('login').className = '';
       document.getElementById('login_a').href = window.location.origin + '/learn';
+      document.getElementById('logout').className = '';
+      document.getElementById('logout').onclick = () => {
+        window.location.href = '/auth/logout';
+      };
     } else {
       document.getElementById('login').innerText = 'Sign in with Slack';
       document.getElementById('login').className = 'w150';
