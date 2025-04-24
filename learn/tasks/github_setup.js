@@ -6,7 +6,7 @@ const github_setup = new Task({
   description: 'Use GitHub to store the code for your theme!',
   group: 'Setting up',
   updates_on_complete: {
-    'Jekyll setup': 3,
+    'Hackatime setup': 3,
   },
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';

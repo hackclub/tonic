@@ -49,7 +49,7 @@ const sounds = {
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 1;
+const TIME_SCALE = 2.5;
 let overrides_enabled = false;
 
 let music_enabled = true;
@@ -224,6 +224,9 @@ class Mutant {
     await tasks.set_state('GitHub setup', 3);
     await sleep(666);
     play_sound('drum', { randomize: true });
+    await tasks.set_state('Hackatime setup', 1);
+    await sleep(666);
+    play_sound('drum', { randomize: true });
     await tasks.set_state('Jekyll setup', 1);
     await sleep(333);
     play_sound('drum', { randomize: true });
@@ -345,6 +348,8 @@ class Mutant {
               }
             } else if (letter === '@') {
               element_to_append_to.innerHTML += escaped_char;
+            } else if (letter === '&') {
+              element_to_append_to.innerHTML += '&amp;'
             } else {
               element_to_append_to.innerHTML += letter;
             }
@@ -514,7 +519,7 @@ async function override () {
   await tasks.register_all(tasks_state_override);
 }
 window.onkeydown = async function (e) {
-  if (e.key === '!' && !overrides_enabled) {
+  if (e.key === '*' && !overrides_enabled) {
     if (!window.location.origin.startsWith('http://localhost')) return;
     overrides_enabled = true;
     await override();
@@ -582,6 +587,7 @@ mutant.element.onclick = function () {
           for (const task of tasks_which_should_be_unlocked_based_on_required_tasks) {
             tasks_state[task.name] = 3;
           }
+          // TODO: update state in the case that the user has only completed "GitHub setup"
           await tasks.register_all(tasks_state);
           mutant.clickable = false;
           mutant.emote = 'slight_smile';

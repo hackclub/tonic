@@ -13,9 +13,11 @@ import the_readme_file from "./the_readme_file.js";
 import element_showcase from "./element_showcase.js";
 import gems from "./gems.js";
 import using_your_theme from "./using_your_theme.js";
+import hackatime_setup from "./hackatime_setup.js";
 
 export default {
   github_setup,
+  hackatime_setup,
   jekyll_setup,
   your_first_page,
   the_config_file,
