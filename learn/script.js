@@ -26,7 +26,7 @@ let bgm_id;
 
 const riser = new Howl({
   src: '/assets/audio/riser.wav',
-  volume: 0.05,
+  volume: 0.15,
   html5: true,
 });
 let riser_id;
