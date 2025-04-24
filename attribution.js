@@ -3,7 +3,7 @@
 // containers to change the opacity for
 const oh_containers = location.pathname === '/learn/'
   ? [
-    document.getElementById('back'),
+    // document.getElementById('back'),
     document.getElementById('options_container'),
     document.getElementById('mutant_container'),
     document.getElementById('image_container'),
@@ -13,7 +13,7 @@ const oh_containers = location.pathname === '/learn/'
 // containers to disable user interaction for
 const in_containers = location.pathname === '/learn/'
   ? [
-    document.getElementById('back'),
+    // document.getElementById('back'),
     document.getElementById('options_container'),
     document.getElementById('mutant_container'),
     document.getElementById('image_container'),
