@@ -20,7 +20,7 @@ const bgm = new Howl({
 const bgm_final = new Howl({
   src: '/assets/audio/bgm_final.wav',
   html5: true,
-  loop: true,
+  // loop: true,
 });
 let bgm_id;
 
@@ -634,6 +634,10 @@ sounds.awoken_final.on('end', function () {
     mutant.introduction();
   }
 });
+
+bgm_final.on('end', function () {
+  bgm_id = bgm.play();
+})
 
 function update_gate_countdown () {
   document.getElementById('gate').innerHTML = `Check back in <b>${tasks.gate_countdown()}</b>`;
