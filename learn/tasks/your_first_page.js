@@ -31,8 +31,7 @@ const your_first_page = new Task({
       await mutant.hushed.say("Finally, there's the *front matter block*.", { image: 'empty_front_matter_block', image_width: 200 });
       await mutant.hushed.say('You can see one of these in the *index.md* file in your codespace.');
       await mutant.thinking.say('The front matter block is completely unique to Jekyll, and allows you to _configure_ a page.');
-      // TODO: update image to say "layout: default"?
-      await mutant.thinking.say("For example, if you wanted to set a page's title or layout, you'd do it here.", { image: 'front_matter_block' });
+      await mutant.thinking.say("For example, if you wanted to set a page's title or layout, you'd do it here.");
     },
   });
   await mutant.thinking.say("I'd like you to update the *index.md* file in your codespace.");
