@@ -66,8 +66,6 @@ const your_first_page = new Task({
   await mutant.slight_smile.say("This time, click *\"OK, Don't Show Again\"*.");
   await mutant.slight_smile.say('Now, your commit is pushed...', { image: null });
   await mutant.grinning.say('...and anybody will be able to see the changes you made in the history!');
-  await mutant.pensive.say('That was a lot of ground to cover...');
-  await mutant.head_shaking_vertically.say("But I know you can do this!");
   await mutant.slight_smile.say("Let me know when your commit is pushed, and I'll ask you for the link to it.");
   await mutant.slight_smile.choice1({
     option_a: 'I did it',

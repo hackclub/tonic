@@ -62,13 +62,14 @@ const layouts = new Task({
   await mutant.slight_smile.say("I'll show you how to expand upon this layout in a little while.");
   await mutant.grinning.say("For now, let's use it on your theme's front page!");
   show_code('layout: default');
-  await mutant.slight_smile.say('All you need to do is open *index.md* and add this code inside the front matter block.');
+  await mutant.slight_smile.say('All you need to do is open *index.md* and add this line inside the front matter block.');
   await mutant.slight_smile.choice1({
     option_a: 'I did it',
     callback_a: async () => await mutant.grin.say('Wonderful!'),
   });
   hide_code();
-  // TODO: "after all of these changes, your theme will still look exactly the same"
+  await mutant.hand_over_mouth_open_eyes.say('After all of these changes, your theme will still look exactly the same.');
+  await mutant.grinning.say("However, these changes will be helpful to us later on!");
   await mutant.thinking.say('Can you commit your changes and give me the link?');
   await mutant.thinking.text_entry({
     placeholder: 'github.com/x/y/commit/...',

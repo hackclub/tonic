@@ -53,7 +53,6 @@ const sass = new Task({
     callback_a: async () => await mutant.grinning.say('Excellent!'),
   });
   hide_code();
-  // TODO: color picker
   await mutant.thinking.say("To tell Jekyll to apply this style rule, we'll need to make changes in two more places.");
   await mutant.thinking.say('First, we need to create another *.scss* file to _import_ the partial.');
   await mutant.slight_smile.say("Let's make a new folder called *assets*.");

@@ -1,8 +1,6 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image } from '../script.js';
 
-// TODO: whenever you change the _config.yml file, you will need to fully restart the Jekyll server
-
 const the_config_file = new Task({
   name: 'The config file',
   description: 'Apply settings to your entire theme.',
@@ -49,12 +47,14 @@ const the_config_file = new Task({
     exp: /^(https:\/\/)?github.com\/[\w-]+\/[\w-]+\/commit\/[0-9a-f]{40}$/gm,
     callback: async () => await mutant.grinning.say('Looks good to me!'),
   });
-  await mutant.hand_over_mouth_open_eyes.say('Before we move on, there are two more important things you should keep in mind.');
-  await mutant.grinning.say('First, you can add your own options to the @_config.yml file!');
+  await mutant.hand_over_mouth_open_eyes.say('Before we move on, there are three more important things you should keep in mind.');
+  await mutant.thinking.say("First, every time you change the @_config.yml file, you'll have to *fully restart Jekyll* to see the changes.");
+  await mutant.thinking.say('That means pressing *Control+C* in the terminal and running *bundle exec jekyll serve --watch* again.');
+  await mutant.grinning.say('Second, you can add your own options to the @_config.yml file!');
   await mutant.thinking.say('For example, you might want to add an option to allow people to use a dark mode provided by your theme.', { image: 'enable_dark_theme' });
   await mutant.grinning.say("This is not part of Jekyll by default - you'd have to write the code to make this happen yourself!")
   await mutant.slight_smile.say("I'll show you how to do that later on.");
-  await mutant.thinking.say('Second, any option in the @_config.yml file can be *overwritten* by a site that uses it.', { image: 'footer', image_width: 400 });
+  await mutant.thinking.say('Lastly, any option in the @_config.yml file can be *overwritten* by a site that uses it.', { image: 'footer', image_width: 400 });
   await mutant.thinking.say('For example, look at this *footer* option from the *nimmoi* theme, by sporeball.');
   await mutant.hand_over_mouth_open_eyes.say("On nimmoi's website, the footer links to _sporeball_'s website, since she's the one who made it...");
   await mutant.hand_over_mouth.say('...but if you wanted to use nimmoi on your own site, you could use your own @_config.yml file to change it.');
