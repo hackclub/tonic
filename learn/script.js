@@ -49,7 +49,7 @@ const sounds = {
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 2.5;
+const TIME_SCALE = 1;
 let overrides_enabled = false;
 
 let music_enabled = true;
@@ -268,12 +268,24 @@ class Mutant {
     hide_tasks();
     await sleep(1500);
     await this.grinning.say('You did it!');
-    await this.grinning.say("You've completed all the tasks I have for you.");
+    await this.grinning.say("You've completed all the tasks I have for you so far.");
+    await this.slight_smile.say('Starting from a simple template, you now have the beginnings of your very own Jekyll theme.');
     await this.smile_with_tear.say('I knew you could do it!');
-    // TODO
+    await this.hushed.say('But what about showing it to the world?');
+    await this.hand_over_mouth_open_eyes.say("For that, I'll need some more time to collect my thoughts...");
+    await this.slight_smile.say('More tasks will become available very soon.');
+    await this.grinning.say("I hope to see you then!");
     this.emote = 'slight_smile';
     this.text_element.innerHTML = '';
     show_tasks();
+    await sleep(1500);
+    document.getElementById('tasks_container').classList.add('in');
+    play_sound('drum', { randomize: true });
+    document.getElementById('gate_divider').classList.remove('dn');
+    document.getElementById('gate').classList.remove('dn');
+    document.getElementById('tasks_container').scrollTop = document.getElementById('tasks_container').scrollHeight;
+    await sleep(1000);
+    document.getElementById('tasks_container').classList.remove('in');
   }
   /**
    * Make Mutant say something, awaiting a promise which resolves when Mutant
@@ -505,16 +517,17 @@ async function override () {
   mutant.greeting();
   const tasks_state_override = {
     'GitHub setup': 4,
+    'Hackatime setup': 4,
     'Jekyll setup': 4,
     'Your first page': 4,
     'The config file': 4,
     'Layouts': 4,
     'Includes': 4,
-    'Sass': 4,
-    'More elements': 3,
-    '404': 3,
-    'Liquid': 3,
-    'A feature of your own': 1,
+    'Sass': 3,
+    // 'More elements': 3,
+    // '404': 3,
+    // 'Liquid': 3,
+    // 'A feature of your own': 1,
   };
   await tasks.register_all(tasks_state_override);
 }
@@ -526,7 +539,7 @@ window.onkeydown = async function (e) {
   }
 }
 
-await tasks.register_all();
+// await tasks.register_all();
 
 document.getElementById('music_toggle').onmouseenter = function () {
   play_sound('hover');
@@ -621,3 +634,8 @@ sounds.awoken_final.on('end', function () {
     mutant.introduction();
   }
 });
+
+function update_gate_countdown () {
+  document.getElementById('gate').innerHTML = `Check back in <b>${tasks.gate_countdown()}</b>`;
+};
+setInterval(update_gate_countdown, 1000);

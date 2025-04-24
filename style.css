@@ -346,6 +346,10 @@ button:hover, #submit_text_entry:hover {
   right:0;
 }
 
+#gate_divider {
+  width:223px;
+}
+
 #footer {
   position:absolute;
   bottom:30px;

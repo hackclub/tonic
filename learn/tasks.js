@@ -261,6 +261,22 @@ async function register_all (tasks_state_override = {}) {
     tasks_container.appendChild(list_group);
   }
 
+  const gate_divider = document.createElement('p');
+  gate_divider.id = 'gate_divider';
+  gate_divider.classList.add('locked_divider');
+  gate_divider.innerHTML = 'More tasks coming soon';
+  tasks_container.appendChild(gate_divider);
+
+  const gate = document.createElement('p');
+  gate.id = 'gate';
+  gate.innerHTML = `Check back in <b>${gate_countdown()}</b>`;
+  tasks_container.appendChild(gate);
+
+  if (!all_tasks_completed()) {
+    gate_divider.classList.add('dn');
+    gate.classList.add('dn');
+  }
+
   for (const task of Object.values(all_tasks)) {
     update_list_item(task);
   }
@@ -305,6 +321,23 @@ async function set_state (task_name, state) {
   }
 }
 
+function gate_countdown () {
+  const now = new Date;
+  const drop = new Date(Date.UTC(2025, 3, 26, 16, 0, 0, 0));
+  const time_to_drop = drop.getTime() - now.getTime();
+  let h = Math.floor(time_to_drop / 3_600_000);
+  let m = Math.floor((time_to_drop - (h * 3_600_000)) / 60_000);
+  let s = Math.floor((time_to_drop - (h * 3_600_000) - (m * 60_000)) / 1000);
+  const string_h = h < 10 ? `0${h}` : `${h}`;
+  const string_m = m < 10 ? `0${m}` : `${m}`;
+  const string_s = s < 10 ? `0${s}` : `${s}`;
+  if (h === 0 && m === 0 && s === 0) {
+    return `Refresh the page!`;
+  } else {
+    return `${string_h}:${string_m}:${string_s}`;
+  }
+}
+
 function all_tasks_completed () {
   return Object.values(all_tasks).every(task => task.state === 4);
 }
@@ -314,4 +347,5 @@ export default {
   register_all,
   set_state,
   all_tasks_completed,
+  gate_countdown,
 }
