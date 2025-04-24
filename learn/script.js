@@ -582,7 +582,6 @@ mutant.element.onclick = function () {
         } else {
           let tasks_state = {};
           data.records.sort((a, b) => new Date(a.createdTime) - new Date(b.createdTime));
-          // console.log(data.records);
           for (const record of data.records) {
             const task_name = record.fields['Task'];
             const task = Object.values(tasks.all_tasks).find(task => task.name === task_name);
@@ -640,6 +639,8 @@ bgm_final.on('end', function () {
 })
 
 function update_gate_countdown () {
-  document.getElementById('gate').innerHTML = `Check back in <b>${tasks.gate_countdown()}</b>`;
+  if (document.getElementById('gate') !== null) {
+    document.getElementById('gate').innerHTML = `Check back in <b>${tasks.gate_countdown()}</b>`;
+  }
 };
 setInterval(update_gate_countdown, 1000);

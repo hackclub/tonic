@@ -272,11 +272,6 @@ async function register_all (tasks_state_override = {}) {
   gate.innerHTML = `Check back in <b>${gate_countdown()}</b>`;
   tasks_container.appendChild(gate);
 
-  if (!all_tasks_completed()) {
-    gate_divider.classList.add('dn');
-    gate.classList.add('dn');
-  }
-
   for (const task of Object.values(all_tasks)) {
     update_list_item(task);
   }
@@ -285,6 +280,11 @@ async function register_all (tasks_state_override = {}) {
     const task_name = entry[0];
     const state_override = entry[1];
     await set_state(task_name, state_override);
+  }
+
+  if (!all_tasks_completed()) {
+    gate_divider.classList.add('dn');
+    gate.classList.add('dn');
   }
 }
 
