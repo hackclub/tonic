@@ -578,6 +578,7 @@ mutant.element.onclick = function () {
         riser.fade(1, 0, 250, riser_id);
         if (!data.success) return;
         if (data.records.length === 0) {
+          await tasks.register_all();
           mutant.wake_up();
         } else {
           let tasks_state = {};
