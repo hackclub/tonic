@@ -48,7 +48,7 @@ const hackatime_setup = new Task({
   await mutant.hand_over_mouth_open_eyes.say('Copy *just the API key* from here (everything after *api@_key =*)...', { image: 'api_key_highlighted' });
   await mutant.grinning.say("Then, we'll head back to your codespace to paste it.");
   await mutant.thinking.say('Press *Control+Shift+P* or *Command+Shift+P*, then search for *"API Key"* and press *Enter*.', { image: 'command_palette_api_key' });
-  await mutant.thinking.say('Then, paste your API key in the box that appears, and press *Enter* again.', { image: 'api_key_input' });
+  await mutant.thinking.say('Then, paste your API key in the box that appears, and press *Enter* again.');
   await mutant.grinning.say("Let me know when you've completed these steps.", { image: null });
   await mutant.slight_smile.choice1({
     option_a: 'All done',
