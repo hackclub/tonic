@@ -31,8 +31,6 @@ const riser = new Howl({
 });
 let riser_id;
 
-// TODO: image credit - attribution of all logos used
-
 const sounds = {
   awoken_blip: new Howl({ src: '/assets/audio/awoken_blip.wav' }),
   awoken_c: new Howl({ src: '/assets/audio/awoken_c.wav' }),
