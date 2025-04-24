@@ -64,7 +64,11 @@ h1 {
 }
 
 #attribution_container p {
-  font-size:14px;
+  font-size:12px;
+}
+
+#attribution_container p:last-of-type {
+  margin-bottom:8px;
 }
 
 a {
@@ -354,14 +358,11 @@ button:hover, #submit_text_entry:hover {
   background-color:antiquewhite;
   background-image:url("https://www.transparenttextures.com/patterns/p5.png");
   width:40vw;
-  height:40vh;
   border:2px solid #70604480;
   padding:20px;
 }
 
 #close_attribution {
-  position:absolute;
-  bottom:20px;
   width:100px;
   height:30px;
   font-size:14px;

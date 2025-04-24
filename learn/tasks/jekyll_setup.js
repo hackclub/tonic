@@ -1,8 +1,6 @@
 import Task from '../Task.js';
 import { mutant, hide_image, show_image, show_code, hide_code } from '../script.js';
 
-// TODO: jekyll serve --watch
-
 const jekyll_setup = new Task({
   name: 'Jekyll setup',
   description: 'Set up Jekyll so you can start building your theme!',
@@ -36,9 +34,10 @@ const jekyll_setup = new Task({
     option_a: 'All done',
     callback_a: async () => await mutant.grinning.say('Wonderful!'),
   });
-  show_code(`bundle exec jekyll serve`);
+  show_code(`bundle exec jekyll serve --watch`);
   await mutant.thinking.say('To see what the Tonic starter looks like, type in this command.');
   await mutant.grinning.say("This is the command you'll use every time you want to see your theme in action!");
+  await mutant.slight_smile.say('The *--watch* flag will allow you to see your changes every time you refresh the page.');
   await mutant.slight_smile.say("Let me know when this command is done.");
   await mutant.slight_smile.choice1({
     option_a: 'All done',
@@ -52,7 +51,7 @@ const jekyll_setup = new Task({
   await mutant.grinning.say('The end result should be...', { image: 'tonic_starter', sleep_ms: 1500 });
   await mutant.grimace.say("Well, that's not very exciting, is it?");
   await mutant.grinning.say("Don't worry, though - in a little while I'll teach you how to make it look amazing!");
-  await mutant.slight_smile.say("I'm going to trust that you were able to do this - I won't ask you for any links this time.", { image: null });
+  await mutant.slight_smile.say("Again, I'm going to trust that you were able to do this.", { image: null });
   await mutant.hand_over_mouth_open_eyes.say('I just need you to promise me that you did it...');
   await mutant.hand_over_mouth_open_eyes.text_entry({
     placeholder: 'I promise!',
