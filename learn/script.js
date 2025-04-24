@@ -12,6 +12,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 })
 
+window.addEventListener('beforeunload', e => e.preventDefault());
+
 const bgm = new Howl({
   src: '/assets/audio/bgm.wav',
   html5: true,
