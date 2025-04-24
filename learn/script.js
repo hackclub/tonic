@@ -225,7 +225,7 @@ class Mutant {
     await sleep(666);
     play_sound('drum', { randomize: true });
     await tasks.set_state('Hackatime setup', 1);
-    await sleep(666);
+    await sleep(333);
     play_sound('drum', { randomize: true });
     await tasks.set_state('Jekyll setup', 1);
     await sleep(333);
