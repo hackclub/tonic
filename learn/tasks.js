@@ -323,7 +323,7 @@ async function set_state (task_name, state) {
 
 function gate_countdown () {
   const now = new Date;
-  const drop = new Date(Date.UTC(2025, 3, 27, 17, 30, 0, 0));
+  const drop = new Date(Date.UTC(2025, 3, 27, 18, 0, 0, 0));
   const time_to_drop = drop.getTime() - now.getTime();
   let h = Math.floor(time_to_drop / 3_600_000);
   let m = Math.floor((time_to_drop - (h * 3_600_000)) / 60_000);
