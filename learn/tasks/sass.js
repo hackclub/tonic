@@ -78,7 +78,7 @@ const sass = new Task({
   await mutant.slight_smile.say("Let's go to the *head.html* file in the *@_includes* folder...");
   await mutant.slight_smile.say('...and add a *link* tag inside the *head* tag.');
   show_code(
-`<link rel="stylesheet" href="{{ '/assets/my-theme.scss' | relative_url }}">`
+`<link rel="stylesheet" href="{{ 'assets/my-theme.scss' | relative_url }}">`
   );
   await mutant.thinking.say("Here's an example of what that tag should look like.", { image: null });
   await mutant.thinking.say('It uses some Liquid keywords in the *href* to make sure Jekyll uses the right file location.');
