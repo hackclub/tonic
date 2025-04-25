@@ -145,7 +145,6 @@ class Mutant {
   async wake_up () {
     this.stage = 1;
     this.emote = 'flushed';
-    this.clickable = false;
     play_sound('awoken_blip');
     await sleep(2100);
     this.apologize();
@@ -570,6 +569,7 @@ mutant.element.onmouseenter = function () {
 
 mutant.element.onclick = function () {
   if (mutant.clickable) {
+    mutant.clickable = false;
     play_sound('click');
     riser_id = riser.play();
     fetch('/scraps', { credentials: 'include' })
@@ -602,7 +602,6 @@ mutant.element.onclick = function () {
           }
           // TODO: update state in the case that the user has only completed "GitHub setup"
           await tasks.register_all(tasks_state);
-          mutant.clickable = false;
           mutant.emote = 'slight_smile';
           bgm_id = bgm.play();
           mutant.greeting();
