@@ -101,7 +101,7 @@ app.post('/scrap', async (req, res) => {
 });
 
 app.get('/scraps', async (req, res) => {
-  const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Scraps?fields[]=Task&filterByFormula={Slack ID}="${req.cookies.uid}"`, {
+  const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Scraps?fields%5B%5D=Task&filterByFormula=%7BSlack+ID%7D%3D%22${req.cookies.uid}%22`, {
     headers: {
       'Authorization': `Bearer ${process.env.AIRTABLE_PAT}`,
       'Content-Type': 'application/json'
