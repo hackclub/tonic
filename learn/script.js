@@ -479,6 +479,9 @@ class Mutant {
           riser.fade(1, 0, 250, riser_id);
           if (!S.success) {
             play_sound('negative_click');
+            if (S.lost_id) {
+              alert("Somehow, Mutant lost track of your user ID! This shouldn't happen. Send a message in #tonic on the Hack Club Slack!");
+            }
             return;
           }
           play_sound('click');
