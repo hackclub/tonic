@@ -248,6 +248,7 @@ class Mutant {
   }
   async greeting () {
     this.stage = 5;
+    this.clickable = false;
     await sleep(500);
     const hour = new Date().getHours();
     if (hour >= 6 && hour <= 11) {
@@ -570,13 +571,18 @@ mutant.element.onmouseenter = function () {
 
 mutant.element.onclick = function () {
   if (mutant.clickable) {
+    mutant.clickable = false;
     play_sound('click');
     riser_id = riser.play();
     fetch('/scraps', { credentials: 'include' })
       .then(response => response.json())
       .then(async (data) => {
+        mutant.clickable = false;
         riser.fade(1, 0, 250, riser_id);
-        if (!data.success) return;
+        if (!data.success) {
+          mutant.clickable = true;
+          return;
+        }
         if (data.records.length === 0) {
           await tasks.register_all();
           mutant.wake_up();
@@ -602,7 +608,6 @@ mutant.element.onclick = function () {
           }
           // TODO: update state in the case that the user has only completed "GitHub setup"
           await tasks.register_all(tasks_state);
-          mutant.clickable = false;
           mutant.emote = 'slight_smile';
           bgm_id = bgm.play();
           mutant.greeting();
