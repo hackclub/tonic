@@ -592,7 +592,8 @@ mutant.element.onclick = function () {
         } else {
           let tasks_state = {};
           data.records.sort((a, b) => new Date(a.createdTime) - new Date(b.createdTime));
-          for (const record of data.records) {
+          const filtered_records = data.records.filter((x, i, r) => r.findIndex(x2 => x2.fields['Task'] === x.fields['Task']) === i);
+          for (const record of filtered_records) {
             const task_name = record.fields['Task'];
             const task = Object.values(tasks.all_tasks).find(task => task.name === task_name);
             tasks_state[task_name] = 4;
