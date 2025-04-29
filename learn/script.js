@@ -362,7 +362,9 @@ class Mutant {
             } else if (letter === '@') {
               element_to_append_to.innerHTML += escaped_char;
             } else if (letter === '&') {
-              element_to_append_to.innerHTML += '&amp;'
+              element_to_append_to.innerHTML += '&amp;';
+            } else if (letter === '>') {
+              element_to_append_to.innerHTML += '&lt;';
             } else {
               element_to_append_to.innerHTML += letter;
             }
@@ -527,7 +529,7 @@ async function override () {
     'The config file': 4,
     'Layouts': 4,
     'Includes': 4,
-    'Sass': 3,
+    'Sass': 4,
     // 'More elements': 3,
     // '404': 3,
     // 'Liquid': 3,
@@ -650,7 +652,7 @@ bgm_final.on('end', function () {
 
 function update_gate_countdown () {
   if (document.getElementById('gate') !== null) {
-    document.getElementById('gate').innerHTML = `Check back in <b>${tasks.gate_countdown()}</b>`;
+    document.getElementById('gate').innerHTML = tasks.gate_countdown();
   }
 };
 setInterval(update_gate_countdown, 1000);
