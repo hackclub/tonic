@@ -325,6 +325,9 @@ function gate_countdown () {
   const now = new Date;
   const drop = new Date(Date.UTC(2025, 3, 29, 6, 0, 0, 0));
   const time_to_drop = drop.getTime() - now.getTime();
+  if (time_to_drop <= 0) {
+    return 'Refresh the page!';
+  }
   let h = Math.floor(time_to_drop / 3_600_000);
   let m = Math.floor((time_to_drop - (h * 3_600_000)) / 60_000);
   let s = Math.floor((time_to_drop - (h * 3_600_000) - (m * 60_000)) / 1000);
