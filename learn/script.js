@@ -364,7 +364,7 @@ class Mutant {
             } else if (letter === '&') {
               element_to_append_to.innerHTML += '&amp;';
             } else if (letter === '>') {
-              element_to_append_to.innerHTML += '&lt;';
+              element_to_append_to.innerHTML += '&gt;';
             } else {
               element_to_append_to.innerHTML += letter;
             }
@@ -530,10 +530,10 @@ async function override () {
     'Layouts': 4,
     'Includes': 4,
     'Sass': 4,
-    // 'More elements': 3,
-    // '404': 3,
-    // 'Liquid': 3,
-    // 'A feature of your own': 1,
+    'More elements': 3,
+    '404': 3,
+    'Liquid': 3,
+    'A feature of your own': 1,
   };
   await tasks.register_all(tasks_state_override);
 }
