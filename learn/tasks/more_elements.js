@@ -3,7 +3,7 @@ import { mutant, hide_image, show_image } from '../script.js';
 
 const more_elements = new Task({
   name: 'More elements',
-  description: "Learn about lists, code blocks, tables, and more.",
+  description: "Learn about lists, blockquotes, and images!",
   group: 'Going further',
   requires_group: 'Theme structure',
   requires_tasks: ['The config file', 'Layouts', 'Includes', 'Sass'],
@@ -24,12 +24,14 @@ const more_elements = new Task({
       await mutant.thinking.say("Second, *blockquotes*.", { image: 'markdown_blockquote', image_width: 400 });
       await mutant.hushed.say('Have you ever wanted to add something to a page that was said by somebody else?');
       await mutant.slight_smile.say('You can do that by adding *>* before what was said.');
+      await mutant.grinning.say("As you can see, it's also very easy to add attribution underneath!");
       await mutant.thinking.say('Last but not least, *images*.', { image: 'markdown_image' });
       await mutant.hand_over_mouth_open_eyes.say('These work exactly like *links* do, combining parentheses and square brackets...');
       await mutant.hand_over_mouth.say('...except this time, you have to add an *exclamation mark* at the very beginning.');
       await mutant.slight_smile.say('The text you provide inside the square brackets will be used as _alt text_.');
     }
   });
+  await mutant.thinking.say('So, what should we do with this information?');
   await mutant.hushed.say("I'd like you to create a new file called *elements.scss* inside the *@_sass* folder.");
   await mutant.slight_smile.say('At the same time, go to the *assets* folder and _import_ *elements.scss* on a new line underneath *base.scss*.');
   await mutant.thinking.say("Let me know when you've done both of these things.");
