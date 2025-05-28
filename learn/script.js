@@ -530,8 +530,8 @@ async function override () {
     'Layouts': 4,
     'Includes': 4,
     'Sass': 4,
-    'More elements': 3,
-    '404': 3,
+    'More elements': 4,
+    '404': 4,
     'Liquid': 3,
     'A feature of your own': 1,
   };
