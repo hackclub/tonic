@@ -5,7 +5,7 @@ class Sentence {
   constructor(name, string) {
     this.name = name;
     this.string = string;
-    this.sentence = getSentenceFromString(string);
+    this.sentence = this.getSentenceFromString();
     this.quote = null;
   }
 
