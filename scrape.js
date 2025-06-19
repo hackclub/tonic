@@ -105,63 +105,61 @@ async function saveMarkdownFile(text, outputFile) {
   await fs.writeFile(outputFile, markdownContent);
 }
 
-async function main(
-  convertToJSON = false,
-  convertToMarkdown = true,
-  outputJSONFile = './taskText.json',
-  outputMarkdownFile = './taskText.md',
-  scrapeAllTasks = true,
-  tasksList = null
-) {
+async function main(options = {}) {
+  let {
+    convertToJSON = false,
+    convertToMarkdown = true,
+    outputJSONFile = './taskText.json',
+    outputMarkdownFile = './taskText.md',
+    scrapeAllTasks = false,
+    tasksList = null,
+  } = options;
+
+  const validateOptions = () => {
+    if (typeof scrapeAllTasks !== 'boolean') {
+      throw new Error('scrapeAllTasks must be a boolean');
+    }
+    if (!tasksList && !scrapeAllTasks) {
+      scrapeAllTasks = true;
+      console.warn('No tasksList provided, defaulting to scrape all tasks.');
+    }
+    if (tasksList && !Array.isArray(tasksList)) {
+      throw new Error('tasksList must be an array of task names');
+    }
+    if (!scrapeAllTasks && tasksList.length === 0) {
+      throw new Error('tasksList cannot be empty if scrapeAllTasks is false');
+    }
+    if (scrapeAllTasks && tasksList) {
+      throw new Error(
+        'Cannot scrape all tasks and provide a specific tasks list at the same time'
+      );
+    }
+    for (const task of tasksList || tasks) {
+      if (!tasks.includes(task)) {
+        throw new Error(`Task "${task}" does not exist in the tasks directory`);
+      }
+    }
+
+    if (typeof convertToMarkdown !== 'boolean') {
+      throw new Error('convertToMarkdown must be a boolean');
+    }
+    if (
+      typeof outputJSONFile !== 'string' ||
+      !outputJSONFile.endsWith('.json')
+    ) {
+      throw new Error('outputJSONFile must be a valid JSON file path');
+    }
+    if (
+      typeof outputMarkdownFile !== 'string' ||
+      !outputMarkdownFile.endsWith('.md')
+    ) {
+      throw new Error('outputMarkdownFile must be a valid Markdown file path');
+    }
+  };
+
+  validateOptions();
+
   try {
-    const validateOptions = () => {
-      if (typeof convertToMarkdown !== 'boolean') {
-        throw new Error('convertToMarkdown must be a boolean');
-      }
-      if (
-        typeof outputJSONFile !== 'string' ||
-        !outputJSONFile.endsWith('.json')
-      ) {
-        throw new Error('outputJSONFile must be a valid JSON file path');
-      }
-      if (
-        typeof outputMarkdownFile !== 'string' ||
-        !outputMarkdownFile.endsWith('.md')
-      ) {
-        throw new Error(
-          'outputMarkdownFile must be a valid Markdown file path'
-        );
-      }
-      if (typeof scrapeAllTasks !== 'boolean') {
-        throw new Error('scrapeAllTasks must be a boolean');
-      }
-      if (tasksList && !Array.isArray(tasksList)) {
-        throw new Error('tasksList must be an array of task names');
-      }
-      if (!scrapeAllTasks && tasksList.length === 0) {
-        throw new Error('tasksList cannot be empty if scrapeAllTasks is false');
-      }
-      if (scrapeAllTasks && tasksList) {
-        throw new Error(
-          'Cannot scrape all tasks and provide a specific tasks list at the same time'
-        );
-      }
-      if (!scrapeAllTasks && !tasksList) {
-        throw new Error(
-          'Either scrapeAllTasks must be true or tasksList must be provided'
-        );
-      }
-      for (const task of tasksList || tasks) {
-        if (!tasks.includes(task)) {
-          throw new Error(
-            `Task "${task}" does not exist in the tasks directory`
-          );
-        }
-      }
-    };
-
-    validateOptions();
-
     if (scrapeAllTasks) {
       tasksList = tasks;
     }
@@ -175,7 +173,9 @@ async function main(
     if (convertToMarkdown) {
       await saveMarkdownFile(allText, outputMarkdownFile);
       console.log(
-        `All task text converted to Markdown and saved to ${outputMarkdownFile}`
+        `Task text from ${tasksList.join(
+          ', '
+        )} converted to Markdown and saved to ${outputMarkdownFile}`
       );
     }
   } catch (error) {
