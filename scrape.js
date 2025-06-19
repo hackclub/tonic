@@ -52,8 +52,12 @@ class Sentence {
   }
 }
 
-async function scrapeSentenceFromTask(task) {
-  const sentences = [];
+async function scrapeTextFromTask(task) {
+  const taskText = {
+    name: task,
+    sentences: [],
+    quotes: [],
+  };
   const content = await fs.readFile(`./learn/tasks/${task}`, 'utf-8');
   const lines = content.split('\n');
   for (const line of lines) {
@@ -61,34 +65,30 @@ async function scrapeSentenceFromTask(task) {
       const sentence = new Sentence(task, line);
       const extractedSentence = sentence.sentence;
       if (extractedSentence) {
-        sentences.push({
-          name: task,
-          sentence: extractedSentence,
-          quote: sentence.quote,
-        });
+        taskText.sentences.push(extractedSentence);
+        taskText.quotes.push(sentence.quote);
       }
     }
   }
-  return sentences;
+  return taskText;
 }
 
 async function scrapeAllTasks() {
-  const allSentences = [];
+  const allText = [];
   for (const task of tasks) {
-    const sentences = await scrapeSentenceFromTask(task);
-    allSentences.push(...sentences);
-    console.log(allSentences);
+    const text = await scrapeTextFromTask(task);
+    allText.push(text);
   }
-  return allSentences;
+  return allText;
 }
 
 async function main() {
   try {
-    const sentences = await scrapeAllTasks();
-    await fs.writeFile('./sentences.json', JSON.stringify(sentences, null, 2));
-    console.log('Sentences scraped and saved to sentences.json');
+    const allText = await scrapeAllTasks();
+    await fs.writeFile('./taskText.json', JSON.stringify(allText, null, 2));
+    console.log('All task text scraped and saved to sentences.json');
   } catch (error) {
-    console.error('Error scraping sentences:', error);
+    console.error('Error scraping task text:', error);
   }
 }
 
