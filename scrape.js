@@ -112,37 +112,37 @@ async function main(options = {}) {
     outputJSONFile = './taskText.json',
     outputMarkdownFile = './taskText.md',
     scrapeAllTasks = false,
-    tasksList = null,
+    taskList = null,
   } = options;
 
   const validateOptions = () => {
     if (typeof scrapeAllTasks !== 'boolean') {
       throw new Error('scrapeAllTasks must be a boolean');
     }
-    if (!tasksList && !scrapeAllTasks) {
+    if (!taskList && !scrapeAllTasks) {
       scrapeAllTasks = true;
       console.warn('No tasksList provided, defaulting to scrape all tasks.');
     }
-    if (tasksList && !Array.isArray(tasksList)) {
+    if (taskList && !Array.isArray(taskList)) {
       throw new Error('tasksList must be an array of task names');
     }
-    if (!scrapeAllTasks && tasksList.length === 0) {
+    if (!scrapeAllTasks && taskList.length === 0) {
       throw new Error('tasksList cannot be empty if scrapeAllTasks is false');
     }
-    if (scrapeAllTasks && tasksList) {
+    if (scrapeAllTasks && taskList) {
       throw new Error(
         'Cannot scrape all tasks and provide a specific tasks list at the same time'
       );
     }
 
-    if (tasksList) {
-      tasksList.forEach((task) => {
+    if (taskList) {
+      taskList.forEach((task) => {
         if (!task.includes('.') && !task.endsWith('.js')) {
           task += '.js';
         }
       });
 
-      for (const task of tasksList) {
+      for (const task of taskList) {
         if (!tasks.includes(task)) {
           throw new Error(
             `Task "${task}" does not exist in the tasks directory`
@@ -172,9 +172,9 @@ async function main(options = {}) {
 
   try {
     if (scrapeAllTasks) {
-      tasksList = tasks;
+      taskList = tasks;
     }
-    const allText = await scrapeTasks(tasksList);
+    const allText = await scrapeTasks(taskList);
 
     if (convertToJSON) {
       await fs.writeFile(outputJSONFile, JSON.stringify(allText, null, 2));
@@ -184,7 +184,7 @@ async function main(options = {}) {
     if (convertToMarkdown) {
       await saveMarkdownFile(allText, outputMarkdownFile);
       console.log(
-        `Task text from ${tasksList.join(
+        `Task text from ${taskList.join(
           ', '
         )} converted to Markdown and saved to ${outputMarkdownFile}`
       );
