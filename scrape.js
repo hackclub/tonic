@@ -34,8 +34,7 @@ class Sentence {
       // No closing quote found
       return null;
     }
-    this.sentence = this.string.substring(startIndex + 1, endIndex);
-    return this.sentence;
+    return this.string.substring(startIndex + 1, endIndex);
   }
 }
 
