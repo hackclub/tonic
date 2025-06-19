@@ -134,9 +134,20 @@ async function main(options = {}) {
         'Cannot scrape all tasks and provide a specific tasks list at the same time'
       );
     }
-    for (const task of tasksList || tasks) {
-      if (!tasks.includes(task)) {
-        throw new Error(`Task "${task}" does not exist in the tasks directory`);
+
+    if (tasksList) {
+      tasksList.forEach((task) => {
+        if (!task.includes('.') && !task.endsWith('.js')) {
+          task += '.js';
+        }
+      });
+
+      for (const task of tasksList) {
+        if (!tasks.includes(task)) {
+          throw new Error(
+            `Task "${task}" does not exist in the tasks directory`
+          );
+        }
       }
     }
 
