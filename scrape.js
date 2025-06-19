@@ -136,10 +136,11 @@ async function main(options = {}) {
     }
 
     if (taskList) {
-      taskList.forEach((task) => {
+      taskList = taskList.map((task) => {
         if (!task.includes('.') && !task.endsWith('.js')) {
-          task += '.js';
+          return task + '.js';
         }
+        return task;
       });
 
       for (const task of taskList) {
@@ -194,4 +195,4 @@ async function main(options = {}) {
   }
 }
 
-main().catch(console.error);
+main({ taskList: ['404'] }).catch(console.error);
