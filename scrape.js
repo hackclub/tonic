@@ -1,6 +1,5 @@
 import { promises as fs } from 'fs';
 const tasks = await fs.readdir('./learn/tasks');
-const regex = /await\smutant\.\w+\(["'`]((?:\\.|[^"'`\\])*?)["'`]\)/g;
 
 class Sentence {
   constructor(name, string) {
@@ -8,17 +7,6 @@ class Sentence {
     this.string = string;
     this.sentence = this.getSentenceFromString();
     this.quote = null;
-  }
-
-  getSentenceFromStringUsingRegex() {
-    const match = this.string.match(regex);
-    if (match && match.length > 0) {
-      this.sentence = match[0]
-        .replace(/await\.mutant\.\w+\(["'`]/, '')
-        .replace(/["'`]$/, '');
-      return this.sentence;
-    }
-    return null;
   }
 
   getSentenceFromString() {
@@ -62,9 +50,8 @@ async function scrapeTextFromTask(task) {
   for (const line of lines) {
     if (line.includes('await mutant')) {
       const sentence = new Sentence(task, line);
-      const extractedSentence = sentence.sentence;
-      if (extractedSentence) {
-        taskText.sentences.push(extractedSentence);
+      if (sentence.sentence) {
+        taskText.sentences.push(sentence.sentence);
         taskText.quotes.push(sentence.quote);
       }
     }
@@ -92,9 +79,6 @@ async function convertToMarkdown(taskText) {
   markdownLines.push('## Sentences');
   taskText.sentences.forEach((sentence, index) => {
     markdownLines.push(`- ${sentence}`);
-    if (taskText.quotes[index]) {
-      markdownLines.push(`  > Quote: ${taskText.quotes[index]}`);
-    }
   });
   markdownLines.push('\n');
   return markdownLines.join('\n');
@@ -195,4 +179,4 @@ async function main(options = {}) {
   }
 }
 
-main({ taskList: ['404'] }).catch(console.error);
+main().catch(console.error);
