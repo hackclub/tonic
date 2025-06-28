@@ -51,7 +51,8 @@ app.get('/auth/slack', async (req, res) => {
     res.cookie('uid', R.authed_user.id, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      // sameSite: 'lax'
+      // sameSite: 'lax',
+      maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
     });
     // Make internal request to /scrap
     // await fetch(`${redirect_url}/scrap`, {
@@ -70,6 +71,12 @@ app.get('/auth/slack', async (req, res) => {
 });
 
 app.post('/scrap', async (req, res) => {
+  // sanity check
+  if (req.cookies.uid === undefined) {
+    res.status(500).json({ success: false, lost_id: true });
+    return;
+  }
+  // ...
   const task = req.body.task;
   const text_entry = req.body.text_entry;
   const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_SCRAPS_TABLE_ID}`, {
@@ -101,7 +108,7 @@ app.post('/scrap', async (req, res) => {
 });
 
 app.get('/scraps', async (req, res) => {
-  const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Scraps?fields[]=Task&filterByFormula={Slack ID}="${req.cookies.uid}"`, {
+  const R = await fetch(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Scraps?fields%5B%5D=Task&filterByFormula=%7BSlack+ID%7D%3D%22${req.cookies.uid}%22`, {
     headers: {
       'Authorization': `Bearer ${process.env.AIRTABLE_PAT}`,
       'Content-Type': 'application/json'

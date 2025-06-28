@@ -322,9 +322,15 @@ async function set_state (task_name, state) {
 }
 
 function gate_countdown () {
+  // use this when i don't have an estimate
+  return 'Check back <b>Soon&trade;</b>';
+  // ...
   const now = new Date;
-  const drop = new Date(Date.UTC(2025, 3, 27, 17, 30, 0, 0));
+  const drop = new Date(Date.UTC(2025, 3, 29, 6, 0, 0, 0));
   const time_to_drop = drop.getTime() - now.getTime();
+  if (time_to_drop <= 0) {
+    return '<b>Refresh the page!</b>';
+  }
   let h = Math.floor(time_to_drop / 3_600_000);
   let m = Math.floor((time_to_drop - (h * 3_600_000)) / 60_000);
   let s = Math.floor((time_to_drop - (h * 3_600_000) - (m * 60_000)) / 1000);
@@ -332,9 +338,9 @@ function gate_countdown () {
   const string_m = m < 10 ? `0${m}` : `${m}`;
   const string_s = s < 10 ? `0${s}` : `${s}`;
   if (h === 0 && m === 0 && s === 0) {
-    return `Refresh the page!`;
+    return `<b>Refresh the page!</b>`;
   } else {
-    return `${string_h}:${string_m}:${string_s}`;
+    return `Check back in <b>${string_h}:${string_m}:${string_s}</b>`;
   }
 }
 

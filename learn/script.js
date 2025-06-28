@@ -248,6 +248,7 @@ class Mutant {
   }
   async greeting () {
     this.stage = 5;
+    this.clickable = false;
     await sleep(500);
     const hour = new Date().getHours();
     if (hour >= 6 && hour <= 11) {
@@ -361,7 +362,9 @@ class Mutant {
             } else if (letter === '@') {
               element_to_append_to.innerHTML += escaped_char;
             } else if (letter === '&') {
-              element_to_append_to.innerHTML += '&amp;'
+              element_to_append_to.innerHTML += '&amp;';
+            } else if (letter === '>') {
+              element_to_append_to.innerHTML += '&lt;';
             } else {
               element_to_append_to.innerHTML += letter;
             }
@@ -478,6 +481,9 @@ class Mutant {
           riser.fade(1, 0, 250, riser_id);
           if (!S.success) {
             play_sound('negative_click');
+            if (S.lost_id) {
+              alert("Somehow, Mutant lost track of your user ID! This shouldn't happen. Send a message in #tonic on the Hack Club Slack!");
+            }
             return;
           }
           play_sound('click');
@@ -523,7 +529,7 @@ async function override () {
     'The config file': 4,
     'Layouts': 4,
     'Includes': 4,
-    'Sass': 3,
+    'Sass': 4,
     // 'More elements': 3,
     // '404': 3,
     // 'Liquid': 3,
@@ -570,20 +576,26 @@ mutant.element.onmouseenter = function () {
 
 mutant.element.onclick = function () {
   if (mutant.clickable) {
+    mutant.clickable = false;
     play_sound('click');
     riser_id = riser.play();
     fetch('/scraps', { credentials: 'include' })
       .then(response => response.json())
       .then(async (data) => {
+        mutant.clickable = false;
         riser.fade(1, 0, 250, riser_id);
-        if (!data.success) return;
+        if (!data.success) {
+          mutant.clickable = true;
+          return;
+        }
         if (data.records.length === 0) {
           await tasks.register_all();
           mutant.wake_up();
         } else {
           let tasks_state = {};
           data.records.sort((a, b) => new Date(a.createdTime) - new Date(b.createdTime));
-          for (const record of data.records) {
+          const filtered_records = data.records.filter((x, i, r) => r.findIndex(x2 => x2.fields['Task'] === x.fields['Task']) === i);
+          for (const record of filtered_records) {
             const task_name = record.fields['Task'];
             const task = Object.values(tasks.all_tasks).find(task => task.name === task_name);
             tasks_state[task_name] = 4;
@@ -602,7 +614,6 @@ mutant.element.onclick = function () {
           }
           // TODO: update state in the case that the user has only completed "GitHub setup"
           await tasks.register_all(tasks_state);
-          mutant.clickable = false;
           mutant.emote = 'slight_smile';
           bgm_id = bgm.play();
           mutant.greeting();
@@ -641,7 +652,7 @@ bgm_final.on('end', function () {
 
 function update_gate_countdown () {
   if (document.getElementById('gate') !== null) {
-    document.getElementById('gate').innerHTML = `Check back in <b>${tasks.gate_countdown()}</b>`;
+    document.getElementById('gate').innerHTML = tasks.gate_countdown();
   }
 };
 setInterval(update_gate_countdown, 1000);
