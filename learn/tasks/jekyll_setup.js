@@ -34,6 +34,8 @@ const jekyll_setup = new Task({
     option_a: 'All done',
     callback_a: async () => await mutant.grinning.say('Wonderful!'),
   });
+  show_code(`bundle install`);
+  await mutant.thinking.say("To finish the installation, type in this command");
   show_code(`bundle exec jekyll serve --watch`);
   await mutant.thinking.say('To see what the Tonic starter looks like, type in this command.');
   await mutant.grinning.say("This is the command you'll use every time you want to see your theme in action!");
