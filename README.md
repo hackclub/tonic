@@ -7,5 +7,5 @@ Jekyll is a static site generator. It takes text written in your favorite markup
 ## How can I do this YSWS?
 It's simple! Just go to the [Tonic Website](https://tonic.hackclub.com/) and follow the steps!
 ## When is this going to end?
-For now Lux (The creator of this YSWS) is busy right now + before she was in a burnout and she has taken an break and now shes better but working in a diferent YSWS.
+For now Lux (The creator of this YSWS) is busy right now + before she was in a burnout and she has taken an break and now she's better but working in a diferent YSWS.
 So you can't submit and finish this YSWS.
