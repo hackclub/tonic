@@ -530,10 +530,9 @@ async function override () {
     'Layouts': 4,
     'Includes': 4,
     'Sass': 4,
-    // 'More elements': 3,
-    // '404': 3,
-    // 'Liquid': 3,
-    // 'A feature of your own': 1,
+    'The README file': 3,
+    'Gems': 1,
+    'Using your theme': 1,
   };
   await tasks.register_all(tasks_state_override);
 }

@@ -5,6 +5,11 @@ const sass = new Task({
   name: 'Sass',
   description: "Make your theme look a little nicer!",
   group: 'Theme structure',
+  updates_on_complete: {
+    'The README file': 3,
+    'Gems': 1,
+    'Using your theme': 1,
+  },
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';
   await mutant.hushed.say("This task is a difficult one, but I promise it'll be worth it!");
