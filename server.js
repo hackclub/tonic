@@ -5,6 +5,7 @@ const exec = promisify(require('child_process').exec)
 const fs = require('fs/promises');
 const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
