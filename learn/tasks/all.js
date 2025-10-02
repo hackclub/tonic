@@ -14,6 +14,7 @@ import element_showcase from "./element_showcase.js";
 import gems from "./gems.js";
 import using_your_theme from "./using_your_theme.js";
 import hackatime_setup from "./hackatime_setup.js";
+import github_pages from "./pages.js";
 
 export default {
   github_setup,
@@ -24,6 +25,7 @@ export default {
   layouts,
   includes,
   sass,
+  github_pages,
   // more_elements,
   // four_oh_four,
   // liquid,
