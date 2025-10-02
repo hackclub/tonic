@@ -527,6 +527,7 @@ async function override () {
     'Jekyll setup': 4,
     'Your first page': 4,
     'The config file': 4,
+    'GitHub Pages': 4, 
     'Layouts': 4,
     'Includes': 4,
     'Sass': 4,

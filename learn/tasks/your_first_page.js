@@ -10,6 +10,7 @@ const your_first_page = new Task({
     'Layouts': 2,
     'Includes': 2,
     'Sass': 2,
+    'GitHub Pages': 3,
   },
 }).with_callback(async () => {
   await mutant.hushed.say("Now that you've installed Jekyll...");
