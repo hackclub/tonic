@@ -593,6 +593,7 @@ async function override() {
     "The README file": 3,
     Gems: 1,
     "Submit your theme!": 1,
+    "Submit to Jekyll.rb": 3,
   };
   await tasks.register_all(tasks_state_override);
 }
