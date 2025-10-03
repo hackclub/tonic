@@ -1,441 +1,514 @@
 @font-face {
-  font-family: 'Bakso Daging';
-  src: URL('assets/BaksoDaging-Regular.ttf') format('truetype');
+  font-family: "Bakso Daging";
+  src: URL("assets/BaksoDaging-Regular.ttf") format("truetype");
 }
 
 :root {
-  --em-color:#8e7b56;
-  --color:#706044;
-  --font-stack:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  --em-color: #8e7b56;
+  --color: #706044;
+  --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji",
+    sans-serif;
 }
 
 * {
-  margin:0;
-  border:0;
-  box-sizing:border-box;
-  padding:0
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
 html {
-  height:100%;
-  background-color:antiquewhite;
+  height: 100%;
+  background-color: antiquewhite;
   /* scrollbar-color:#c8c8c8 #dedede; */
-  scrollbar-color:#60606060 #00000000;
-  scrollbar-width:2px
+  scrollbar-color: #60606060 #00000000;
+  scrollbar-width: 2px;
 }
 
 body {
-  background-color:antiquewhite;
-  background-image:url("https://www.transparenttextures.com/patterns/p5.png");
-  font-family:var(--font-stack);
-  line-height:1.6;
-  color:var(--color);
-  min-height:100%
+  background-color: antiquewhite;
+  background-image: url("https://www.transparenttextures.com/patterns/p5.png");
+  font-family: var(--font-stack);
+  line-height: 1.6;
+  color: var(--color);
+  min-height: 100%;
 }
 
 body.attribution_open {
-  background-color:#c8bcac;
+  background-color: #c8bcac;
 }
 
-p, b, i, span {
-  color:var(--color)
+p,
+b,
+i,
+span {
+  color: var(--color);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family:"Bakso Daging";
-  text-transform:lowercase;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Bakso Daging";
+  text-transform: lowercase;
 }
 
-h1, h2, h3 {
-  color:var(--color);
+h1,
+h2,
+h3 {
+  color: var(--color);
 }
 
-h4, h5, h6, a {
-  color:var(--em-color);
+h4,
+h5,
+h6,
+a {
+  color: var(--em-color);
 }
 
 h1 {
-  font-size:48px;
+  font-size: 48px;
 }
 
 #attribution_container h2 {
-  color:var(--em-color);
-  margin-bottom:16px;
+  color: var(--em-color);
+  margin-bottom: 16px;
 }
 
 #attribution_container p {
-  font-size:12px;
+  font-size: 12px;
 }
 
 #attribution_container p:last-of-type {
-  margin-bottom:8px;
+  margin-bottom: 8px;
 }
 
 a {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 
 a:hover {
-  color:#a7936e;
-  cursor:pointer;
+  color: #a7936e;
+  cursor: pointer;
 }
 
 hr {
-  border-bottom:2px solid #70604440;
-  margin-bottom:8px;
+  border-bottom: 2px solid #70604440;
+  margin-bottom: 8px;
 }
 
 main {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:row;
-  height:100vh;
-  gap:8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 100vh;
+  gap: 8px;
 }
 
 #back {
-  position:absolute;
-  top:10px;
-  left:15px;
-  font-size:12px;
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-size: 12px;
 }
 
 #back_icon {
-  margin-right:4px;
+  margin-right: 4px;
 }
 
 #options_container {
-  position:absolute;
-  top:10px;
-  right:15px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
 }
 
 #options_container p {
-  font-size:12px;
+  font-size: 12px;
 }
 
 #options_container p:hover {
-  cursor:pointer;
-  color:var(--em-color);
+  cursor: pointer;
+  color: var(--em-color);
 }
 
-#music_toggle a, #sound_toggle_a {
-  text-decoration:none;
+#music_toggle a,
+#sound_toggle_a {
+  text-decoration: none;
 }
 
 #sound_toggle {
-  position:relative;
-  right:2px;
+  position: relative;
+  right: 2px;
 }
 
 #mutant_container {
-  display:flex;
-  width:400px;
-  align-items:center;
-  flex-direction:column;
-  gap:8px;
+  display: flex;
+  width: 400px;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
 #mutant_container.recenter {
-  position:relative;
-  left:28px;
+  position: relative;
+  left: 28px;
 }
 
 #mutant {
-  width:50px;
-  height:50px;
-  z-index:2;
-  user-select:none;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+  user-select: none;
 }
 
 #mutant.clickable:hover {
-  animation:shake 2s;
-  animation-iteration-count:infinite;
-  cursor:pointer;
+  animation: shake 2s;
+  animation-iteration-count: infinite;
+  cursor: pointer;
 }
 
-#mutant_text, #choice_container, #text_entry_container, #image_container, #code_container, #tasks_container {
-  position:relative;
-  transition-timing-function:ease-in-out;
-  overflow-x:hidden;
-  overflow-y:hidden;
-  transition:width 0.5s, height 0.5s, opacity 0.5s;
+#mutant_text,
+#choice_container,
+#text_entry_container,
+#image_container,
+#code_container,
+#tasks_container {
+  position: relative;
+  transition-timing-function: ease-in-out;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: width 0.5s, height 0.5s, opacity 0.5s;
 }
 
 #mutant_text {
-  height:50px;
+  overflow-y: visible;
+}
+
+#mutant_text {
+  min-height: 50px;
+  height: auto;
 }
 
 #mutant_text a {
-  color:#47858e;
-  font-weight:bold;
+  color: #47858e;
+  font-weight: bold;
 }
 
 #choice_container {
-  height:84px;
+  height: 84px;
 }
 
 #text_entry_container {
-  width:300px;
-  height:64px;
+  width: 300px;
+  height: 64px;
 }
 
 #text_entry_form {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
 #text_entry {
-  outline:none;
-  background:transparent;
-  border:3px solid #706044;
-  border-radius:20px;
-  color:var(--color);
-  padding:10px;
-  width:300px;
-  height:40px;
-  font-size:14px;
+  outline: none;
+  background: transparent;
+  border: 3px solid #706044;
+  border-radius: 20px;
+  color: var(--color);
+  padding: 10px;
+  width: 300px;
+  height: 40px;
+  font-size: 14px;
   font-family: var(--font-stack);
 }
 
 #text_entry_form label {
-  font-size:14px;
-  position:relative;
-  left:11px;
-  top:4px;
+  font-size: 14px;
+  position: relative;
+  left: 11px;
+  top: 4px;
 }
 
 button {
-  width:200px;
-  height:40px;
-  background:transparent;
-  border:3px solid #706044;
-  border-radius:20px;
-  color:var(--color);
-  font-size:16px;
-  margin-bottom:2px;
-  display:block;
-  user-select:none;
+  width: 200px;
+  height: 40px;
+  background: transparent;
+  border: 3px solid #706044;
+  border-radius: 20px;
+  color: var(--color);
+  font-size: 16px;
+  margin-bottom: 2px;
+  display: block;
+  user-select: none;
 }
 
-button:hover, #submit_text_entry:hover {
-  animation:shake_subtle 2s;
-  animation-iteration-count:infinite;
-  cursor:pointer;
-  background-color:#f4e2cb;
+button:hover,
+#submit_text_entry:hover {
+  animation: shake_subtle 2s;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+  background-color: #f4e2cb;
 }
 
 #image_container {
-  width:400px;
-  text-align:center;
-  background-color:antiquewhite;
-  background-image:url("https://www.transparenttextures.com/patterns/inflicted.png");
-  border:2px solid #70604440;
+  width: 400px;
+  text-align: center;
+  background-color: antiquewhite;
+  background-image: url("https://www.transparenttextures.com/patterns/inflicted.png");
+  border: 2px solid #70604440;
 }
 
 #image_container img {
-  width:400px;
-  height:auto;
+  width: 400px;
+  height: auto;
 }
 
 #code_container {
-  width:400px;
-  overflow:scroll;
-  max-height:350px;
+  width: 400px;
+  overflow: scroll;
+  max-height: 350px;
 }
 
 #mutant_code {
-  border:2px solid #70604440;
-  background-color:#f9e9d9;
-  box-shadow:0 0 10px #70604440 inset;
-  padding:10px;
-  font-size:12px;
-  overflow:auto;
-  margin-bottom:10px;
+  border: 2px solid #70604440;
+  background-color: #f9e9d9;
+  box-shadow: 0 0 10px #70604440 inset;
+  padding: 10px;
+  font-size: 12px;
+  overflow: auto;
+  margin-bottom: 10px;
 }
 
 #mutant_code_copy {
-  border-width:2px;
-  width:70px;
-  height:30px;
-  font-size:13px;
+  border-width: 2px;
+  width: 70px;
+  height: 30px;
+  font-size: 13px;
 }
 
 #tasks_container {
-  width:600px;
-  max-height:350px;
-  background-color:#f9e9d9;
-  padding:10px 10px 20px 10px;
-  border:2px solid #70604440;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 0 10px #70604440 inset;
-  background-image:url("https://www.transparenttextures.com/patterns/p5.png");
-  overflow-y:scroll;
+  width: 600px;
+  max-height: 350px;
+  background-color: #f9e9d9;
+  padding: 10px 10px 20px 10px;
+  border: 2px solid #70604440;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px #70604440 inset;
+  background-image: url("https://www.transparenttextures.com/patterns/p5.png");
+  overflow-y: scroll;
 }
 
-#current_task_name, #tasks_container h2, #tasks_container h3, #attribution_container h2 {
-  font-family:var(--font-stack);
-  text-transform:none;
-  font-weight:400;
+#current_task_name,
+#tasks_container h2,
+#tasks_container h3,
+#attribution_container h2 {
+  font-family: var(--font-stack);
+  text-transform: none;
+  font-weight: 400;
 }
 
-#current_task_name, #tasks_container h3 {
-  color:var(--em-color);
-  font-style:italic;
-  margin:5px 0;
+#current_task_name,
+#tasks_container h3 {
+  color: var(--em-color);
+  font-style: italic;
+  margin: 5px 0;
 }
 
 #current_task_name {
-  position:absolute;
-  top:10px;
+  position: absolute;
+  top: 10px;
 }
 
 #tasks_container .icon {
-  margin-right:4px;
+  margin-right: 4px;
 }
 
 #tasks_container a {
-  text-decoration:none;
-  border-bottom:2px solid #70604440;
+  text-decoration: none;
+  border-bottom: 2px solid #70604440;
 }
 
 #tasks_container span {
-  font-size:13px;
-  font-style:italic;
+  font-size: 13px;
+  font-style: italic;
 }
 
 #tasks_container p.locked {
-  font-size:13px;
+  font-size: 13px;
 }
 
 #tasks_container p.locked a {
-  color:#999;
+  color: #999;
 }
 
 #tasks_container p.locked span {
-  color:#787878;
+  color: #787878;
 }
 
 .locked_divider {
-  text-transform:uppercase;
-  font-size:11px;
-  position:relative;
-  margin:8px 0 0 0;
-  width:78px;
-  padding:0 12px;
-  color:#777;
-  letter-spacing:2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  position: relative;
+  margin: 8px 0 0 0;
+  width: 78px;
+  padding: 0 12px;
+  color: #777;
+  letter-spacing: 2px;
 }
 
-.locked_divider::before, .locked_divider::after {
-  content:"";
-  position:absolute;
-  top:50%;
-  width:8px;
-  height:1px;
-  background-color:#999;
+.locked_divider::before,
+.locked_divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 1px;
+  background-color: #999;
 }
 
 .locked_divider::before {
-  left:0;
+  left: 0;
 }
 
 .locked_divider::after {
-  right:0;
+  right: 0;
 }
 
 #gate_divider {
-  width:223px;
+  width: 223px;
 }
 
 #footer {
-  position:absolute;
-  bottom:30px;
-  font-size:10px;
-  color:var(--em-color);
+  position: absolute;
+  bottom: 30px;
+  font-size: 10px;
+  color: var(--em-color);
 }
 
 #attribution_container {
-  position:absolute;
-  background-color:antiquewhite;
-  background-image:url("https://www.transparenttextures.com/patterns/p5.png");
-  width:40vw;
-  border:2px solid #70604480;
-  padding:20px;
+  position: absolute;
+  background-color: antiquewhite;
+  background-image: url("https://www.transparenttextures.com/patterns/p5.png");
+  width: 40vw;
+  border: 2px solid #70604480;
+  padding: 20px;
 }
 
 #close_attribution {
-  width:100px;
-  height:30px;
-  font-size:14px;
+  width: 100px;
+  height: 30px;
+  font-size: 14px;
 }
 
 .icon {
-  height:16px;
-  vertical-align:middle;
-  opacity:0.75;
+  height: 16px;
+  vertical-align: middle;
+  opacity: 0.75;
 }
 
 .icon-20 {
-  height:20px;
-  vertical-align:middle;
-  opacity:0.75;
+  height: 20px;
+  vertical-align: middle;
+  opacity: 0.75;
 }
 
 .task_middot {
-  margin:0 4px;
+  margin: 0 4px;
 }
 
 .hidden-w {
-  width:0 !important;
-  opacity:0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
 }
 
 .hidden-h {
-  height:0 !important;
-  opacity:0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
 }
 
 .dn {
-  display:none !important;
+  display: none !important;
 }
 
 .oh {
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 .in {
-  pointer-events:none !important;
+  pointer-events: none !important;
 }
 
 .w150 {
-  width:150px !important;
+  width: 150px !important;
 }
 
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
 }
 
 @keyframes shake_subtle {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(-1deg); }
-  20% { transform: rotate(1deg); }
-  30% { transform: rotate(0deg); }
-  40% { transform: rotate(1deg); }
-  50% { transform: rotate(-1deg); }
-  60% { transform: rotate(0deg); }
-  70% { transform: rotate(-1deg); }
-  80% { transform: rotate(1deg); }
-  90% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-1deg);
+  }
+  20% {
+    transform: rotate(1deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  70% {
+    transform: rotate(-1deg);
+  }
+  80% {
+    transform: rotate(1deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
 }
