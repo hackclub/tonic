@@ -88,6 +88,8 @@ const sass = new Task({
   await mutant.thinking.say("Here's an example of what that tag should look like.", { image: null });
   await mutant.thinking.say('It uses some Liquid keywords in the *href* to make sure Jekyll uses the right file location.');
   await mutant.hushed.say("Be careful - you'll need to change the *\"my-theme.css\"* part to match what you named your file!");
+  await mutant.slight_smile.say("If you noticed, it is \".css\" even though our file is \".scss\"!")
+  await mutant.slight_smile.say("This is intentional! It is because *Jekyll* converts \".scss\" to \".css\" automatically!")
   await mutant.grinning.say("Let me know when you've added one of these tags.");
   await mutant.slight_smile.choice1({
     option_a: 'I did it',
