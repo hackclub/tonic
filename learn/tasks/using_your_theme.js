@@ -5,7 +5,6 @@ const using_your_theme = new Task({
   name: 'Using your theme',
   description: "Learn how to use your published theme!",
   group: 'Show the world',
-  requires_tasks: ['Gems'],
 }).with_callback(async () => {
   mutant.emote = 'slight_smile';
 })
