@@ -9,7 +9,7 @@ import the_readme_file from "./the_readme_file.js";
 import gems from "./gems.js";
 import using_your_theme from "./using_your_theme.js";
 import hackatime_setup from "./hackatime_setup.js";
-import jekyll_website_submission from "./jekyll_website_submission.js";
+import github_pages from "./pages.js";
 
 export default {
   github_setup,
@@ -23,5 +23,13 @@ export default {
   the_readme_file,
   gems,
   using_your_theme,
-  jekyll_website_submission,
-};
+  github_pages,
+  // more_elements,
+  // four_oh_four,
+  // liquid,
+  // a_feature_of_your_own,
+  // the_readme_file,
+  // element_showcase,
+  // gems,
+  // using_your_theme,
+}

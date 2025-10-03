@@ -582,18 +582,18 @@ async function override() {
   // mutant.introduce_tasks();
   mutant.greeting();
   const tasks_state_override = {
-    "GitHub setup": 4,
-    "Hackatime setup": 4,
-    "Jekyll setup": 4,
-    "Your first page": 4,
-    "The config file": 4,
-    Layouts: 4,
-    Includes: 4,
-    Sass: 4,
-    "The README file": 3,
-    Gems: 1,
-    "Submit your theme!": 1,
-    "Submit to Jekyll.rb": 3,
+    'GitHub setup': 4,
+    'Hackatime setup': 4,
+    'Jekyll setup': 4,
+    'Your first page': 4,
+    'The config file': 4,
+    'GitHub Pages': 4, 
+    'Layouts': 4,
+    'Includes': 4,
+    'Sass': 4,
+    'The README file': 3,
+    'Gems': 1,
+    'Using your theme': 1,
   };
   await tasks.register_all(tasks_state_override);
 }
