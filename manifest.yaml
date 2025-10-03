@@ -1,0 +1,9 @@
+display_information:
+  name: Tonic v2
+oauth_config:
+  redirect_urls:
+    - http://localhost:3000/auth/slack
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
