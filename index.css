@@ -1,42 +1,74 @@
 #index_container {
-  height:200px;
+  height: 200px;
 }
 
-#tonic, #tonic_underline, #tonic_tagline, #buttons_container {
-  display:flex;
-  justify-content:center;
-  align-items:center;
+#tonic,
+#tonic_underline,
+#tonic_tagline,
+#buttons_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#tonic, #tonic_underline {
-  height:50px;
-  user-select:none;
+#tonic,
+#tonic_underline {
+  height: 50px;
+  user-select: none;
 }
 
 #tonic_underline {
-  color:#a7936e;
+  color: #a7936e;
 }
 
 #tonic_tagline {
-  height:25px;
-  gap:5px;
+  height: 25px;
+  gap: 5px;
 }
 
 #buttons_container {
-  height:75px;
-  gap:8px;
+  height: 75px;
+  gap: 8px;
 }
 
-#login, #logout {
-  width:100px;
+#login,
+#logout {
+  width: 100px;
 }
 
 #login {
-  background-color:#706044;
-  color:antiquewhite;
+  background-color: #706044;
+  color: antiquewhite;
 }
 
 #login:hover {
-  background-color:#8e7b56;
-  border:2px solid #8e7b56;
+  background-color: #8e7b56;
+  border: 2px solid #8e7b56;
+}
+
+#submit_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+#submit_stickers {
+  width: 200px;
+  height: 40px;
+  background-color: #706044;
+  color: antiquewhite;
+  border: 3px solid #706044;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 2px;
+}
+
+#submit_stickers:hover {
+  background-color: #8e7b56;
+  border-color: #8e7b56;
+  animation: shake_subtle 2s;
+  animation-iteration-count: infinite;
 }
