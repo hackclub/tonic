@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "bun server.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
   "homepage": "https://github.com/hackclub/tonic#readme",
   "dependencies": {
     "cookie-parser": "^1.4.7",
-    "dotenv": "^17.1.0",
     "express": "^5.1.0",
     "morgan": "^1.10.0"
   }
