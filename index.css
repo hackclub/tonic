@@ -32,16 +32,17 @@
 }
 
 #login,
-#logout {
+#logout,
+#play {
   width: 100px;
 }
 
-#login {
+#login, #play {
   background-color: #706044;
   color: antiquewhite;
 }
 
-#login:hover {
+#login:hover, #play:hover {
   background-color: #8e7b56;
   border: 2px solid #8e7b56;
 }
@@ -50,27 +51,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 15px;
 }
 
-#submit_project {
-  width: 220px;
+#submit_stickers {
+  width: 200px;
   height: 40px;
   background-color: #706044;
-  color: #e1decd;
+  color: antiquewhite;
   border: 3px solid #706044;
   border-radius: 20px;
   font-size: 16px;
   cursor: pointer;
+  user-select: none;
+  margin-bottom: 2px;
 }
 
-#submit_project:hover {
+#submit_stickers:hover {
   background-color: #8e7b56;
   border-color: #8e7b56;
-}
-
-/* ensure link inside button is bright yellow and not underlined */
-#submit_project a {
-  color: #ebe9dd !important;
-  text-decoration: none;
+  animation: shake_subtle 2s;
+  animation-iteration-count: infinite;
 }
