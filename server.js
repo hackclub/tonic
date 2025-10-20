@@ -22,7 +22,7 @@ app.get("/slack/oauth_redirect", (req, res) => {
   redirect_url.searchParams.set("scope", "")
   redirect_url.searchParams.set("user_scope", "openid")
   redirect_url.searchParams.set("granular_bot_scope", "1")
-  redirect_url.searchParams.set("redirect_uri", redirect_uri)
+  redirect_url.searchParams.set("redirect_uri", redirect_uri + "/auth/slack")
   res.redirect(redirect_url.toString());
 });
 app.get("/", (req, res) => {
