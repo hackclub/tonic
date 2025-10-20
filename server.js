@@ -8,23 +8,14 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 const port = process.env.PORT || 3000;
+const redirect_uri =
+  process.env.NODE_ENV === "production"
+    ? process.env.PRODUCTION_REDIRECT_URL + "/auth/slack"
+    : `http://localhost:${port}/auth/slack`;
 
 // static files
 app.use("/assets", express.static("assets"));
 app.use("/learn", express.static("learn"));
-app.get("/slack/oauth_redirect", (req, res) => {
-  const redirect_uri =
-    process.env.NODE_ENV === "production"
-      ? process.env.PRODUCTION_REDIRECT_URL + "/auth/slack"
-      : `http://localhost:${port}/auth/slack`;
-  const redirect_url = new URL("https://hackclub.slack.com/oauth")
-  redirect_url.searchParams.set("client_id", process.env.CLIENT_ID)
-  redirect_url.searchParams.set("scope", "")
-  redirect_url.searchParams.set("user_scope", "openid")
-  redirect_url.searchParams.set("granular_bot_scope", "1")
-  redirect_url.searchParams.set("redirect_uri", redirect_uri)
-  res.redirect(redirect_url.toString());
-});
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
@@ -48,18 +39,29 @@ app.get("/auth", (req, res) => {
   res.json({ auth: !!req.cookies.uid });
 });
 
+app.get("/auth/begin", (req, res) => {
+  const oauth_url = new URL("https://hackclub.slack.com/oauth")
+  oauth_url.searchParams.set("client_id", process.env.CLIENT_ID)
+  oauth_url.searchParams.set("scope", "")
+  oauth_url.searchParams.set("user_scope", "openid")
+  oauth_url.searchParams.set("granular_bot_scope", "1")
+  oauth_url.searchParams.set("redirect_uri", redirect_uri)
+  res.redirect(oauth_url.toString());
+});
+
 app.get("/auth/slack", async (req, res) => {
   res.cookie("title", "GeeksforGeeks");
-  const R = await fetch(
-    `https://slack.com/api/oauth.v2.access?code=${req.query.code}&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
-    {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      method: "POST",
-    }
-  ).then((R) => R.json());
-  console.log(R, process.env.CLIENT_ID);
-  if (R.ok && R.authed_user?.access_token) {
-    res.cookie("uid", R.authed_user.id, {
+  const slackOauthUrl = new URL("https://slack.com/api/oauth.v2.access");
+  slackOauthUrl.searchParams.set("code", req.query.code);
+  slackOauthUrl.searchParams.set("client_id", process.env.CLIENT_ID);
+  slackOauthUrl.searchParams.set("client_secret", process.env.CLIENT_SECRET);
+  slackOauthUrl.searchParams.set("redirect_uri", redirect_uri);
+  const result = await fetch(slackOauthUrl.toString(), {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then((r) => r.json());
+  if (result.ok && result.authed_user?.access_token) {
+    res.cookie("uid", result.authed_user.id, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       // sameSite: 'lax',
@@ -70,7 +72,7 @@ app.get("/auth/slack", async (req, res) => {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
-    //     'Cookie': `uid=${R.authed_user.id}`
+    //     'Cookie': `uid=${result.authed_user.id}`
     //   },
     //   body: JSON.stringify({
     //     task: 'Login',
