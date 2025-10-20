@@ -32,16 +32,17 @@
 }
 
 #login,
-#logout {
+#logout,
+#play {
   width: 100px;
 }
 
-#login {
+#login, #play {
   background-color: #706044;
   color: antiquewhite;
 }
 
-#login:hover {
+#login:hover, #play:hover {
   background-color: #8e7b56;
   border: 2px solid #8e7b56;
 }
