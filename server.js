@@ -1,9 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const { promisify } = require("util");
-const exec = promisify(require("child_process").exec);
-const fs = require("fs/promises");
-const crypto = require("crypto");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -12,14 +8,23 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 const port = process.env.PORT || 3000;
-const redirect_url =
-  process.env.NODE_ENV === "production"
-    ? process.env.PRODUCTION_REDIRECT_URL
-    : `http://localhost:${process.env.PORT}`;
 
 // static files
 app.use("/assets", express.static("assets"));
 app.use("/learn", express.static("learn"));
+app.get("/slack/oauth_redirect", (req, res) => {
+  const redirect_uri =
+    process.env.NODE_ENV === "production"
+      ? process.env.PRODUCTION_REDIRECT_URL
+      : `http://localhost:${port}`;
+  const redirect_url = new URL("https://hackclub.slack.com/oauth")
+  redirect_url.searchParams.set("client_id", process.env.CLIENT_ID)
+  redirect_url.searchParams.set("scope", "")
+  redirect_url.searchParams.set("user_scope", "openid")
+  redirect_url.searchParams.set("granular_bot_scope", "1")
+  redirect_url.searchParams.set("redirect_uri", redirect_uri)
+  res.redirect(redirect_url.toString());
+});
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
