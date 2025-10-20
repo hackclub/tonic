@@ -435,10 +435,6 @@ button:hover,
   display: none !important;
 }
 
-.hidden {
-  display: none !important;
-}
-
 .oh {
   opacity: 0.5;
 }
