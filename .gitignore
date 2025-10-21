@@ -4,3 +4,7 @@ tonic.code-workspace
 *.wav.asd
 node_modules
 .env
+
+# Extracted task text
+taskText.json
+taskText.md
