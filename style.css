@@ -125,6 +125,67 @@ main {
   position: absolute;
   top: 10px;
   right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+#speed_control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+#speed_control label {
+  color: var(--color);
+  cursor: pointer;
+}
+
+#speed_slider {
+  width: 60px;
+  height: 4px;
+  background: #c8bcac;
+  border-radius: 2px;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+#speed_slider:hover {
+  opacity: 1;
+}
+
+#speed_slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--em-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#speed_slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--em-color);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+#speed_display {
+  color: var(--color);
+  font-size: 11px;
+  min-width: 28px;
+  text-align: right;
+}
+
+#speed_control:hover label,
+#speed_control:hover #speed_display {
+  color: var(--em-color);
 }
 
 #options_container p {
