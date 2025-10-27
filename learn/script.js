@@ -49,8 +49,25 @@ const sounds = {
 
 Howler.volume(0.5);
 
-const TIME_SCALE = 1;
+let TIME_SCALE = 1;
 let overrides_enabled = false;
+
+function initSpeedControl() {
+  const speedSlider = document.getElementById('speed_slider');
+  const speedDisplay = document.getElementById('speed_display');
+  
+  if (speedSlider && speedDisplay) {
+    speedSlider.addEventListener('input', (e) => {
+      TIME_SCALE = parseFloat(e.target.value);
+      speedDisplay.textContent = `${TIME_SCALE.toFixed(1)}x`;
+    });
+    
+    speedDisplay.textContent = `${TIME_SCALE.toFixed(1)}x`;
+  }
+}
+
+initSpeedControl();
+
 
 let music_enabled = true;
 // let sound_enabled = true;
